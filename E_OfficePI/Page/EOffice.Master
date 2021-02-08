@@ -1,0 +1,1148 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="EOffice.master.cs" Inherits="E_OfficePI.Page.EOffice" %>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <!-- Meta, title, CSS, favicons, etc. -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" href="../images/favicon.ico" type="image/ico" />
+
+    <title>PBRI System 1.0 สถาบันพระบรมราชชนก</title>
+
+    <!-- Bootstrap -->
+    <link href="../vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="../vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <!-- NProgress -->
+    <link href="../vendors/nprogress/nprogress.css" rel="stylesheet">
+    <!-- iCheck -->
+    <link href="../vendors/iCheck/skins/flat/blue.css" rel="stylesheet">
+
+    <!-- bootstrap-progressbar -->
+    <link href="../vendors/bootstrap-progressbar/css/bootstrap-progressbar-3.3.4.min.css" rel="stylesheet">
+    <!-- JQVMap -->
+    <link href="../vendors/jqvmap/dist/jqvmap.min.css" rel="stylesheet" />
+    <!-- bootstrap-daterangepicker -->
+    <link href="../vendors/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet">
+
+    <!-- Custom Theme Style -->
+    <!-- TODO put back the minified version after completion and minification -->
+    <link href="../build/css/custom.css" rel="stylesheet">
+    <link href="../build/css/style-extra-bs4.css" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+    <script src="../js/engine.js"></script>
+
+    <script src="../js/Grid/Grid.js"></script>
+    <link href="../Css/Signin.css" rel="stylesheet" />
+    <script src="../vendors/popper/popper.min.js"></script>
+    <script src="http://uiwebsoft.com/justlog/assets/js/jquery-2.2.0.min.js"></script>
+    <script src="http://uiwebsoft.com/justlog/assets/js/popper.min.js"></script>
+    <script src="http://uiwebsoft.com/justlog/assets/js/bootstrap.min.js"></script>
+
+    <script src="http://jojosati.github.io/bootstrap-datepicker-thai/js/bootstrap-datepicker.js"></script>
+    <script src="http://jojosati.github.io/bootstrap-datepicker-thai/js/bootstrap-datepicker-thai.js"></script>
+    <script src="http://jojosati.github.io/bootstrap-datepicker-thai/js/locales/bootstrap-datepicker.th.js"></script>
+    <style>
+
+        .modal-header {
+            background-color: #82c2f3 !important;
+            color: black !important;
+        }
+
+        button {
+            font-family: 'TH SarabunPSK';
+            font-size: 18px;
+        }
+
+        .form-control {
+            font-family: 'TH SarabunPSK';
+            font-size: 18px;
+        }
+
+        a {
+            font-family: 'TH SarabunPSK';
+            font-size: 20px !important;
+        }
+
+        span {
+            font-family: 'TH SarabunPSK';
+            font-size: 20px !important;
+        }
+
+        select {
+            font-family: 'TH SarabunPSK';
+            font-size: 20px !important;
+        }
+
+        body {
+            font-family: 'TH SarabunPSK';
+            font-size: 20px !important;
+            font-weight: bold;
+        }
+
+        button {
+            font-family: 'TH SarabunPSK';
+            font-size: 18px !important;
+            cursor: pointer;
+        }
+    </style>
+    
+    <script>
+        var waitingDialog = waitingDialog || (function ($) {
+            'use strict';
+
+            // Creating modal dialog's DOM
+            var $dialog = $(
+                '<div class="modal fade" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-hidden="true" style="padding-top:15%; overflow-y:visible;">' +
+                '<div class="modal-dialog modal-m">' +
+                '<div class="modal-content">' +
+                '<div class="modal-header"><h3 style="margin:0;"></h3></div>' +
+                '<div class="modal-body">' +
+                '<div class="progress progress-striped active" style="margin-bottom:0;"><div class="progress-bar" style="width: 100%"></div></div>' +
+                '</div>' +
+                '</div></div></div>');
+
+            return {
+                /**
+                 * Opens our dialog
+                 * @param message Custom message
+                 * @param options Custom options:
+                 * 				  options.dialogSize - bootstrap postfix for dialog size, e.g. "sm", "m";
+                 * 				  options.progressType - bootstrap postfix for progress bar type, e.g. "success", "warning".
+                 */
+                show: function (message, options) {
+                    // Assigning defaults
+                    if (typeof options === 'undefined') {
+                        options = {};
+                    }
+                    if (typeof message === 'undefined') {
+                        message = 'Loading';
+                    }
+                    var settings = $.extend({
+                        dialogSize: 'm',
+                        progressType: '',
+                        onHide: null // This callback runs after the dialog was hidden
+                    }, options);
+
+                    // Configuring dialog
+                    $dialog.find('.modal-dialog').attr('class', 'modal-dialog').addClass('modal-' + settings.dialogSize);
+                    $dialog.find('.progress-bar').attr('class', 'progress-bar');
+                    if (settings.progressType) {
+                        $dialog.find('.progress-bar').addClass('progress-bar-' + settings.progressType);
+                    }
+                    $dialog.find('h3').text(message);
+                    // Adding callbacks
+                    if (typeof settings.onHide === 'function') {
+                        $dialog.off('hidden.bs.modal').on('hidden.bs.modal', function (e) {
+                            settings.onHide.call($dialog);
+                        });
+                    }
+                    // Opening dialog
+                    $dialog.modal();
+                },
+                /**
+                 * Closes dialog
+                 */
+                hide: function () {
+                    alert('hide');
+                    $dialog.modal('hide');
+                }
+            };
+
+        })(jQuery);
+        function CallUpload(Ctrl, Type) {
+            var key = '';
+            w = 600;
+            h = 400;
+            var dualScreenLeft = window.screenLeft != undefined ? window.screenLeft : screen.left;
+            var dualScreenTop = window.screenTop != undefined ? window.screenTop : screen.top;
+            var width = window.innerWidth ? window.innerWidth : document.documentElement.clientWidth ? document.documentElement.clientWidth : screen.width;
+            var height = window.innerHeight ? window.innerHeight : document.documentElement.clientHeight ? document.documentElement.clientHeight : screen.height;
+            var left = ((width / 2) - (w / 2)) + dualScreenLeft;
+            var top = ((height / 2) - (h / 2)) + dualScreenTop;
+            window.open('../Attachment/Upload.aspx?key=' + key, '_blank', 'directories=no,titlebar=no,toolbar=no,location=no,status=no,menubar=no,scrollbars=yes, width=' + w + ', height=' + h + ', top=' + top + ', left=' + left);
+        }
+        function CallBackUpload(Ctrl, RunningNo) {
+
+
+            $.ajax({
+                type: "POST",
+                url: "\../Page/Index.aspx/CallBackUpload",
+                data: "{'Ctrl' : '" + Ctrl + "','RunningNo' :'" + RunningNo + "'}",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (response) {
+
+                    $('#Imgprofile').attr('src', '../Attachment/File/' + response.d["src"]);
+                    $('#Imgprofile').attr('data-value', response.d["AttachmentId"]);
+
+                },
+                async: false,
+                error: function (er) {
+                    try {
+                        var x = $.parseJSON(er.responseText);
+                        show_msg(x.Message);
+                    }
+                    catch (ex) {
+                        console.log(ex.responseText);
+                    }
+                }
+            });
+        }
+
+
+        function doChangepassword() {
+            var json = '';
+            $('#Divchangeerror').hide();
+            $('#Txtchangepassword').removeClass('form-control is-invalid');
+            $('#Txtchangepassword').addClass('form-control');
+            $('#Txtchangenewpassword').removeClass('form-control is-invalid');
+            $('#Txtchangenewpassword').addClass('form-control');
+            $('#Txtchangeconfirmpassword').removeClass('form-control is-invalid');
+            $('#Txtchangeconfirmpassword').addClass('form-control');
+            if ($('#Txtchangepassword').val() == '') {
+                $('#Txtchangepassword').addClass('form-control is-invalid');
+            }
+            if ($('#Txtchangenewpassword').val() == '') {
+                $('#Txtchangenewpassword').addClass('form-control is-invalid');
+
+            }
+            if ($('#Txtchangenewpassword').val() == 'p@ssw0rd') {
+                $('#Divchangeerror').show();
+
+                $('#Divchangeerror').html('รหัสผ่านห้ามเป็นรหัสกลาง');
+                return;
+            }
+            if ($('#Txtchangeconfirmpassword').val() == '') {
+                $('#Txtchangeconfirmpassword').addClass('form-control is-invalid');
+                return;
+            }
+            if ($('#Txtchangenewpassword').val() != $('#Txtchangeconfirmpassword').val()) {
+                $('#Divchangeerror').show();
+                $('#Divchangeerror').html('รหัสผ่านและรหัสยืนยันไม่่ตรงกัน');
+                return;
+            }
+            json = '';
+
+            json += 'Txtpassword :' + $('#Txtchangepassword').val() + '|'
+            json += 'Txtnewpassword : ' + $('#Txtchangenewpassword').val() + '|';
+            json += 'Txtconfirmpassword : ' + $('#Txtchangeconfirmpassword').val() + '|';
+            $.ajax({
+                type: "POST",
+                url: "\../Page/Index.aspx/Changepassword",
+                data: "{'json' :'" + json + "'}",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                beforeSend: function () {
+
+                },
+                success: function (response) {
+                    res = response.d;
+                    if (res != '') {
+                        $('#Divchangeerror').show();
+                        $('#Divchangeerror').html(res);
+                        return;
+                    }
+                    $('#Divchangepassword').modal('hide');
+                    Msgbox('เปลี่ยนรหัสผ่านเรียบร้อยแล้ว');
+                },
+                async: true,
+                error: function (er) {
+
+                }
+            });
+        }
+        function Resetmypassword() {
+            $("#Divmyprofile").modal('hide');
+            $('#Divchangepassword').modal('show');
+        }
+        function Myprofile() {
+            $(".loader").fadeOut("slow");
+            $("#Divmyprofile").modal('show');
+            var json = '';
+            $.ajax({
+                type: "POST",
+                url: "\../Page/Index.aspx/Myprofile",
+                data: "{'json' :'" + json + "'}",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                beforeSend: function () {
+                    $(".loader").fadeOut("slow");
+                },
+                success: function (response) {
+                    res = response.d;
+                    $('#Imgprofile').attr('data-value', res['avartarurl']);
+                    $('#Imgprofile').attr('src', res['avartarurl']);
+                    $('#Txtmyprofileempno').val(res['Empno']);
+                    $('#Txtmyprofileusername').val(res['username']);
+                    $('#Txtmyprofilefirstname').val(res['firstnameth']);
+                    $('#Txtmyprofilelastname').val(res['lastnameth']);
+                    $('#Txtmyprofileemail').val(res['email']);
+                    $('#Txtmyprofilemymobile').val(res['Mymobile']);
+                },
+                async: true,
+                error: function (er) {
+
+                }
+            });
+
+        }
+        function Savemyprofile() {
+            var json = '';
+            json += 'Txtmyprofilefirstname :' + $('#Txtmyprofilefirstname').val() + '|';
+            json += 'Txtmyprofilelastname:' + $('#Txtmyprofilelastname').val() + '|';
+            json += 'Txtmyprofileemail:' + $('#Txtmyprofileemail').val() + '|';
+            json += 'Txtmyprofilemymobile:' + $('#Txtmyprofilemymobile').val() + '|';
+            json += 'Imgmyprofilesrc:' + $('#Imgprofile').attr('src') + '|';
+            json += 'Imgmyprofiledat:' + $('#Imgprofile').attr('data-value') + '|';
+
+
+            $.ajax({
+                type: "POST",
+                url: "\../Page/Index.aspx/Savemyprofile",
+                data: "{'json' :'" + json + "'}",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                beforeSend: function () {
+                    $(".loader").fadeOut("slow");
+                },
+                success: function (response) {
+                    res = response.d;
+                    if (res != '') {
+                        Msgbox(res);
+                        return;
+                    }
+                    Msgbox('บันทึกข้อมูลเรียบร้อยแล้ว');
+                },
+                async: true,
+                error: function (er) {
+
+                }
+            });
+        }
+        function Logout() {
+            var json = '';
+            $.ajax({
+                type: "POST",
+                url: "\../Page/Index.aspx/Logout",
+                data: "{'json' :'" + json + "'}",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                beforeSend: function () {
+                    $(".loader").fadeOut("slow");
+                },
+                success: function (response) {
+                    res = response.d;
+                    if (res != '') {
+                        Msgbox(res);
+                        return;
+                    }
+                    window.location.href = '../Signin.aspx';
+                },
+                async: true,
+                error: function (er) {
+
+                }
+            });
+        }
+        function Activerole(roleid) {
+            Msgbox('เปลี่ยน Role เรียบร้อยแล้ว')
+        }
+        function Loadprofile() {
+            var json = '';
+            $.ajax({
+                type: "POST",
+                url: "\../Page/Index.aspx/Loadprofile",
+                data: "{'json' :'" + json + "'}",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                beforeSend: function () {
+                    $(".loader").fadeOut("slow");
+                },
+                success: function (response) {
+                    res = response.d;
+                    if (res.Err != '') {
+                        Msgbox(res.Err);
+                        return;
+                    }
+                    $('#Imgavartar').attr('src', res['avartarurl']);
+                    $('#Hfullname').html(res['firstnameth'] + ' ' + res['lastnameth']);
+                    $('#Sptopfullname').html(res['firstnameth'] + ' ' + res['lastnameth']);
+                    $('#Imgtopavartar').attr('src', res['avartarurl']);
+                    $('#Cbrole').find('option').remove().end();
+                    for (i = 0; i < res['userroles'].length; i++) {
+                        val = res['userroles'][i];
+                        $('#Cbrole').append($('<option/>', {
+                            value: val["roleid"],
+                            text: val["rolenameTH"]
+                        }));
+                    }
+
+                    $('#Cbrole').val(res['userroles'][0]['roleid'])
+
+                    $('#Cbrole').on("change", function (evt) {
+                        Activerole($(this).val());
+                    });
+                },
+                async: true,
+                error: function (er) {
+
+                }
+            });
+        }
+        //$(document).ajaxStart(function () {
+        //    waitingDialog.show();
+
+        //}).ajaxStop(function () {
+        //    waitingDialog.hide();
+        //});
+        $(function () {
+            $(document).on('focus', ':input', function () {
+                $(this).attr('autocomplete', 'off');
+            });
+            Loadprofile();
+
+
+        });
+        function Module(module, func) {
+
+            if (module == "REPORT" && func == "REG") {
+                $('#Divmain').load("Report/ReportReg.aspx");
+            }
+            else if (module == "MAIN" && func == "TASK") {
+
+                $('#Divmain').load('Task.aspx', function () {
+                    Task();
+                });
+            }
+            else if (module == "Role" && func == "Role") {
+                $('#Divmain').load('Role/Rolemanagement.aspx', function () {
+                    Role();
+                });
+            }
+            else if (module == "Master" && func == "Course") {
+                $('#Divmain').load('Master/Master.aspx', function () {
+                    Course();
+                });
+            }
+            else if (module == "Master" && func == "Position") {
+                $('#Divmain').load('Master/Master.aspx', function () {
+                    Position();
+                });
+            }
+            else if (module == "Master" && func == "Calendar") {
+                $('#Divmain').load('Master/Master.aspx', function () {
+                    Calendar();
+                });
+            }
+            else if (module == "Master" && func == "Term") {
+                $('#Divmain').load('Master/Master.aspx', function () {
+                    Term();
+                    $("html, body").animate({ scrollTop: 0 }, "slow");
+                });
+            }
+            else if (module == "Master" && func == "PositionJob") {
+                $('#Divmain').load('Master/Master.aspx', function () {
+                    PositionJob();
+                    $("html, body").animate({ scrollTop: 0 }, "slow");
+                });
+            }
+            else if (module == "Master" && func == "PositionMange") {
+                $('#Divmain').load('Master/Master.aspx', function () {
+                    PositionMange();
+                    $("html, body").animate({ scrollTop: 0 }, "slow");
+                });
+            }
+            else if (module == "Master" && func == "Academy") {
+                $('#Divmain').load('Master/Master.aspx', function () {
+                    Academy();
+                    $("html, body").animate({ scrollTop: 0 }, "slow");
+                });
+            }
+            else if (module == "Master" && func == "LeaveType") {
+                $('#Divmain').load('Master/Master.aspx', function () {
+                    LeaveType();
+                    $("html, body").animate({ scrollTop: 0 }, "slow");
+                });
+            }
+            else if (module == "Master" && func == "Major") {
+                $('#Divmain').load('Master/Master.aspx', function () {
+                    Major();
+                    $("html, body").animate({ scrollTop: 0 }, "slow");
+                });
+            }
+            else if (module == "Master" && func == "Blood") {
+                $('#Divmain').load('Master/Master.aspx', function () {
+                    Blood();
+                    $("html, body").animate({ scrollTop: 0 }, "slow");
+                });
+            }
+            else if (module == "Master" && func == "Class") {
+                $('#Divmain').load('Master/Master.aspx', function () {
+                    Class();
+                    $("html, body").animate({ scrollTop: 0 }, "slow");
+                });
+            }
+            else if (module == "Master" && func == "College") {
+                $('#Divmain').load('Master/Master.aspx', function () {
+                    College();
+                    $("html, body").animate({ scrollTop: 0 }, "slow");
+                });
+            }
+            else if (module == "Master" && func == "Country") {
+                $('#Divmain').load('Master/Master.aspx', function () {
+                    Country();
+                    $("html, body").animate({ scrollTop: 0 }, "slow");
+                });
+            }
+            else if (module == "Master" && func == "CourseGroup") {
+                $('#Divmain').load('Master/Master.aspx', function () {
+                    CourseGroup();
+                    $("html, body").animate({ scrollTop: 0 }, "slow");
+                });
+            }
+            else if (module == "Master" && func == "CourseMain") {
+                $('#Divmain').load('Master/Master.aspx', function () {
+                    CourseMain();
+                    $("html, body").animate({ scrollTop: 0 }, "slow");
+                });
+            }
+            else if (module == "Master" && func == "CouCurrentStatusrseMain") {
+                $('#Divmain').load('Master/Master.aspx', function () {
+                    CurrentStatus();
+                    $("html, body").animate({ scrollTop: 0 }, "slow");
+                });
+            }
+            else if (module == "REPORT" && func == "HR") {
+                $('#Divmain').load("Report/ReportHR.aspx");
+            }
+            else if (module == "REPORT" && func == "TQF") {
+                $('#Divmain').load("Report/ReportTQF.aspx");
+            }
+            else if (module == "REG" && func == "1") {
+                $('#Divmain').load("REG/Master.aspx");
+            }
+            else if (module == "REG" && func == "2") {
+                $('#Divmain').load("REG/Mystudent.aspx");
+            }
+            else if (module == "REG" && func == "3") {
+                $('#Divmain').load("REG/Instructor.aspx");
+            }
+            else if (module == "HR" && func == "ORG") {
+                $('#Divmain').load("HR/Orgchart.aspx");
+            }
+            else if (module == "HR" && func == "EMP") {
+
+                $('#Divmain').load("HR/Emp.aspx");
+            }
+            else if (module == "HR" && func == "MasHR") {
+
+                $('#Divmain').load("HR/MasHR.aspx");
+            }
+            else if (module == "HR" && func == "TIMESHEET") {
+
+                $('#Divmain').load("HR/Timesheet.aspx");
+            }
+            else if (module == "HR" && func == "APPROVELEAVE") {
+
+                $('#Divmain').load("HR/ApproveLeave.aspx");
+            }
+            else if (module == "HR" && func == "OFFICIALVISIT") {
+
+                $('#Divmain').load("HR/OfficialVisit.aspx");
+            }
+            else if (module == "HR" && func == "SUPERVISION") {
+
+                $('#Divmain').load("HR/Supervision.aspx");
+            }
+
+            else if (module == "HR" && func == "APPROVEOFFICIALVISIT") {
+
+                $('#Divmain').load("HR/ApproveOfficialVisit.aspx");
+            }
+            else if (module == "HR" && func == "APPROVESUPERVISION") {
+
+                $('#Divmain').load("HR/ApproveSupervision.aspx");
+            }
+
+
+
+
+
+            else if (module == "TQF" && func == "TQF3") {
+                $('#Divmain').load("TQF/TQF3.aspx");
+
+            }
+            else if (module == "TQF" && func == "TQF4") {
+                $('#Divmain').load("TQF/TQF4.aspx");
+
+            }
+            else if (module == "TQF" && func == "TQF5") {
+                $('#Divmain').load("TQF/TQF5.aspx");
+
+            }
+            else if (module == "TQF" && func == "TQF6") {
+                $('#Divmain').load("TQF/TQF6.aspx");
+
+            }
+            else if (module == "TQF" && func == "APPROVETQF") {
+
+                $('#Divmain').load("TQF/ApproveTQF.aspx");
+            }
+            else if (module == "TQF" && func == "MASTERPREINSTRUCTOR") {
+               
+                $('#Divmain').load("TQF/MasterPreInstructor.aspx");
+
+            }
+            
+        }
+    </script>
+
+</head>
+
+<body class="nav-md">
+    <!-- Loader -->
+    <div class="loader">
+        <div class="loader_div"></div>
+    </div>
+    <div class="body">
+        <div class="main_container container-fluid">
+            <div class="row">
+                <div class="col-lg-2 col-md-2 left_col">
+                    <div class="left_col">
+                        <div class="navbar nav_title" style="border: 0; width: 100%;">
+                            <a class="site_title"><i style="margin-bottom: 10px;">PI</i> <span>PBRI System 1.0</span>&nbsp;</a>
+                        </div>
+                        <div class="clearfix"></div>
+
+                        <!-- menu profile quick info -->
+
+                        <div class="profile clearfix">
+                            <div class="profile_pic">
+                                <img id="Imgavartar" style="border-radius: 4px;" src="https://png.pngtree.com/png-vector/20190228/ourlarge/pngtree-no-signal-icon-design-template-vector-isolated-png-image_711400.jpg" alt="..." class="img-circle profile_img">
+                            </div>
+                            <div class="profile_info">
+                                <span>ยินต้อนรับ,</span>
+                                <h2 id="Hfullname"></h2>
+                                <div class="input-group mb-3">
+                                    <select class="form-control" id="Cbrole" style="margin-top: 5px; font-size: 18px; border-radius: 4px;">
+                                        <option></option>
+                                    </select>
+                                    <div class="input-group-append">
+                                        <button id="Cmdsearch" class="btn btn-secondary" type="button" style="margin-top: 5px; font-size: 18px;">
+                                            <i class="fa fa-cog"></i>
+                                        </button>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                        <!-- /menu profile quick info -->
+
+                        <br />
+
+                        <!-- sidebar menu -->
+
+                        <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
+                            <div class="menu_section">
+                                <h3></h3>
+                                <ul class="nav side-menu" style="font-family: 'TH SarabunPSK'; font-size: 18px;">
+                                    <li><a><i class="fa fa-home"></i>Dashboard </a></li>
+                                    <li><a><i class="fa fa-home"></i>เกี่ยวกับผู้ใช้งาน <span class="fa fa-chevron-down"></span></a>
+                                        <ul class="nav child_menu">
+                                            <%-- <li><a href="#">ข้อมูลส่วนตัว</a></li>
+                                            <li><a href="#">การเรียน/การสอน</a></li>
+                                            <li><a href="#">ผลงานวิชาการ</a></li>
+                                            <li><a href="#">โครงการ/กิจกรรม</a></li>
+                                            <li><a href="#">การลา</a></li>
+                                            <li><a href="#">การไปราชการ</a></li>
+                                            <li><a href="#">จองห้องประชุม</a></li>
+                                            <li><a href="#">ประชุมที่เกี่ยวข้อง</a></li>--%>
+                                            <li><a href="#" onclick="Module('MAIN','TASK');">เอกสารที่ต้องอนุมัติ</a></li>
+                                        </ul>
+                                    </li>
+                                    <li><a><i class="fa fa-edit"></i>ระบบทะเบียนและประมวลผล<span class="fa fa-chevron-down"></span></a>
+                                        <ul class="nav child_menu">
+                                            <li><a href="#" onclick="Module('REG','1');">ข้อมูลทั่วไป</a></li>
+                                            <li><a href="#" onclick="Module('REG','2');">นักศึกษา</a></li>
+                                            <li><a href="#" onclick="Module('REG','3');">ผู้สอน</a></li>
+                                        </ul>
+                                    </li>
+
+                                    <li><a><i class="fa fa-edit"></i>ระบบมาตรฐานอุดมศึกษา<span class="fa fa-chevron-down"></span></a>
+                                        <ul class="nav child_menu">
+                                            <li><a href="#" onclick="Module('TQF','TQF3');">มคอ. 3</a></li>
+                                            <li><a href="#" onclick="Module('TQF','TQF4');">มคอ. 4</a></li>
+                                            <li><a href="#" onclick="Module('TQF','TQF5');">มคอ. 5</a></li>
+                                            <li><a href="#" onclick="Module('TQF','TQF6');">มคอ. 6</a></li>
+                                            <li><a href="#" onclick="Module('TQF','MASTERPREINSTRUCTOR');">อาจารย์พิเศษ</a></li>
+                                            <li><a href="#" onclick="Module('TQF','APPROVETQF');">สายงานอนุมัติ</a></li>
+                                        </ul>
+                                    </li>
+                                    <li><a><i class="fa fa-edit"></i>ระบบบุคคล<span class="fa fa-chevron-down"></span></a>
+                                        <ul class="nav child_menu">
+
+                                            <li><a href="#" onclick="Module('HR','ORG');">โครงสร้างหน่วยงาน</a></li>
+                                            <li><a href="#" onclick="Module('HR','EMP');">ข้อมูลบุคลากร</a></li>
+                                            <li><a href="#" onclick="Module('HR','MasHR');">ข้อมูลทั่วไป</a></li>
+                                            <li><a href="#" onclick="Module('HR','APPROVELEAVE');">สายงานอนุมัติการลา</a></li>
+                                            <li><a href="#" onclick="Module('HR','TIMESHEET');">การเข้า-ออกที่ทำงาน</a></li>
+                                            <li><a href="#" onclick="Module('HR','OFFICIALVISIT');">การไปราชการ</a></li>
+                                            <li><a href="#" onclick="Module('HR','APPROVEOFFICIALVISIT');">สายงานอนุมัติไปราชการ</a></li>
+                                            <li><a href="#" onclick="Module('HR','SUPERVISION');">การไปสอนภาคปฏิบัติ</a></li>
+                                            <li><a href="#" onclick="Module('HR','APPROVESUPERVISION');">สายงานอนุมัติไปสอนภาคปฏิบัติ</a></li>
+
+                                        </ul>
+                                    </li>
+
+                                    <li><a><i class="fa fa-desktop"></i>รายงาน <span
+                                        class="fa fa-chevron-down"></span></a>
+                                        <ul class="nav child_menu">
+                                            <li><a href="#" onclick="Module('REPORT','REG');">ระบบทะเบียนและประมวลผล</a></li>
+                                            <li><a href="#" onclick="Module('REPORT','HR');">ระบบบุคคล</a></li>
+                                            <li><a href="#" onclick="Module('REPORT','TQF');">ระบบมาตรฐานอุดมศึกษา</a></li>
+                                        </ul>
+                                    </li>
+                                    <li><a><i class="fa fa-table"></i>กำหนดสิทธิ์ผู้ใช้งาน <span class="fa fa-chevron-down"></span></a>
+                                        <ul class="nav child_menu">
+                                            <li><a onclick="Module('Role','Role');">จัดการ Role</a></li>
+                                        </ul>
+                                    </li>
+                                    <li><a><i class="fa fa-table"></i>ข้อมูลหลักของระบบ <span class="fa fa-chevron-down"></span></a>
+                                        <ul class="nav child_menu">
+
+                                            <li><a onclick="Module('Master','Term');">ข้อมูลภาค/ปีการศึกษา</a></li>
+                                            <li><a onclick="Module('Master','Calendar');">ปฏิทินการศึกษา</a></li>
+                                            <li><a onclick="Module('Master','Course');">รายวิชาในหลักสูตร</a></li>
+                                            <li><a onclick="Module('Master','PositionJob');">ข้อมูลตำเเหน่งในมหาลัย</a></li>
+                                            <%--<li><a onclick="Module('Master','PositionManage');">ข้อมูลตำเเหน่งงานบริหาร</a></li>--%>
+                                            <li><a onclick="Module('Master','Academy');">ข้อมูลมหาวิทยาลัย</a></li>
+                                            <li><a onclick="Module('Master','LeaveType');">ข้อมูลประเภทการลา</a></li>
+                                            <li><a onclick="Module('Master','Major');">ข้อมูลสาขา</a></li>
+                                            <li><a onclick="Module('Master','Blood');">ข้อมูลกรุ๊ปเลือด</a></li>
+                                            <li><a onclick="Module('Master','Class');">ข้อมูลชั้นเรียน</a></li>
+                                            <li><a onclick="Module('Master','College');">ข้อมูลวิทยาลัย</a></li>
+                                            <li><a onclick="Module('Master','Country');">ข้อมูลประเทศ</a></li>
+                                            <li><a onclick="Module('Master','CourseGroup');">ข้อมูลหมวดหลักสูตร</a></li>
+                                            <li><a onclick="Module('Master','CourseMain');">ข้อมูลหลักสูตร</a></li>
+                                            <li><a onclick="Module('Master','CurrentStatus');">ข้อมูลสถานะ</a></li>
+                                            <li><a onclick="Module('Master','PositionManage');">ข้อมูลตารางสอน</a></li>
+
+                                        </ul>
+                                    </li>
+
+                                </ul>
+                            </div>
+                            <div class="menu_section">
+                                <h3>Next Phase</h3>
+                                <ul class="nav side-menu">
+                                    <li><a><i class="fa fa-edit"></i>ระบบสารบรรณ<span class="fa fa-chevron-down"></span></a>
+                                        <ul class="nav child_menu">
+                                            <li><a href="#">ลงนาม</a></li>
+                                            <li><a href="#">แจ้งหนังสือส่งผิด</a></li>
+                                            <li><a href="#">รับหนังสือลงนาม</a></li>
+                                            <li><a href="#">ส่งถึงผู้รับผิดชอบ</a></li>
+                                            <li><a href="#">สถานะหนังสือ</a></li>
+                                            <li><a href="#">จัดการแฟ้มเอกสาร</a></li>
+                                        </ul>
+                                    </li>
+                                    <li><a><i class="fa fa-edit"></i>ระบบห้องประชุม<span class="fa fa-chevron-down"></span></a>
+                                        <ul class="nav child_menu">
+                                            <li><a href="#">จัดการห้องประชุม</a></li>
+                                            <li><a href="#">อุปกรณ์ในห้องประชุม</a></li>
+                                            <li><a href="#">จัดการประชุม</a></li>
+                                            <li><a href="#">กลุ่มผู้ประชุมกำหนดเอง</a></li>
+                                            <li><a href="#">ข้อมูลการประชุม</a></li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </div>
+
+                        </div>
+
+                        <!-- /sidebar menu -->
+
+                        <!-- /menu footer buttons -->
+                        <div class="col-lg-2 sidebar-footer hidden-small">
+                            <%--    <a data-toggle="tooltip" data-placement="top" title="Reset Password">
+                                <span class="fa fa-cog" aria-hidden="true"></span>
+                            </a>
+                            <a data-toggle="tooltip" data-placement="top" title="Profile">
+                                <span class="fa fa-arrows-alt" aria-hidden="true"></span>
+                            </a>
+                            <a data-toggle="tooltip" data-placement="top" title="Document">
+                                <span class="fa fa-eye-slash" aria-hidden="true"></span>
+                            </a>--%>
+                            <a data-toggle="tooltip" data-placement="top" title="Logout" style="margin-left: 10px; cursor: pointer; text-align: left;" onclick="Logout();">
+                                <span class="fa fa-power-off" aria-hidden="true"></span>
+                            </a>
+                        </div>
+                        <!-- /menu footer buttons -->
+                    </div>
+                </div>
+                <div class="col-lg-10 col-md-12 right_col_wrapper">
+                    <div class="row">
+                        <!-- top navigation -->
+                        <div class="top_nav col-md-12">
+                            <div class="nav_menu">
+                                <nav>
+                                    <div class="nav toggle">
+                                        <a id="menu_toggle"><i class="fa fa-bars"></i></a>
+                                    </div>
+
+                                    <ul class="nav navbar-nav navbar-right">
+                                        <li class="" style="background-color: #e1dddd; margin: 4px;">
+                                            <a href="#" onclick="Logout();">
+                                                <span id="Sptoplogout" style="color: #000000; font-family: TH SarabunPSK; font-size: 18px;">ออกจากระบบ</span>
+                                            </a>
+
+                                        </li>
+                                        <li class="" style="margin: 4px;">
+                                            <a href="#" onclick="Myprofile();">
+                                                <img style="width: 30px; border-radius: 4px;" id="Imgtopavartar" src="../images/img.jpg" alt="">
+                                                <span id="Sptopfullname" style="color: #000000; font-size: 18px; font-family: TH SarabunPSK;"></span>
+                                            </a>
+
+                                        </li>
+
+<%--                                        <li role="presentation" class="dropdown">
+                                            <a href="javascript:;" class="dropdown-toggle info-number"
+                                                data-toggle="dropdown"
+                                                aria-expanded="false">
+                                                <i class="fa fa-envelope-o"></i>
+                                                <span class="badge bg-blue" id="Spmessagequann"></span>
+                                            </a>
+                                             <ul id="menu1" class="dropdown-menu list-unstyled msg_list" role="menu">
+                                                <li>
+                                                    <a>
+                                                        <span class="image">
+                                                            <img src="../images/img.jpg" alt="Profile Image" /></span>
+                                                        <span>
+                                                            <span>John Smith</span>
+                                                            <span class="time">3 mins ago</span>
+                                                        </span>
+                                                        <span class="message">Film festivals used to be do-or-die moments for movie makers. They were where...
+                                                        </span>
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a>
+                                                        <span class="image">
+                                                            <img src="../images/img.jpg" alt="Profile Image" /></span>
+                                                        <span>
+                                                            <span>John Smith</span>
+                                                            <span class="time">3 mins ago</span>
+                                                        </span>
+                                                        <span class="message">Film festivals used to be do-or-die moments for movie makers. They were where...
+                                                        </span>
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a>
+                                                        <span class="image">
+                                                            <img src="../images/img.jpg" alt="Profile Image" /></span>
+                                                        <span>
+                                                            <span>John Smith</span>
+                                                            <span class="time">3 mins ago</span>
+                                                        </span>
+                                                        <span class="message">Film festivals used to be do-or-die moments for movie makers. They were where...
+                                                        </span>
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a>
+                                                        <span class="image">
+                                                            <img src="../images/img.jpg" alt="Profile Image" /></span>
+                                                        <span>
+                                                            <span>John Smith</span>
+                                                            <span class="time">3 mins ago</span>
+                                                        </span>
+                                                        <span class="message">Film festivals used to be do-or-die moments for movie makers. They were where...
+                                                        </span>
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <div class="text-center">
+                                                        <a>
+                                                            <strong>See All Alerts</strong>
+                                                            <i class="fa fa-angle-right"></i>
+                                                        </a>
+                                                    </div>
+                                                </li>
+                                            </ul>
+                                        </li>--%>
+
+                                    </ul>
+                                </nav>
+                            </div>
+                        </div>
+                        <!-- /top navigation -->
+                        <!-- page content -->
+                        <div class="right_col col-md-12" role="main">
+                            <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+                            </asp:ContentPlaceHolder>
+                        </div>
+                        <!-- /page content -->
+                        <!-- footer content -->
+                        <footer class="col-md-12">
+                            <div class="pull-right">
+                            </div>
+                            <div class="clearfix"></div>
+                        </footer>
+                    </div>
+                </div>
+                <!-- /footer content -->
+            </div>
+        </div>
+    </div>
+
+    <!-- jQuery -->
+    <script src="../vendors/jquery/dist/jquery.min.js"></script>
+    <!-- Popper -->
+    <script src="../vendors/popper/popper.min.js"></script>
+    <!-- Bootstrap -->
+    <script src="../vendors/bootstrap/dist/js/bootstrap.min.js"></script>
+    <!-- FastClick -->
+    <script src="../vendors/fastclick/lib/fastclick.js"></script>
+    <!-- NProgress -->
+    <script src="../vendors/nprogress/nprogress.js"></script>
+    <!-- Chart.js -->
+    <script src="../vendors/Chart.js/dist/Chart.min.js"></script>
+    <!-- gauge.js -->
+    <script src="../vendors/gauge.js/dist/gauge.min.js"></script>
+    <!-- bootstrap-progressbar -->
+    <script src="../vendors/bootstrap-progressbar/bootstrap-progressbar.min.js"></script>
+    <!-- iCheck -->
+    <script src="../vendors/iCheck/icheck.min.js"></script>
+    <!-- Skycons -->
+    <script src="../vendors/skycons/skycons.js"></script>
+    <!-- Flot -->
+    <script src="../vendors/Flot/jquery.flot.js"></script>
+    <script src="../vendors/Flot/jquery.flot.pie.js"></script>
+    <script src="../vendors/Flot/jquery.flot.time.js"></script>
+    <script src="../vendors/Flot/jquery.flot.stack.js"></script>
+    <script src="../vendors/Flot/jquery.flot.resize.js"></script>
+    <!-- Flot plugins -->
+    <script src="../vendors/flot.orderbars/js/jquery.flot.orderBars.js"></script>
+    <script src="../vendors/flot-spline/js/jquery.flot.spline.min.js"></script>
+    <script src="../vendors/flot.curvedlines/curvedLines.js"></script>
+    <!-- DateJS -->
+    <script src="../vendors/DateJS/build/date.js"></script>
+    <!-- JQVMap -->
+    <script src="../vendors/jqvmap/dist/jquery.vmap.js"></script>
+    <script src="../vendors/jqvmap/dist/maps/jquery.vmap.world.js"></script>
+    <script src="../vendors/jqvmap/examples/js/jquery.vmap.sampledata.js"></script>
+    <!-- bootstrap-daterangepicker -->
+    <script src="../vendors/moment/min/moment.min.js"></script>
+    <script src="../vendors/bootstrap-daterangepicker/daterangepicker.js"></script>
+    <!-- Custom Theme Scripts -->
+    <script src="../build/js/custom.min.js"></script>
+    <script src="../js/engine.js"></script>
+    <!-- Custom Theme JavaScript -->
+    <div class="modal" tabindex="-1" role="dialog" id="DivMsgbox" style="z-index: 99999; font-family: TH SarabunPSK; color: black;">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header" style="text-align: left!important; background-color: #82c2f3;">
+                    <h6 class="modal-title">PBRI System 1.0 สถาบันพระบรมราชชนก</h6>
+
+                </div>
+                <div class="modal-body" id="DivMsgboxmessage" style="text-align: center; min-height: 60px; margin-top: 20px; font-family: TH SarabunPSK; font-size: 18px;">
+                </div>
+                <div class="modal-footer">
+
+                    <button type="button" class="btn btn-danger" style="font-size: 18px;" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade bd-example-modal-lg" id="Divchangepassword" tabindex="-1" role="dialog" style="z-index: 99999;" aria-labelledby="myModalLabel">
+        <div class="modal-dialog modal-ku" role="document">
+            <div class="modal-content">
+                <div class="modal-header" style="background-color: #82c2f3;">
+                    <span style="color: white; font-size: 18px;">PBRI System 1.0 สถาบันพระบรมราชชนก </span>
+                </div>
+                <div class="modal-body">
+                    <div class="container" style="font-size: 18px; font-family: TH SarabunPSK; margin-top: 20px;">
+                        <div class="form-group" style="text-align: left;">
+                            <span>รหัสผ่านเก่า</span>
+                        </div>
+                        <div class="form-group" style="text-align: left;">
+                            <input type="text" id="Txtchangepassword" autocomplete="off" class="form-control">
+                            <div class="invalid-feedback">
+                                โปรดระบุ รหัสผ่านเก่า
+                            </div>
+                        </div>
+                        <div class="form-group" style="text-align: left;">
+                            <span>รหัสผ่านใหม่</span>
+                        </div>
+                        <div class="form-group" style="text-align: left;">
+                            <input type="text" id="Txtchangenewpassword" autocomplete="off" class="form-control">
+                            <div class="invalid-feedback">
+                                โปรดระบุ รหัสผ่านใหม่
+                            </div>
+                        </div>
+                        <div class="form-group" style="text-align: left;">
+                            <span>ยืนยันรหัสผ่านใหม่</span>
+                        </div>
+                        <div class="form-group" style="text-align: left;">
+                            <input type="text" class="form-control" id="Txtchangeconfirmpassword" autocomplete="off">
+                            <div class="invalid-feedback">
+                                โปรดระบุ ยืนยันรหัสผ่านใหม่
+                            </div>
+                        </div>
+                        <div style="text-align: left; color: red; display: none; margin-top: 5px; margin-bottom: 5px" id="Divchangeerror">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" onclick="doChangepassword();" class="btn btn-primary" style="border-radius: 2px; font-size: 18px; font-family: TH SarabunPSK">เปลี่ยนรหัสผ่าน</button>
+                    <button type="button" class="btn btn-secondary" style="border-radius: 2px; font-size: 18px; font-family: TH SarabunPSK;" data-dismiss="modal">ปิดหน้าต่างนี้</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal" tabindex="-1" role="dialog" id="DivConfirm" style="color: black;">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header" style="text-align: left!important; background-color: @">
+                    <span class="modal-title" style="font-family: TH SarabunPSK;">PBRI System 1.0 สถาบันพระบรมราชชนก</span>
+
+                </div>
+                <div class="modal-body" id="DivConfirmMsg" style="text-align: center; min-height: 60px; margin-top: 20px; font-family: TH SarabunPSK; font-size: 18px;">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" style="font-size: 18px; border-radius: 1px;" id="CmdConfirm">Confirm</button>
+                    <button type="button" class="btn btn-danger" style="font-size: 18px; border-radius: 1px;" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade bd-example-modal-lg" id="Divmyprofile" tabindex="-1" role="dialog" style="z-index: 99999;" aria-labelledby="myModalLabel">
+        <div class="modal-dialog modal-lg" role="document">
+
+            <div class="modal-content">
+                <div class="modal-header" style="background-color: #82c2f3;">
+                    <span style="color: white; font-size: 18px;">PBRI System 1.0 สถาบันพระบรมราชชนก </span>
+                </div>
+                <div class="modal-body" id="Divmyprofilecont">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-3" style="text-align: center;">
+                                <img id="Imgprofile" onclick="CallUpload('Imgprofile','img');" src="../Image/DefaultUser.png" style="width: 120px; cursor: pointer; border: solid 1px lightgray; padding: 20px; margin: 20px;" />
+                                <div style="margin-top: 5px; color: #316ca8;"><span>กดที่รูปเพื่อ Upload</span></div>
+                            </div>
+                            <div class="col-9">
+                                <div class="container" style="text-align: left;">
+                                    <div class="row mt-1">
+                                        <div class="col-12">
+                                            <span>Username</span>&nbsp;<span style="color: red;">*</span>
+                                        </div>
+                                        <div class="col-12">
+                                            <div class="form-group" style="text-align: left;">
+                                                <input type="text" readonly="readonly" class="form-control" id="Txtmyprofileusername" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row mt-1">
+                                        <div class="col-12">
+                                            <span>รหัสพนักงาน</span>&nbsp;<span style="color: red;">*</span>
+                                        </div>
+                                        <div class="col-12">
+                                            <div class="form-group" style="text-align: left;">
+                                                <input type="text" readonly="readonly" class="form-control" id="Txtmyprofileempno" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row mt-1">
+                                        <div class="col-12">
+                                            <span>ชื่อ</span>&nbsp;<span style="color: red;">*</span>
+                                        </div>
+                                        <div class="col-12">
+                                            <div class="form-group" style="text-align: left;">
+                                                <input type="text" class="form-control" id="Txtmyprofilefirstname" />
+                                                <div class="invalid-feedback">
+                                                    โปรดระบุ ชื่อ
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row mt-1">
+
+                                        <div class="col-12">
+                                            <span>นามสกุล</span>&nbsp;<span style="color: red;">*</span>
+                                        </div>
+                                        <div class="col-12">
+                                            <div class="form-group" style="text-align: left;">
+                                                <input type="text" class="form-control" id="Txtmyprofilelastname" />
+                                                <div class="invalid-feedback">
+                                                    โปรดระบุ นามสกุล
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row mt-1">
+                                        <div class="col-12">
+                                            <span>อีเมล</span>&nbsp;<span style="color: red;">*</span>
+                                        </div>
+                                        <div class="col-12">
+                                            <div class="form-group" style="text-align: left;">
+                                                <input type="text" class="form-control" id="Txtmyprofileemail" />
+                                                <div class="invalid-feedback">
+                                                    โปรดระบุ อีเมล
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row mt-1">
+                                        <div class="col-12">
+                                            <span>เบอร์โทร</span>&nbsp;<span style="color: red;">*</span>
+                                        </div>
+                                        <div class="col-12">
+                                            <div class="form-group" style="text-align: left;">
+                                                <input type="text" class="form-control" id="Txtmyprofilemymobile" />
+                                                <div class="invalid-feedback">
+                                                    โปรดระบุ เบอร์โทร
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row mt-1">
+                                        <div class="col-12" style="text-align: right;">
+                                            <a onclick="Resetmypassword();" style="cursor: pointer; color: red; text-decoration: underline;">เปลี่ยนรหัสผ่าน</a>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div style="min-height: 50px; margin-top: 10%; font-size: 18px;"></div>
+                <div class="modal-footer">
+                    <button type="button" onclick="Savemyprofile();" class="btn btn-primary" style="border-radius: 2px; font-size: 18px;">บันทึก</button>
+                    <button type="button" class="btn btn-secondary" style="border-radius: 2px; font-size: 18px;" data-dismiss="modal">ปิดหน้าต่างนี้</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal" id="Loader" data-backdrop="static" style="z-index: 99999; background: rgba(0, 0, 0, 0.5) !important; border-radius: 25px;" data-keyboard="false">
+
+        <div class="modal-dialog modal-md">
+            <div class="modal-content" style="left: 100px; border-radius: 25px;">
+                <img src="https://wpamelia.com/wp-content/uploads/2018/11/ezgif-2-6d0b072c3d3f.gif" />
+            </div>
+        </div>
+    </div>
+    <div class="alert alert-danger" id="Divalert" style="z-index: 9999; display: none; width: 400px; height:100px; position: fixed; bottom: 0; right: 20px; padding-right: -20px;"></div>
+    <div class="alert alert-success" id="Divsuccess" style="z-index: 9999; display: none; width: 400px; height: 100px; position: fixed; bottom: 0; right: 20px; padding-right: -20px;"></div>
+</body>
+</html>
+

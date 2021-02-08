@@ -1,0 +1,213 @@
+E:\PI\E_OfficePI - Copy\E_OfficePI\bin\E_OfficePI.dll.config
+E:\PI\E_OfficePI - Copy\E_OfficePI\bin\E_OfficePI.dll
+E:\PI\E_OfficePI - Copy\E_OfficePI\bin\E_OfficePI.pdb
+E:\PI\E_OfficePI - Copy\E_OfficePI\bin\roslyn\csc.exe
+E:\PI\E_OfficePI - Copy\E_OfficePI\bin\roslyn\csc.exe.config
+E:\PI\E_OfficePI - Copy\E_OfficePI\bin\roslyn\csc.rsp
+E:\PI\E_OfficePI - Copy\E_OfficePI\bin\roslyn\csi.exe
+E:\PI\E_OfficePI - Copy\E_OfficePI\bin\roslyn\csi.rsp
+E:\PI\E_OfficePI - Copy\E_OfficePI\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+E:\PI\E_OfficePI - Copy\E_OfficePI\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+E:\PI\E_OfficePI - Copy\E_OfficePI\bin\roslyn\Microsoft.CodeAnalysis.CSharp.Scripting.dll
+E:\PI\E_OfficePI - Copy\E_OfficePI\bin\roslyn\Microsoft.CodeAnalysis.dll
+E:\PI\E_OfficePI - Copy\E_OfficePI\bin\roslyn\Microsoft.CodeAnalysis.Scripting.dll
+E:\PI\E_OfficePI - Copy\E_OfficePI\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+E:\PI\E_OfficePI - Copy\E_OfficePI\bin\roslyn\Microsoft.CSharp.Core.targets
+E:\PI\E_OfficePI - Copy\E_OfficePI\bin\roslyn\Microsoft.DiaSymReader.Native.amd64.dll
+E:\PI\E_OfficePI - Copy\E_OfficePI\bin\roslyn\Microsoft.DiaSymReader.Native.x86.dll
+E:\PI\E_OfficePI - Copy\E_OfficePI\bin\roslyn\Microsoft.VisualBasic.Core.targets
+E:\PI\E_OfficePI - Copy\E_OfficePI\bin\roslyn\System.AppContext.dll
+E:\PI\E_OfficePI - Copy\E_OfficePI\bin\roslyn\System.Collections.Immutable.dll
+E:\PI\E_OfficePI - Copy\E_OfficePI\bin\roslyn\System.Diagnostics.StackTrace.dll
+E:\PI\E_OfficePI - Copy\E_OfficePI\bin\roslyn\System.IO.FileSystem.dll
+E:\PI\E_OfficePI - Copy\E_OfficePI\bin\roslyn\System.IO.FileSystem.Primitives.dll
+E:\PI\E_OfficePI - Copy\E_OfficePI\bin\roslyn\System.Reflection.Metadata.dll
+E:\PI\E_OfficePI - Copy\E_OfficePI\bin\roslyn\vbc.exe
+E:\PI\E_OfficePI - Copy\E_OfficePI\bin\roslyn\vbc.exe.config
+E:\PI\E_OfficePI - Copy\E_OfficePI\bin\roslyn\vbc.rsp
+E:\PI\E_OfficePI - Copy\E_OfficePI\bin\roslyn\VBCSCompiler.exe
+E:\PI\E_OfficePI - Copy\E_OfficePI\bin\roslyn\VBCSCompiler.exe.config
+E:\PI\E_OfficePI - Copy\E_OfficePI\bin\CrystalDecisions.CrystalReports.Design.dll
+E:\PI\E_OfficePI - Copy\E_OfficePI\bin\CrystalDecisions.CrystalReports.Engine.dll
+E:\PI\E_OfficePI - Copy\E_OfficePI\bin\CrystalDecisions.Data.AdoDotNetInterop.dll
+E:\PI\E_OfficePI - Copy\E_OfficePI\bin\CrystalDecisions.ReportAppServer.DataSetConversion.dll
+E:\PI\E_OfficePI - Copy\E_OfficePI\bin\CrystalDecisions.ReportSource.dll
+E:\PI\E_OfficePI - Copy\E_OfficePI\bin\CrystalDecisions.Shared.dll
+E:\PI\E_OfficePI - Copy\E_OfficePI\bin\CrystalDecisions.VSDesigner.dll
+E:\PI\E_OfficePI - Copy\E_OfficePI\bin\CrystalDecisions.Web.dll
+E:\PI\E_OfficePI - Copy\E_OfficePI\bin\CrystalDecisions.Windows.Forms.dll
+E:\PI\E_OfficePI - Copy\E_OfficePI\bin\Microsoft.VisualStudio.Shell.Interop.dll
+E:\PI\E_OfficePI - Copy\E_OfficePI\bin\Microsoft.VisualStudio.OLE.Interop.dll
+E:\PI\E_OfficePI - Copy\E_OfficePI\bin\CRVsPackageLib.dll
+E:\PI\E_OfficePI - Copy\E_OfficePI\bin\Microsoft.VisualStudio.TemplateWizardInterface.dll
+E:\PI\E_OfficePI - Copy\E_OfficePI\bin\EnvDTE.dll
+E:\PI\E_OfficePI - Copy\E_OfficePI\bin\VSLangProj.dll
+E:\PI\E_OfficePI - Copy\E_OfficePI\bin\VsWebSite.Interop.dll
+E:\PI\E_OfficePI - Copy\E_OfficePI\bin\EnvDTE80.dll
+E:\PI\E_OfficePI - Copy\E_OfficePI\bin\FlashControlV71.dll
+E:\PI\E_OfficePI - Copy\E_OfficePI\bin\Microsoft.VisualStudio.Shell.Interop.8.0.dll
+E:\PI\E_OfficePI - Copy\E_OfficePI\bin\Microsoft.VisualStudio.ProjectAggregator.dll
+E:\PI\E_OfficePI - Copy\E_OfficePI\bin\Microsoft.VisualStudio.TextManager.Interop.dll
+E:\PI\E_OfficePI - Copy\E_OfficePI\bin\Microsoft.VisualStudio.VSHelp.dll
+E:\PI\E_OfficePI - Copy\E_OfficePI\bin\stdole.dll
+E:\PI\E_OfficePI - Copy\E_OfficePI\bin\ShockwaveFlashObjects.dll
+E:\PI\E_OfficePI - Copy\E_OfficePI\bin\Microsoft.VisualStudio.TextManager.Interop.8.0.dll
+E:\PI\E_OfficePI - Copy\E_OfficePI\bin\Microsoft.MSXML.dll
+E:\PI\E_OfficePI - Copy\E_OfficePI\bin\Microsoft.VisualStudio.TemplateWizardInterface.xml
+E:\PI\E_OfficePI - Copy\E_OfficePI\obj\Release\E_OfficePI.csprojAssemblyReference.cache
+E:\PI\E_OfficePI - Copy\E_OfficePI\obj\Release\E_OfficePI.csproj.CoreCompileInputs.cache
+E:\PI\E_OfficePI - Copy\E_OfficePI\obj\Release\E_OfficePI.csproj.CopyComplete
+E:\PI\E_OfficePI - Copy\E_OfficePI\obj\Release\E_OfficePI.dll
+E:\PI\E_OfficePI - Copy\E_OfficePI\obj\Release\E_OfficePI.pdb
+E:\PI\E_OfficePI_20201028\E_OfficePI\bin\E_OfficePI.dll.config
+E:\PI\E_OfficePI_20201028\E_OfficePI\bin\E_OfficePI.dll
+E:\PI\E_OfficePI_20201028\E_OfficePI\bin\E_OfficePI.pdb
+E:\PI\E_OfficePI_20201028\E_OfficePI\bin\roslyn\csc.exe
+E:\PI\E_OfficePI_20201028\E_OfficePI\bin\roslyn\csc.exe.config
+E:\PI\E_OfficePI_20201028\E_OfficePI\bin\roslyn\csc.rsp
+E:\PI\E_OfficePI_20201028\E_OfficePI\bin\roslyn\csi.exe
+E:\PI\E_OfficePI_20201028\E_OfficePI\bin\roslyn\csi.rsp
+E:\PI\E_OfficePI_20201028\E_OfficePI\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+E:\PI\E_OfficePI_20201028\E_OfficePI\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+E:\PI\E_OfficePI_20201028\E_OfficePI\bin\roslyn\Microsoft.CodeAnalysis.CSharp.Scripting.dll
+E:\PI\E_OfficePI_20201028\E_OfficePI\bin\roslyn\Microsoft.CodeAnalysis.dll
+E:\PI\E_OfficePI_20201028\E_OfficePI\bin\roslyn\Microsoft.CodeAnalysis.Scripting.dll
+E:\PI\E_OfficePI_20201028\E_OfficePI\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+E:\PI\E_OfficePI_20201028\E_OfficePI\bin\roslyn\Microsoft.CSharp.Core.targets
+E:\PI\E_OfficePI_20201028\E_OfficePI\bin\roslyn\Microsoft.DiaSymReader.Native.amd64.dll
+E:\PI\E_OfficePI_20201028\E_OfficePI\bin\roslyn\Microsoft.DiaSymReader.Native.x86.dll
+E:\PI\E_OfficePI_20201028\E_OfficePI\bin\roslyn\Microsoft.VisualBasic.Core.targets
+E:\PI\E_OfficePI_20201028\E_OfficePI\bin\roslyn\System.AppContext.dll
+E:\PI\E_OfficePI_20201028\E_OfficePI\bin\roslyn\System.Collections.Immutable.dll
+E:\PI\E_OfficePI_20201028\E_OfficePI\bin\roslyn\System.Diagnostics.StackTrace.dll
+E:\PI\E_OfficePI_20201028\E_OfficePI\bin\roslyn\System.IO.FileSystem.dll
+E:\PI\E_OfficePI_20201028\E_OfficePI\bin\roslyn\System.IO.FileSystem.Primitives.dll
+E:\PI\E_OfficePI_20201028\E_OfficePI\bin\roslyn\System.Reflection.Metadata.dll
+E:\PI\E_OfficePI_20201028\E_OfficePI\bin\roslyn\vbc.exe
+E:\PI\E_OfficePI_20201028\E_OfficePI\bin\roslyn\vbc.exe.config
+E:\PI\E_OfficePI_20201028\E_OfficePI\bin\roslyn\vbc.rsp
+E:\PI\E_OfficePI_20201028\E_OfficePI\bin\roslyn\VBCSCompiler.exe
+E:\PI\E_OfficePI_20201028\E_OfficePI\bin\roslyn\VBCSCompiler.exe.config
+E:\PI\E_OfficePI_20201028\E_OfficePI\bin\CrystalDecisions.CrystalReports.Design.dll
+E:\PI\E_OfficePI_20201028\E_OfficePI\bin\CrystalDecisions.CrystalReports.Engine.dll
+E:\PI\E_OfficePI_20201028\E_OfficePI\bin\CrystalDecisions.Data.AdoDotNetInterop.dll
+E:\PI\E_OfficePI_20201028\E_OfficePI\bin\CrystalDecisions.ReportAppServer.DataSetConversion.dll
+E:\PI\E_OfficePI_20201028\E_OfficePI\bin\CrystalDecisions.ReportSource.dll
+E:\PI\E_OfficePI_20201028\E_OfficePI\bin\CrystalDecisions.Shared.dll
+E:\PI\E_OfficePI_20201028\E_OfficePI\bin\CrystalDecisions.VSDesigner.dll
+E:\PI\E_OfficePI_20201028\E_OfficePI\bin\CrystalDecisions.Web.dll
+E:\PI\E_OfficePI_20201028\E_OfficePI\bin\CrystalDecisions.Windows.Forms.dll
+E:\PI\E_OfficePI_20201028\E_OfficePI\bin\Microsoft.VisualStudio.Shell.Interop.dll
+E:\PI\E_OfficePI_20201028\E_OfficePI\bin\Microsoft.VisualStudio.OLE.Interop.dll
+E:\PI\E_OfficePI_20201028\E_OfficePI\bin\CRVsPackageLib.dll
+E:\PI\E_OfficePI_20201028\E_OfficePI\bin\Microsoft.VisualStudio.TemplateWizardInterface.dll
+E:\PI\E_OfficePI_20201028\E_OfficePI\bin\EnvDTE.dll
+E:\PI\E_OfficePI_20201028\E_OfficePI\bin\VSLangProj.dll
+E:\PI\E_OfficePI_20201028\E_OfficePI\bin\VsWebSite.Interop.dll
+E:\PI\E_OfficePI_20201028\E_OfficePI\bin\EnvDTE80.dll
+E:\PI\E_OfficePI_20201028\E_OfficePI\bin\FlashControlV71.dll
+E:\PI\E_OfficePI_20201028\E_OfficePI\bin\Microsoft.VisualStudio.Shell.Interop.8.0.dll
+E:\PI\E_OfficePI_20201028\E_OfficePI\bin\Microsoft.VisualStudio.ProjectAggregator.dll
+E:\PI\E_OfficePI_20201028\E_OfficePI\bin\Microsoft.VisualStudio.TextManager.Interop.dll
+E:\PI\E_OfficePI_20201028\E_OfficePI\bin\Microsoft.VisualStudio.VSHelp.dll
+E:\PI\E_OfficePI_20201028\E_OfficePI\bin\stdole.dll
+E:\PI\E_OfficePI_20201028\E_OfficePI\bin\ShockwaveFlashObjects.dll
+E:\PI\E_OfficePI_20201028\E_OfficePI\bin\Microsoft.VisualStudio.TextManager.Interop.8.0.dll
+E:\PI\E_OfficePI_20201028\E_OfficePI\bin\Microsoft.MSXML.dll
+E:\PI\E_OfficePI_20201028\E_OfficePI\bin\Microsoft.VisualStudio.TemplateWizardInterface.xml
+E:\PI\E_OfficePI_20201028\E_OfficePI\obj\Release\E_OfficePI.csprojAssemblyReference.cache
+E:\PI\E_OfficePI_20201028\E_OfficePI\obj\Release\E_OfficePI.csproj.CoreCompileInputs.cache
+E:\PI\E_OfficePI_20201028\E_OfficePI\obj\Release\E_OfficePI.csproj.CopyComplete
+E:\PI\E_OfficePI_20201028\E_OfficePI\obj\Release\E_OfficePI.dll
+E:\PI\E_OfficePI_20201028\E_OfficePI\obj\Release\E_OfficePI.pdb
+C:\Deploy\A\E_OfficePI_20201028\E_OfficePI\bin\E_OfficePI.dll.config
+C:\Deploy\A\E_OfficePI_20201028\E_OfficePI\bin\E_OfficePI.dll
+C:\Deploy\A\E_OfficePI_20201028\E_OfficePI\bin\E_OfficePI.pdb
+C:\Deploy\A\E_OfficePI_20201028\E_OfficePI\bin\roslyn\csc.exe
+C:\Deploy\A\E_OfficePI_20201028\E_OfficePI\bin\roslyn\csc.exe.config
+C:\Deploy\A\E_OfficePI_20201028\E_OfficePI\bin\roslyn\csc.rsp
+C:\Deploy\A\E_OfficePI_20201028\E_OfficePI\bin\roslyn\csi.exe
+C:\Deploy\A\E_OfficePI_20201028\E_OfficePI\bin\roslyn\csi.rsp
+C:\Deploy\A\E_OfficePI_20201028\E_OfficePI\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+C:\Deploy\A\E_OfficePI_20201028\E_OfficePI\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+C:\Deploy\A\E_OfficePI_20201028\E_OfficePI\bin\roslyn\Microsoft.CodeAnalysis.CSharp.Scripting.dll
+C:\Deploy\A\E_OfficePI_20201028\E_OfficePI\bin\roslyn\Microsoft.CodeAnalysis.dll
+C:\Deploy\A\E_OfficePI_20201028\E_OfficePI\bin\roslyn\Microsoft.CodeAnalysis.Scripting.dll
+C:\Deploy\A\E_OfficePI_20201028\E_OfficePI\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+C:\Deploy\A\E_OfficePI_20201028\E_OfficePI\bin\roslyn\Microsoft.CSharp.Core.targets
+C:\Deploy\A\E_OfficePI_20201028\E_OfficePI\bin\roslyn\Microsoft.DiaSymReader.Native.amd64.dll
+C:\Deploy\A\E_OfficePI_20201028\E_OfficePI\bin\roslyn\Microsoft.DiaSymReader.Native.x86.dll
+C:\Deploy\A\E_OfficePI_20201028\E_OfficePI\bin\roslyn\Microsoft.VisualBasic.Core.targets
+C:\Deploy\A\E_OfficePI_20201028\E_OfficePI\bin\roslyn\System.AppContext.dll
+C:\Deploy\A\E_OfficePI_20201028\E_OfficePI\bin\roslyn\System.Collections.Immutable.dll
+C:\Deploy\A\E_OfficePI_20201028\E_OfficePI\bin\roslyn\System.Diagnostics.StackTrace.dll
+C:\Deploy\A\E_OfficePI_20201028\E_OfficePI\bin\roslyn\System.IO.FileSystem.dll
+C:\Deploy\A\E_OfficePI_20201028\E_OfficePI\bin\roslyn\System.IO.FileSystem.Primitives.dll
+C:\Deploy\A\E_OfficePI_20201028\E_OfficePI\bin\roslyn\System.Reflection.Metadata.dll
+C:\Deploy\A\E_OfficePI_20201028\E_OfficePI\bin\roslyn\vbc.exe
+C:\Deploy\A\E_OfficePI_20201028\E_OfficePI\bin\roslyn\vbc.exe.config
+C:\Deploy\A\E_OfficePI_20201028\E_OfficePI\bin\roslyn\vbc.rsp
+C:\Deploy\A\E_OfficePI_20201028\E_OfficePI\bin\roslyn\VBCSCompiler.exe
+C:\Deploy\A\E_OfficePI_20201028\E_OfficePI\bin\roslyn\VBCSCompiler.exe.config
+C:\Deploy\A\E_OfficePI_20201028\E_OfficePI\bin\Microsoft.VisualStudio.Shell.Interop.dll
+C:\Deploy\A\E_OfficePI_20201028\E_OfficePI\bin\Microsoft.VisualStudio.OLE.Interop.dll
+C:\Deploy\A\E_OfficePI_20201028\E_OfficePI\bin\Microsoft.VisualStudio.TemplateWizardInterface.dll
+C:\Deploy\A\E_OfficePI_20201028\E_OfficePI\bin\EnvDTE.dll
+C:\Deploy\A\E_OfficePI_20201028\E_OfficePI\bin\VSLangProj.dll
+C:\Deploy\A\E_OfficePI_20201028\E_OfficePI\bin\VsWebSite.Interop.dll
+C:\Deploy\A\E_OfficePI_20201028\E_OfficePI\bin\EnvDTE80.dll
+C:\Deploy\A\E_OfficePI_20201028\E_OfficePI\bin\stdole.dll
+C:\Deploy\A\E_OfficePI_20201028\E_OfficePI\bin\Microsoft.VisualStudio.TextManager.Interop.dll
+C:\Deploy\A\E_OfficePI_20201028\E_OfficePI\bin\ShockwaveFlashObjects.dll
+C:\Deploy\A\E_OfficePI_20201028\E_OfficePI\bin\Microsoft.VisualStudio.TemplateWizardInterface.xml
+C:\Deploy\A\E_OfficePI_20201028\E_OfficePI\obj\Release\E_OfficePI.csprojAssemblyReference.cache
+C:\Deploy\A\E_OfficePI_20201028\E_OfficePI\obj\Release\E_OfficePI.csproj.CoreCompileInputs.cache
+C:\Deploy\A\E_OfficePI_20201028\E_OfficePI\obj\Release\E_OfficePI.csproj.CopyComplete
+C:\Deploy\A\E_OfficePI_20201028\E_OfficePI\obj\Release\E_OfficePI.dll
+C:\Deploy\A\E_OfficePI_20201028\E_OfficePI\obj\Release\E_OfficePI.pdb
+D:\Project\E_OfficePI_20201028\E_OfficePI\bin\E_OfficePI.dll.config
+D:\Project\E_OfficePI_20201028\E_OfficePI\bin\E_OfficePI.dll
+D:\Project\E_OfficePI_20201028\E_OfficePI\bin\E_OfficePI.pdb
+D:\Project\E_OfficePI_20201028\E_OfficePI\bin\roslyn\csc.exe
+D:\Project\E_OfficePI_20201028\E_OfficePI\bin\roslyn\csc.exe.config
+D:\Project\E_OfficePI_20201028\E_OfficePI\bin\roslyn\csc.rsp
+D:\Project\E_OfficePI_20201028\E_OfficePI\bin\roslyn\csi.exe
+D:\Project\E_OfficePI_20201028\E_OfficePI\bin\roslyn\csi.rsp
+D:\Project\E_OfficePI_20201028\E_OfficePI\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+D:\Project\E_OfficePI_20201028\E_OfficePI\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+D:\Project\E_OfficePI_20201028\E_OfficePI\bin\roslyn\Microsoft.CodeAnalysis.CSharp.Scripting.dll
+D:\Project\E_OfficePI_20201028\E_OfficePI\bin\roslyn\Microsoft.CodeAnalysis.dll
+D:\Project\E_OfficePI_20201028\E_OfficePI\bin\roslyn\Microsoft.CodeAnalysis.Scripting.dll
+D:\Project\E_OfficePI_20201028\E_OfficePI\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+D:\Project\E_OfficePI_20201028\E_OfficePI\bin\roslyn\Microsoft.CSharp.Core.targets
+D:\Project\E_OfficePI_20201028\E_OfficePI\bin\roslyn\Microsoft.DiaSymReader.Native.amd64.dll
+D:\Project\E_OfficePI_20201028\E_OfficePI\bin\roslyn\Microsoft.DiaSymReader.Native.x86.dll
+D:\Project\E_OfficePI_20201028\E_OfficePI\bin\roslyn\Microsoft.VisualBasic.Core.targets
+D:\Project\E_OfficePI_20201028\E_OfficePI\bin\roslyn\System.AppContext.dll
+D:\Project\E_OfficePI_20201028\E_OfficePI\bin\roslyn\System.Collections.Immutable.dll
+D:\Project\E_OfficePI_20201028\E_OfficePI\bin\roslyn\System.Diagnostics.StackTrace.dll
+D:\Project\E_OfficePI_20201028\E_OfficePI\bin\roslyn\System.IO.FileSystem.dll
+D:\Project\E_OfficePI_20201028\E_OfficePI\bin\roslyn\System.IO.FileSystem.Primitives.dll
+D:\Project\E_OfficePI_20201028\E_OfficePI\bin\roslyn\System.Reflection.Metadata.dll
+D:\Project\E_OfficePI_20201028\E_OfficePI\bin\roslyn\vbc.exe
+D:\Project\E_OfficePI_20201028\E_OfficePI\bin\roslyn\vbc.exe.config
+D:\Project\E_OfficePI_20201028\E_OfficePI\bin\roslyn\vbc.rsp
+D:\Project\E_OfficePI_20201028\E_OfficePI\bin\roslyn\VBCSCompiler.exe
+D:\Project\E_OfficePI_20201028\E_OfficePI\bin\roslyn\VBCSCompiler.exe.config
+D:\Project\E_OfficePI_20201028\E_OfficePI\bin\Microsoft.VisualStudio.Shell.Interop.dll
+D:\Project\E_OfficePI_20201028\E_OfficePI\bin\Microsoft.VisualStudio.OLE.Interop.dll
+D:\Project\E_OfficePI_20201028\E_OfficePI\bin\Microsoft.VisualStudio.TemplateWizardInterface.dll
+D:\Project\E_OfficePI_20201028\E_OfficePI\bin\EnvDTE.dll
+D:\Project\E_OfficePI_20201028\E_OfficePI\bin\VSLangProj.dll
+D:\Project\E_OfficePI_20201028\E_OfficePI\bin\VsWebSite.Interop.dll
+D:\Project\E_OfficePI_20201028\E_OfficePI\bin\EnvDTE80.dll
+D:\Project\E_OfficePI_20201028\E_OfficePI\bin\FlashControlV71.dll
+D:\Project\E_OfficePI_20201028\E_OfficePI\bin\Microsoft.VisualStudio.TextManager.Interop.dll
+D:\Project\E_OfficePI_20201028\E_OfficePI\bin\stdole.dll
+D:\Project\E_OfficePI_20201028\E_OfficePI\bin\ShockwaveFlashObjects.dll
+D:\Project\E_OfficePI_20201028\E_OfficePI\bin\Microsoft.VisualStudio.TemplateWizardInterface.xml
+D:\Project\E_OfficePI_20201028\E_OfficePI\obj\Release\E_OfficePI.csprojAssemblyReference.cache
+D:\Project\E_OfficePI_20201028\E_OfficePI\obj\Release\E_OfficePI.csproj.CoreCompileInputs.cache
+D:\Project\E_OfficePI_20201028\E_OfficePI\obj\Release\E_OfficePI.csproj.CopyComplete
+D:\Project\E_OfficePI_20201028\E_OfficePI\obj\Release\E_OfficePI.dll
+D:\Project\E_OfficePI_20201028\E_OfficePI\obj\Release\E_OfficePI.pdb
