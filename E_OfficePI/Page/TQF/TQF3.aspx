@@ -3327,49 +3327,59 @@
 
 
 
-                    for (i = 0; i < response.d.length; i++) {
 
-                        html += '<tr>';
-
-
-                        html += '<td style="width:40%;">';
+                   html += '<tr>';
 
 
-                        html += '<span>' + response.d[i]['Learningoutputname'] + '</span>';
+                    html += '<td style="width:30%;">';
+                    html += "<table  class='table table-bordered' style='table-layout: fixed;width:100%;'>";
 
 
+                    for (j = 0; j < response.d['Lens'].length; j++) {
+                        html += "<tr>";
+                        html += "<td style='width: 100%;'>";
+                        html += "<span>" + response.d["Learningoutputname"] + "</span>";
+                        
+                        html += "</td>";
+                        html += "</tr>";
+                    }
+                    html += "<tr>";
+                 
+                    html += "<td>";
+                    html += "<button style='font-size:9px !important;'  class='btn btn-success' onclick='AddPar();'><i class='fa fa-plus' style='font-size:9px !important;' aria-hidden='true'></i></button>";
+                    html += "</td>";
+                    html += "</tr>";
+                    html += "</table>";
+                    html += '</td>';                   
 
 
-                        html += '</td>';
+                    html += '<td style="width:30%;">';
+                    html += "<table  class='table table-bordered' style='table-layout: fixed;width:100%;'>";
 
 
-                        html += '<td style="width:30%;">';
-                        html += "<table  class='table table-bordered' style='table-layout: fixed;width:100%;'>";
-
-
-                        for (j = 0; j < response.d[i]['Particulars'].length; j++) {
+                        for (j = 0; j < response.d['Particulars'].length; j++) {
                             html += "<tr>";
                             html += "<td style='width: 80%;'>";
 
-                            html += '<select id="Cbparticulars_' + response.d[i]['Learningoutputid'] + '_' + response.d[i]['Particulars'][j]['Particularid'] + '" class="form-control">';
+                            html += '<select id="Cbparticulars_' + response.d['Particulars'][j]['Learningparticularid'] + '_' + response.d['Particulars'][j]['Particularid'] + '" class="form-control">';
 
-                            for (k = 0; k < response.d[i]['MasterParticulars'].length; k++) {
-                                html += '<option value="' + response.d[i]['MasterParticulars'][k]['Particularid'] + '">' + response.d[i]['MasterParticulars'][k]['Particularname'] + '</option>';
+                            for (k = 0; k < response.d['MasterParticulars'].length; k++) {
+                                html += '<option value="' + response.d['MasterParticulars'][k]['Particularid'] + '">' + response.d['MasterParticulars'][k]['Particularname'] + '</option>';
                             }
                             html += '</select>';
                             html += "</td>";
                             html += "<td style='width: 20%;'>";
                             html += "<button style='font-size:9px !important;'  class='btn btn-success' onclick='AddPar();'><i class='fa fa-plus' style='font-size:9px !important;' aria-hidden='true'></i></button>";
-                            html += "&nbsp;<button style='font-size:9px !important;'  class='btn btn-danger' onclick='DelPar(" + response.d[i]['Learningoutputid'] + ',' + response.d[i]['Particulars'][j]['Particularid'] + ");'><i class='fa fa-trash' style='font-size:9px !important;' aria-hidden='true'></i></button>";
+                            html += "&nbsp;<button style='font-size:9px !important;'  class='btn btn-danger' onclick='DelPar(" + response.d['Particulars'][j]['Learningparticularid'] + ',' + response.d['Particulars'][j]['Particularid'] + ");'><i class='fa fa-trash' style='font-size:9px !important;' aria-hidden='true'></i></button>";
                             html += "</td>";
                             html += "</tr>";
                         }
                         html += "<tr>";
                         html += "<td >";
 
-                        html += '<select id="Cbparticulars_' + response.d[i]['Learningoutputid'] + '_0' + '" class="form-control">';
-                        for (k = 0; k < response.d[i]['MasterParticulars'].length; k++) {
-                            html += '<option value="' + response.d[i]['MasterParticulars'][k]['Particularid'] + '">' + response.d[i]['MasterParticulars'][k]['Particularname'] + '</option>';
+                        html += '<select id="Cbparticulars_0' + '" class="form-control">';
+                        for (k = 0; k < response.d['MasterParticulars'].length; k++) {
+                            html += '<option value="' + response.d['MasterParticulars'][k]['Particularid'] + '">' + response.d['MasterParticulars'][k]['Particularname'] + '</option>';
                         }
                         html += '</select>';
 
@@ -3388,29 +3398,29 @@
                         html += '<td style="width:30%;">';
                         html += "<table  class='table table-bordered' style='table-layout: fixed;width:100%;'>";
 
-                        for (j = 0; j < response.d[i]['Estimates'].length; j++) {
+                        for (j = 0; j < response.d['Estimates'].length; j++) {
                             html += "<tr>";
                             html += "<td>";
 
-                            html += '<select id="Cbestimates_' + response.d[i]['Learningoutputid'] + '_' + response.d[i]['Estimates'][j]['Estimateid'] + '" class="form-control" >';
+                            html += '<select id="Cbestimates_' + response.d['Learningestimateid'] + '_' + response.d['Estimates'][j]['Estimateid'] + '" class="form-control" >';
 
-                            for (k = 0; k < response.d[i]['MasterEstimates'].length; k++) {
-                                html += '<option value="' + response.d[i]['MasterEstimates'][k]['Estimateid'] + '">' + response.d[i]['MasterEstimates'][k]['Estimatename'] + '</option>';
+                            for (k = 0; k < response.d['MasterEstimates'].length; k++) {
+                                html += '<option value="' + response.d['MasterEstimates'][k]['Estimateid'] + '">' + response.d['MasterEstimates'][k]['Estimatename'] + '</option>';
                             }
                             html += '</select>';
                             html += "</td>";
                             html += "<td>";
                             html += "<button style='font-size:9px !important;'  class='btn btn-success' onclick='AddEst();'><i class='fa fa-plus' style='font-size:9px !important;' aria-hidden='true'></i></button>";
-                            html += "&nbsp;<button style='font-size:9px !important;'  class='btn btn-danger' onclick='DelEst(" + response.d[i]['Learningoutputid'] + ',' + response.d[i]['Estimates'][j]['Estimateid'] + ");'><i class='fa fa-trash' style='font-size:9px !important;' aria-hidden='true'></i></button>";
+                            html += "&nbsp;<button style='font-size:9px !important;'  class='btn btn-danger' onclick='DelEst(" + response.d['Learningestimateid'] + ',' + response.d['Estimates'][j]['Estimateid'] + ");'><i class='fa fa-trash' style='font-size:9px !important;' aria-hidden='true'></i></button>";
                             html += "</td>";
                             html += "</tr>";
                         }
                         html += "<tr>";
                         html += "<td>";
 
-                        html += '<select id="Cbestimates_' + response.d[i]['Learningoutputid'] + '_0' + '" class="form-control">';
-                        for (k = 0; k < response.d[i]['MasterEstimates'].length; k++) {
-                            html += '<option value="' + response.d[i]['MasterEstimates'][k]['Estimateid'] + '">' + response.d[i]['MasterEstimates'][k]['Estimatename'] + '</option>';
+                        html += '<select id="Cbestimates_' + response.d['Learningoutputid'] + '_0' + '" class="form-control">';
+                        for (k = 0; k < response.d['MasterEstimates'].length; k++) {
+                            html += '<option value="' + response.d['MasterEstimates'][k]['Estimateid'] + '">' + response.d['MasterEstimates'][k]['Estimatename'] + '</option>';
                         }
                         html += '</select>';
 
@@ -3429,7 +3439,7 @@
 
 
 
-                    }
+                    
 
 
 
@@ -3441,17 +3451,17 @@
                     $('#Divestimateoutput').html(html);
 
                     for (i = 0; i < response.d.length; i++) {
-                        for (j = 0; j < response.d[i]['Particulars'].length; j++) {
-                            $('#Cbparticulars_' + response.d[i]['Learningoutputid'] + '_' + response.d[i]['Particulars'][j]['Particularid']).selectpicker({
+                        for (j = 0; j < response.d['Particulars'].length; j++) {
+                            $('#Cbparticulars_' + response.d['Learningparticularid'] + '_' + response.d['Particulars'][j]['Particularid']).selectpicker({
                                 liveSearch: true,
                                 maxOptions: 1
                             });
 
 
-                            $('#Cbparticulars_' + response.d[i]['Learningoutputid'] + '_' + response.d[i]['Particulars'][j]['Particularid']).on('change', function () {
+                            $('#Cbparticulars_' + response.d['Learningparticularid'] + '_' + response.d['Particulars'][j]['Particularid']).on('change', function () {
                                 json = '';
                                 json += 'HdTQFId :' + $('#HdTQFId').val() + '|';
-                                json += 'Learningoutputid :' + $(this).attr('id') + '|';
+                                json += 'Learningparticularid :' + $(this).attr('id') + '|';
                                 json += 'val :' + $(this).val() + '|';
                                 $.ajax({
                                     type: "POST",
@@ -3476,18 +3486,18 @@
 
                             });
 
-                            $('#Cbparticulars_' + response.d[i]['Learningoutputid'] + '_' + response.d[i]['Particulars'][j]['Particularid']).val(response.d[i]['Particulars'][j]['Particularid']).selectpicker('refresh');
+                            $('#Cbparticulars_' + response.d['Learningparticularid'] + '_' + response.d['Particulars'][j]['Particularid']).val(response.d['Particulars'][j]['Particularid']).selectpicker('refresh');
 
                         }
-                        $('#Cbparticulars_' + response.d[i]['Learningoutputid'] + '_0').selectpicker({
+                        $('#Cbparticulars_' + response.d['Learningparticularid'] + '_0').selectpicker({
                             liveSearch: true,
                             maxOptions: 1
                         });
-                        $('#Cbparticulars_' + response.d[i]['Learningoutputid'] + '_0').val('').selectpicker('refresh');
-                        $('#Cbparticulars_' + response.d[i]['Learningoutputid'] + '_0').on('change', function () {
+                        $('#Cbparticulars_' + response.d['Learningparticularid'] + '_0').val('').selectpicker('refresh');
+                        $('#Cbparticulars_' + response.d['Learningparticularid'] + '_0').on('change', function () {
                             json = '';
                             json += 'HdTQFId :' + $('#HdTQFId').val() + '|';
-                            json += 'Learningoutputid :' + $(this).attr('id') + '|';
+                            json += 'Learningparticularid :' + $(this).attr('id') + '|';
                             json += 'val :' + $(this).val() + '|';
                             $.ajax({
                                 type: "POST",
@@ -3519,17 +3529,17 @@
 
 
                     for (i = 0; i < response.d.length; i++) {
-                        for (j = 0; j < response.d[i]['Estimates'].length; j++) {
-                            $('#Cbestimates_' + response.d[i]['Learningoutputid'] + '_' + response.d[i]['Estimates'][j]['Estimateid']).selectpicker({
+                        for (j = 0; j < response.d['Estimates'].length; j++) {
+                            $('#Cbestimates_' + response.d['Learningestimateid'] + '_' + response.d['Estimates'][j]['Estimateid']).selectpicker({
                                 liveSearch: true,
                                 maxOptions: 1
                             });
 
 
-                            $('#Cbestimates_' + response.d[i]['Learningoutputid'] + '_' + response.d[i]['Estimates'][j]['Estimateid']).on('change', function () {
+                            $('#Cbestimates_' + response.d['Learningestimateid'] + '_' + response.d['Estimates'][j]['Estimateid']).on('change', function () {
                                 json = '';
                                 json += 'HdTQFId :' + $('#HdTQFId').val() + '|';
-                                json += 'Learningoutputid :' + $(this).attr('id') + '|';
+                                json += 'Learningestimateid :' + $(this).attr('id') + '|';
                                 json += 'val :' + $(this).val() + '|';
                                 $.ajax({
                                     type: "POST",
@@ -3554,18 +3564,18 @@
 
                             });
 
-                            $('#Cbestimates_' + response.d[i]['Learningoutputid'] + '_' + response.d[i]['Estimates'][j]['Estimateid']).val(response.d[i]['Estimates'][j]['Estimateid']).selectpicker('refresh');
+                            $('#Cbestimates_' + response.d['Learningestimateid'] + '_' + response.d['Estimates'][j]['Estimateid']).val(response.d['Estimates'][j]['Estimateid']).selectpicker('refresh');
 
                         }
-                        $('#Cbestimates_' + response.d[i]['Learningoutputid'] + '_0').selectpicker({
+                        $('#Cbestimates_' + response.d['Learningestimateid'] + '_0').selectpicker({
                             liveSearch: true,
                             maxOptions: 1
                         });
-                        $('#Cbestimates_' + response.d[i]['Learningoutputid'] + '_0').val('').selectpicker('refresh');
-                        $('#Cbestimates_' + response.d[i]['Learningoutputid'] + '_0').on('change', function () {
+                        $('#Cbestimates_' + response.d['Learningestimateid'] + '_0').val('').selectpicker('refresh');
+                        $('#Cbestimates_' + response.d['Learningestimateid'] + '_0').on('change', function () {
                             json = '';
                             json += 'HdTQFId :' + $('#HdTQFId').val() + '|';
-                            json += 'Learningoutputid :' + $(this).attr('id') + '|';
+                            json += 'Learningestimateid :' + $(this).attr('id') + '|';
                             json += 'val :' + $(this).val() + '|';
                             $.ajax({
                                 type: "POST",

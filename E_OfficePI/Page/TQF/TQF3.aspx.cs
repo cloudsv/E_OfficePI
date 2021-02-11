@@ -2343,32 +2343,29 @@ namespace E_OfficePI.Page.TQF
         }
 
         [WebMethod]
-        public static List<Clslearningoutput> Getlearningoutput(string json)
+        public static Clslearningoutput Getlearningoutput(string json)
         {
+            Clslearningoutput Obj = new Clslearningoutput();
             SqlConnector cn = new SqlConnector(Connectionstring, null);
-            //List<Clslearningoutputset> Objs = new List<Clslearningoutputset>();
-            //Clslearningoutputset Obj = new Clslearningoutputset();
-
-            Clslearningoutput _Len;
+            Clslen _Len;
             Clsparticular _Par;
             Clsestimate _Est;
             List<Clsestimate> Ests = new List<Clsestimate>();
             List<Clsparticular> Pars = new List<Clsparticular>();
-            List<Clslearningoutput> Lens = new List<Clslearningoutput>();
+            List<Clslen> Lens = new List<Clslen>();
             string sqlcmd = "";
-            //DataTable Dt = new DataTable();
+            
             DataTable Dtparticular = new DataTable();
             DataTable Dtestimate = new DataTable();
             DataTable Dtlearningoutput = new DataTable();
-            DataRow[] Drs;
+           
 
 
             sqlcmd = "Select d.id,[Output] as Output from Sys_Master_Learningoutput m  inner join Sys_Master_Learningoutputsubject d  on m.id = d.learningoutputid left join sys_TQF_TQF3 TQF on d.subjectid = tqf.subjectid where m.isdelete = 0 and d.isdelete = 0 and TQF.id = '" + json + "'";
-            //sqlcmd = "Select * from Sys_TQF_Learningoutput d inner join Sys_Master_Learningoutput m on d.Learningoutputid = m.id where d.isdelete = 0 and TQFId = '" + json + "'";
             Dtlearningoutput = cn.Select(sqlcmd);
-            sqlcmd = "Select * from Sys_TQF_Learningpartcular d inner join Sys_Master_Particular m on d.Particularid = m.id where d.isdelete = 0 and TQFId = '" + json + "'";
+            sqlcmd = "Select d.id as Learningparticularid, * from Sys_TQF_Learningpartcular d inner join Sys_Master_Particular m on d.Particularid = m.id where d.isdelete = 0 and TQFId = '" + json + "'";
             Dtparticular = cn.Select(sqlcmd);
-            sqlcmd = "Select * from Sys_TQF_LearningEstimate d inner join Sys_Master_Estimate m on d.Estimateid = m.id where d.isdelete = 0 and TQFId = '" + json + "'";
+            sqlcmd = "Select d.id as Learningestimateid, * from Sys_TQF_LearningEstimate d inner join Sys_Master_Estimate m on d.Estimateid = m.id where d.isdelete = 0 and TQFId = '" + json + "'";
             Dtestimate = cn.Select(sqlcmd);
 
 
@@ -2378,47 +2375,124 @@ namespace E_OfficePI.Page.TQF
             MasterEsts = Getestimate();
             MasterPars = Getparticular();
 
-            //sqlcmd = "Select * from Sys_TQF_Leaningoutputset where isdelete = 0 and tqfid = '" + json + "'";
-            //Dt = cn.Select(sqlcmd);
+            
 
-            Lens = new List<Clslearningoutput>();
+            Lens = new List<Clslen>();
+            Pars = new List<Clsparticular>();
+            Ests = new List<Clsestimate>();
+
+
 
             foreach (DataRow _dr in Dtlearningoutput.Rows)
             {
-               
-                Pars = new List<Clsparticular>();
-                Ests = new List<Clsestimate>();
-
-                _Len = new Clslearningoutput();
+                _Len = new Clslen();
                 _Len.Learningoutputid = _dr["id"].ToString();
                 _Len.Learningoutputname = _dr["Output"].ToString();
-                _Len.MasterEstimates = MasterEsts;
-                _Len.MasterParticulars = MasterPars;
-                Drs = Dtparticular.Select("LearningoutputId ='" + _dr["id"].ToString() + "'");
-                foreach (DataRow dr in Drs)
-                {
-                    _Par = new Clsparticular();
-                    _Par.Particularid = dr["Particularid"].ToString();
-                    _Par.Particularname = dr["Particular"].ToString();
-                    Pars.Add(_Par);
-                }
-                _Len.Particulars = Pars;
-
-
-
-                Drs = Dtestimate.Select("LearningoutputId ='" + _dr["id"].ToString() + "'");
-                foreach (DataRow dr in Drs)
-                {
-                    _Est = new Clsestimate();
-                    _Est.Estimateid = dr["Estimateid"].ToString();
-                    _Est.Estimatename = dr["Estimate"].ToString();
-                    Ests.Add(_Est);
-                }
-                _Len.Estimates = Ests;
                 Lens.Add(_Len);
             }
-            return Lens;
-         }
+            Obj.Lens = Lens;
+            Obj.MasterEstimates = MasterEsts;
+            Obj.MasterParticulars = MasterPars;
+            foreach (DataRow dr in Dtparticular.Rows)
+            {
+                _Par = new Clsparticular();
+                _Par.Learningparticularid = dr["Learningparticularid"].ToString();
+                _Par.Particularid = dr["Particularid"].ToString();
+                _Par.Particularname = dr["Particular"].ToString();
+                Pars.Add(_Par);
+            }
+            Obj.Particulars = Pars;
+
+
+
+               
+            foreach (DataRow dr in Dtestimate.Rows)
+            {
+                _Est = new Clsestimate();
+                _Est.Estimateid = dr["Estimateid"].ToString();
+                _Est.Estimatename = dr["Estimate"].ToString();
+                Ests.Add(_Est);
+            }
+            Obj.Estimates = Ests;
+            return Obj;
+        }
+        //[WebMethod]
+        //public static List<Clslearningoutput> Getlearningoutput(string json)
+        //{
+        //    SqlConnector cn = new SqlConnector(Connectionstring, null);
+        //    //List<Clslearningoutputset> Objs = new List<Clslearningoutputset>();
+        //    //Clslearningoutputset Obj = new Clslearningoutputset();
+
+        //    Clslearningoutput _Len;
+        //    Clsparticular _Par;
+        //    Clsestimate _Est;
+        //    List<Clsestimate> Ests = new List<Clsestimate>();
+        //    List<Clsparticular> Pars = new List<Clsparticular>();
+        //    List<Clslearningoutput> Lens = new List<Clslearningoutput>();
+        //    string sqlcmd = "";
+        //    //DataTable Dt = new DataTable();
+        //    DataTable Dtparticular = new DataTable();
+        //    DataTable Dtestimate = new DataTable();
+        //    DataTable Dtlearningoutput = new DataTable();
+        //    DataRow[] Drs;
+
+
+        //    sqlcmd = "Select d.id,[Output] as Output from Sys_Master_Learningoutput m  inner join Sys_Master_Learningoutputsubject d  on m.id = d.learningoutputid left join sys_TQF_TQF3 TQF on d.subjectid = tqf.subjectid where m.isdelete = 0 and d.isdelete = 0 and TQF.id = '" + json + "'";
+        //    //sqlcmd = "Select * from Sys_TQF_Learningoutput d inner join Sys_Master_Learningoutput m on d.Learningoutputid = m.id where d.isdelete = 0 and TQFId = '" + json + "'";
+        //    Dtlearningoutput = cn.Select(sqlcmd);
+        //    sqlcmd = "Select * from Sys_TQF_Learningpartcular d inner join Sys_Master_Particular m on d.Particularid = m.id where d.isdelete = 0 and TQFId = '" + json + "'";
+        //    Dtparticular = cn.Select(sqlcmd);
+        //    sqlcmd = "Select * from Sys_TQF_LearningEstimate d inner join Sys_Master_Estimate m on d.Estimateid = m.id where d.isdelete = 0 and TQFId = '" + json + "'";
+        //    Dtestimate = cn.Select(sqlcmd);
+
+
+        //    List<Clsestimate> MasterEsts = new List<Clsestimate>();
+        //    List<Clsparticular> MasterPars = new List<Clsparticular>();
+
+        //    MasterEsts = Getestimate();
+        //    MasterPars = Getparticular();
+
+        //    //sqlcmd = "Select * from Sys_TQF_Leaningoutputset where isdelete = 0 and tqfid = '" + json + "'";
+        //    //Dt = cn.Select(sqlcmd);
+
+        //    Lens = new List<Clslearningoutput>();
+
+        //    foreach (DataRow _dr in Dtlearningoutput.Rows)
+        //    {
+               
+        //        Pars = new List<Clsparticular>();
+        //        Ests = new List<Clsestimate>();
+
+        //        _Len = new Clslearningoutput();
+        //        _Len.Learningoutputid = _dr["id"].ToString();
+        //        _Len.Learningoutputname = _dr["Output"].ToString();
+        //        _Len.MasterEstimates = MasterEsts;
+        //        _Len.MasterParticulars = MasterPars;
+        //        Drs = Dtparticular.Select("LearningoutputId ='" + _dr["id"].ToString() + "'");
+        //        foreach (DataRow dr in Drs)
+        //        {
+        //            _Par = new Clsparticular();
+        //            _Par.Particularid = dr["Particularid"].ToString();
+        //            _Par.Particularname = dr["Particular"].ToString();
+        //            Pars.Add(_Par);
+        //        }
+        //        _Len.Particulars = Pars;
+
+
+
+        //        Drs = Dtestimate.Select("LearningoutputId ='" + _dr["id"].ToString() + "'");
+        //        foreach (DataRow dr in Drs)
+        //        {
+        //            _Est = new Clsestimate();
+        //            _Est.Estimateid = dr["Estimateid"].ToString();
+        //            _Est.Estimatename = dr["Estimate"].ToString();
+        //            Ests.Add(_Est);
+        //        }
+        //        _Len.Estimates = Ests;
+        //        Lens.Add(_Len);
+        //    }
+        //    return Lens;
+        // }
         [WebMethod]
         public static string Updatetqfestimate(string json)
         {

@@ -30,12 +30,22 @@ namespace E_OfficePI.Class
         public string EstiLearningestimateidmatename { get; set; }
         
     }
-    public class Clslearningoutput
+    public class Clslen
     {
         public string Learningoutputid { get; set; }
         public string Learningoutputname { get; set; }
         public string Learningoutputdesc { get; set; }
+    }
+    public class Clslearningoutput
+    {
+        //public string Learningoutputid { get; set; }
+        //public string Learningoutputname { get; set; }
+        //public string Learningoutputdesc { get; set; }
         
+
+        
+        public List<Clslen> Lens { get; set; }
+
         public List<Clsparticular> MasterParticulars { get; set; }
         public List<Clsestimate> MasterEstimates { get; set; }
 
