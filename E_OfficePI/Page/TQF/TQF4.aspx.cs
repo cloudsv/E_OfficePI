@@ -14,7 +14,62 @@ namespace E_OfficePI.Page.TQF
     public partial class TQF4 : System.Web.UI.Page
     {
         private static string Connectionstring = System.Configuration.ConfigurationManager.ConnectionStrings["Primary"].ConnectionString;
+        [WebMethod]
+        public static string Deleteoutcome(string json)
+        {
+            SqlConnector cn = new SqlConnector(Connectionstring, null);
+            string sqlcmd = "Update Sys_TQF_Outcome Set isdelete = 1,deletedate = getdate(),deleteby='" + ((Clsuser)HttpContext.Current.Session["My"]).userid + "' where id = '" + json + "'";
+            cn.Execute(sqlcmd, null);
+            return "";
+        }
+        [WebMethod]
+        public static string Updateoutcome(string json, string dat)
+        {
+           
 
+            //TxtdevoO_1: 1 | TxtdevoD_1:2 | TxtdevoS_1:3 | TxtdevoR_1:4 | TxtdevoO_4:5 | TxtdevoD_4:6 | TxtdevoS_4:7 | TxtdevoR_4:8 |
+            dat = dat.Replace("Txtoutcome_", "");
+            string sqlcmd = "";
+            ArrayList Arrcmd = new ArrayList();
+            string[] Arrcomp;
+            Arrcomp = dat.Split('|');
+            SqlConnector cn = new SqlConnector(Connectionstring, null);
+            foreach (string str in Arrcomp)
+            {
+                if (str.Trim() != "")
+                {
+
+                    sqlcmd = "Update Sys_TQF_Outcome set Value ='" + str.Split(':')[1] + "',modifydate = getdate(),modifyby='" + ((Clsuser)HttpContext.Current.Session["My"]).userid + "' Where id = '" + str.Split(':')[0] + "'";
+                    Arrcmd.Add(sqlcmd);
+                }
+
+
+            }
+            cn.Execute(Arrcmd, null);
+            cn.Close();
+            return "";
+        }
+        [WebMethod]
+        public static string Newoutcome(string json)
+        {
+            string id = ClsEngine.GenerateRunningId(Connectionstring, "Sys_TQF_Outcome", "id");
+            string sqlcmd = "";
+            SqlConnector cn = new SqlConnector(Connectionstring, null);
+            sqlcmd = " INSERT INTO  [Sys_TQF_Outcome] ";
+            sqlcmd += " ([Id]";
+            sqlcmd += " ,[TQFId]";
+            sqlcmd += " ,[IsDelete]";
+            sqlcmd += " ,[CreateDate]";
+            sqlcmd += " ,[Createby])";
+            sqlcmd += " Values(";
+            sqlcmd += "'" + id + "'";
+            sqlcmd += ",'" + json + "'";
+            sqlcmd += ",0";
+            sqlcmd += ",getdate()";
+            sqlcmd += ",'" + ((Clsuser)HttpContext.Current.Session["My"]).userid + "')";
+            cn.Execute(sqlcmd, null);
+            return "";
+        }
         [WebMethod]
         public static string Savequality(string json)
         {
@@ -2439,19 +2494,19 @@ namespace E_OfficePI.Page.TQF
             return "";
 
         }
-        [WebMethod]
-        public static string Updateoutcome(string json)
-        {
+        //[WebMethod]
+        //public static string Updateoutcome(string json)
+        //{
 
-            List<ClsDict> Dicts = new List<ClsDict>();
-            SqlConnector cn = new SqlConnector(Connectionstring, null);
-            Dicts = ClsEngine.DeSerialized(json, ':', '|');
-            string sqlcmd = "Update Sys_TQF_outcome set Value ='" + ClsEngine.FindValue(Dicts, "val") + "' Where id='" + ClsEngine.FindValue(Dicts, "TQFoutcomeid") + "'";
-            cn.Execute(sqlcmd, null);
-            return "";
+        //    List<ClsDict> Dicts = new List<ClsDict>();
+        //    SqlConnector cn = new SqlConnector(Connectionstring, null);
+        //    Dicts = ClsEngine.DeSerialized(json, ':', '|');
+        //    string sqlcmd = "Update Sys_TQF_outcome set Value ='" + ClsEngine.FindValue(Dicts, "val") + "' Where id='" + ClsEngine.FindValue(Dicts, "TQFoutcomeid") + "'";
+        //    cn.Execute(sqlcmd, null);
+        //    return "";
 
 
-        }
+        //}
 
         [WebMethod]
         public static string Updateratio(string json)

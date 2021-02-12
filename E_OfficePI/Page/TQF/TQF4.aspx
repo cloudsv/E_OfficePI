@@ -83,7 +83,33 @@
     </style>
      
         <script>
+            function Newoutcome() {
+                var json = $('#HdTQFId').val();
+                $.ajax({
+                    type: "POST",
+                    url: "\../Page/TQF/TQF4.aspx/Newoutcome",
+                    data: "{'json' :'" + json + "'}",
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    beforeSend: function () {
+                        $(".loader").fadeOut("slow");
+                    },
+                    success: function (response) {
+                        res = response.d;
+                        if (res != "") {
+                            Msgbox(res);
+                            return;
+                        }
+                        Getoutcome();
+                    },
+                    async: true,
+                    error: function (er) {
 
+                    }
+                });
+
+
+            }
             function Closenewquality() {
                 $('#Divnewquality').modal('hide');
             }
@@ -2464,8 +2490,64 @@
             $('#Divmodalobjective').modal('show');
             Bindnewobjective();
         }
+        function Deleteoutcome(x) {
+            $.ajax({
+                type: "POST",
+                url: "\../Page/TQF/TQF4.aspx/Deleteoutcome",
+                data: "{'json' :'" + x + "'}",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                beforeSend: function () {
+                    Updateoutcome();
+                    $(".loader").fadeOut("slow");
+                },
+                success: function (response) {
+                    res = response.d;
+                    if (res != "") {
+                        Msgbox(res);
+                        return;
+                    }
+                    Getoutcome();
+                },
+                async: true,
+                error: function (er) {
+
+                }
+            });
+        }
+        function Updateoutcome() {
+
+            var json = $('#HdTQFId').val();
+            var dat = '';
+            $('#Divoutcome').find('textarea').each(function () {
+                dat += $(this).attr('id') + ':' + $(this).val() + '|';
+            });
+            $.ajax({
+                type: "POST",
+                url: "\../Page/TQF/TQF4.aspx/Updateoutcome",
+                data: "{'json' :'" + json + "','dat' :'" + dat + "'}",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                beforeSend: function () {
+                    $(".loader").fadeOut("slow");
+                },
+                success: function (response) {
+                    res = response.d;
+                    if (res != "") {
+                        Msgbox(res);
+                        return;
+                    }
+                    Getoutcome();
+                    Msgboxsuccess('บันทึกข้อมูลเรียบร้อยแล้ว');
+                },
+                async: true,
+                error: function (er) {
+
+                }
+            });
+        }
         function Getoutcome() {
-           
+
             var html = '';
             var json = $('#HdTQFId').val();
             $.ajax({
@@ -2484,20 +2566,28 @@
                         return;
                     }
                     html += '<table class="table table-bordered">';
-                    for (i = 0; i < res.length; i++) {
+
+                    if (res.length == 0) {
                         html += '<tr>';
-                        html += '<td>' + res[i]['Topic'];
-                        html += '</td>';
                         html += '<td>';
-                        html += '<div class="container">';
-                        html += '<div class="col-12">';
-                        html += '<input type="text" class="form-control" onblur="Updateoutcome(\'' + res[i]['TQFoutcomeId'] + '\',\'Txtoutcome_' + res[i]['TQFoutcomeId'] + '\');" id="Txtoutcome_' + res[i]['TQFoutcomeId'] + '" value="' + res[i]['Value'] + '" /">';
-                        html += '</div>';
-                        html += '<div class="col-12">';
-                        html += '</div>';
-                        html += '</div>';
+                        html += '<div style="color:red;text-align:center;height:50px;">ไม่พบข้อมูล</div>';
                         html += '</td>';
                         html += '</tr>';
+                    }
+                    else {
+                        for (i = 0; i < res.length; i++) {
+                            html += '<tr>';
+                            html += '<td style="width:90%">';
+                            html += '<textarea class="form-control" onblur="Updateoutcome();" id="Txtoutcome_' + res[i]['TQFoutcomeId'] + '" >' + res[i]['Value'] + '</textarea>';
+                            html += '</td>';
+
+
+                            html += '<td>';
+                            html += '<button onclick="Deleteoutcome(' + res[i]['TQFoutcomeId'] + ');" class="btn btn-danger" style="border-radius: 1px;"><span class="fa fa-trash" style="color: white;"></span></button>';
+
+                            html += '</td>';
+                            html += '</tr>';
+                        }
                     }
                     html += '</table>';
                     $('#Divoutcome').html(html);
@@ -2508,6 +2598,50 @@
                 }
             });
         }
+        //function Getoutcome() {
+           
+        //    var html = '';
+        //    var json = $('#HdTQFId').val();
+        //    $.ajax({
+        //        type: "POST",
+        //        url: "\../Page/TQF/TQF4.aspx/Getoutcome",
+        //        data: "{'json' :'" + json + "'}",
+        //        contentType: "application/json; charset=utf-8",
+        //        dataType: "json",
+        //        beforeSend: function () {
+        //            $(".loader").fadeOut("slow");
+        //        },
+        //        success: function (response) {
+        //            res = response.d;
+        //            if (res == null) {
+        //                Msgbox('ไม่สามารถแสดงข้อมูลแบบสอบถาม มคอ. ได้ โปรดติดต่อผู้ดูแลระบบ');
+        //                return;
+        //            }
+        //            html += '<table class="table table-bordered">';
+        //            for (i = 0; i < res.length; i++) {
+        //                html += '<tr>';
+        //                html += '<td>' + res[i]['Topic'];
+        //                html += '</td>';
+        //                html += '<td>';
+        //                html += '<div class="container">';
+        //                html += '<div class="col-12">';
+        //                html += '<input type="text" class="form-control" onblur="Updateoutcome(\'' + res[i]['TQFoutcomeId'] + '\',\'Txtoutcome_' + res[i]['TQFoutcomeId'] + '\');" id="Txtoutcome_' + res[i]['TQFoutcomeId'] + '" value="' + res[i]['Value'] + '" /">';
+        //                html += '</div>';
+        //                html += '<div class="col-12">';
+        //                html += '</div>';
+        //                html += '</div>';
+        //                html += '</td>';
+        //                html += '</tr>';
+        //            }
+        //            html += '</table>';
+        //            $('#Divoutcome').html(html);
+        //        },
+        //        async: true,
+        //        error: function (er) {
+
+        //        }
+        //    });
+        //}
         function Deleteestimate(x) {
             var json = x;
             $.ajax({
@@ -4761,7 +4895,12 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="row mt-1">
+                                              <div class="row mt-1">
+                                                <button onclick="Newoutcome();" class="btn btn-info" style="border-radius: 1px; margin: 5px; font-size: 14px;">เพิ่มวัตถุประสงค์รายวิชา</button>
+                                            </div>
+                                            <div class="row mt-3" id="Divoutcome">
+                                            </div>
+                                          <%--  <div class="row mt-1">
                                                 <div class="col-12">
                                                     <div class="container" id="Divobjective">
                                                         <div class="row mt-1">
@@ -4820,7 +4959,7 @@
                                                         </td>
                                                     </tr>
                                                 </table>
-                                            </div>
+                                            </div>--%>
                                         </div>
 
                                     </div>
