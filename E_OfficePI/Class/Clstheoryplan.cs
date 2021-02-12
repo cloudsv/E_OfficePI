@@ -16,11 +16,11 @@ namespace E_OfficePI.Class
 
         public string Teachingplanname { get; set; }
         public string Teachingplantopicname { get; set; }
-        public string Instructorid { get; set; }
-        public string Instructornameth { get; set; }
+        //public string Instructorid { get; set; }
+        //public string Instructornameth { get; set; }
 
         public List<Clsapproverusers> Instructors { get; set; }
-
+        public List<Clsapproverusers> TemplateInstructors { get; set; }
         public List<ClsTheoryplannobjective> Theoryplanobjective { get; set; }
         public List<ClsTheoryplannparticular> Theoryplannparticular { get; set; }
         //public List<ClsTheoryplanntopic> Theoryplanntopic { get; set; }

@@ -850,7 +850,7 @@ namespace E_OfficePI.Page.TQF
             string Learningoutputid = ClsEngine.FindValue(ClsEngine.DeSerialized(json, ':', '|'), "Learningoutputid");
             SqlConnector cn = new SqlConnector(Connectionstring, null);
             string sqlcmd = "";
-            sqlcmd = "Update Sys_TQF_Learningestimate set isdelete = 1,deletedate=getdate(),deleteby='" + ((Clsuser)HttpContext.Current.Session["My"]).userid + "' Where TQFId ='" + TQFId + "' and LearningoutputId='" + Learningoutputid + "' and Estimateid ='" + val + "'";
+            sqlcmd = "Update Sys_TQF_Learningestimate set isdelete = 1,deletedate=getdate(),deleteby='" + ((Clsuser)HttpContext.Current.Session["My"]).userid + "' Where TQFId ='" + TQFId + "'  and Estimateid ='" + val + "'";
             cn.Execute(sqlcmd, null);
             return "";
 
@@ -863,7 +863,7 @@ namespace E_OfficePI.Page.TQF
             string Learningoutputid = ClsEngine.FindValue(ClsEngine.DeSerialized(json, ':', '|'), "Learningoutputid");
             SqlConnector cn = new SqlConnector(Connectionstring, null);
             string sqlcmd = "";
-            sqlcmd = "Update Sys_TQF_Learningpartcular set isdelete = 1,deletedate=getdate(),deleteby='" + ((Clsuser)HttpContext.Current.Session["My"]).userid + "' Where TQFId ='" + TQFId + "' and LearningoutputId='" + Learningoutputid + "' and Particularid ='" + val + "'";
+            sqlcmd = "Update Sys_TQF_Learningpartcular set isdelete = 1,deletedate=getdate(),deleteby='" + ((Clsuser)HttpContext.Current.Session["My"]).userid + "' Where TQFId ='" + TQFId + "'  and Particularid ='" + val + "'";
             cn.Execute(sqlcmd, null);
             return "";
 
@@ -1354,12 +1354,18 @@ namespace E_OfficePI.Page.TQF
             DataTable Dtparticular = new DataTable();
             DataTable Dtestimate = new DataTable();
             DataTable Dtins = new DataTable();
+            DataTable Dtinstructor = new DataTable();
+            Clsapproverusers _I;
             Clsapproverusers _V;
             List<Clsapproverusers> Vs = new List<Clsapproverusers>();
             Dt = cn.Select(sqlcmd);
 
             sqlcmd = "  Select isnull(e.InsRegular,'0'),isnull(e.InsTheory,'0'),isnull(e.InsExtra,'0'), u.id as Userid,isnull(FirstnameTH,'') as FirstnameTH, LastnameTH as LastnameTH  from sys_core_user u inner join Sys_HR_Empdetail e on u.id = e.userid left join Sys_Master_Organizeuser ou on ou.Userid = e.userid where u.isdelete =0  and e.isdelete = 0  and (isnull(e.InsRegular,'0') <> '0' OR isnull(e.InsTheory,'0') <> '0' OR isnull(e.InsExtra,'0') <> '0')  and Ou.Orgid = '" + ((Clsuser) HttpContext.Current.Session["My"]).iseducate + "'";
             Dtins = cn.Select(sqlcmd);
+            Dtinstructor = new DataTable();
+            sqlcmd = "Select * from [Sys_TQF_TheoryplanInstructor] where isdelete = 0 and tqfid = '" + json + "'";
+            Dtinstructor = cn.Select(sqlcmd);
+
             foreach (DataRow dr in Dt.Rows)
             {
                 Dtobjective = new DataTable();
@@ -1378,10 +1384,7 @@ namespace E_OfficePI.Page.TQF
                 //sqlcmd = "Select o.id as estimateid, isnull(tf.id,'0') as id,o.Estimate  from Sys_Master_Estimate o left join [Sys_TQF_TheoryplanEstimate]  tf on o.id = tf.estimateid and theoryplanid = '" + dr["id"].ToString() + "' and tf.isdelete = 0 where o.IsDelete = 0 ";
                 Dtestimate = cn.Select(sqlcmd);
 
-
-                //sqlcmd = "Select * from Sys_TQF_TheoryplanTeachingTopic t inner join Sys_Master_Teachingtopic m on t.teachingtopicid = m.id  where t.isdelete = 0 and theoryplanid = '" + dr["id"].ToString() + "'  and TQFId ='" + json + "'";
-                //Dttopic = cn.Select(sqlcmd);
-
+             
 
                 Obj = new Clstheoryplan();
                 Obj.id = dr["id"].ToString();
@@ -1391,7 +1394,16 @@ namespace E_OfficePI.Page.TQF
 
                 Obj.Teachingplantopicname = dr["Teachingplantopicname"].ToString();
                 Obj.Teachingplanname = dr["Teachingplanname"].ToString();
-                Obj.Instructorid = dr["Instructorid"].ToString();
+
+                Obj.Instructors = new List<Clsapproverusers>();
+                foreach(DataRow _idr in Dtinstructor.Select("Theoryplanid ='" + dr["id"].ToString() + "'"))
+                {
+                    _I = new Clsapproverusers();
+                    _I.Userid = _idr["Userid"].ToString();
+                    _I.Firstname = _idr["Firstname"].ToString();
+                    _I.Lastname = _idr["Lastname"].ToString();
+                    Obj.Instructors.Add(_I);
+                }
                 Vs = new List<Clsapproverusers>();
                 foreach (DataRow _dr in Dtins.Rows)
                 {
@@ -1401,20 +1413,12 @@ namespace E_OfficePI.Page.TQF
                     _V.Lastname = _dr["LastnameTH"].ToString();
                     Vs.Add(_V);
                 }
-                Obj.Instructors = Vs;
+                Obj.TemplateInstructors = Vs;
+
+            
 
 
                 Obj.Createbynameth = dr["Createbynameth"].ToString();
-                //Obj.Theoryplanntopic = new List<ClsTheoryplanntopic>();
-                //foreach (DataRow t_dr in Dttopic.Rows)
-                //{
-                //    TObj = new ClsTheoryplanntopic();
-                //    TObj.id = t_dr["id"].ToString();
-                //    TObj.Teachingplanid = t_dr["Teachingplanid"].ToString();
-                //    TObj.Teachingtopicid = t_dr["Teachingtopicid"].ToString();
-                //    TObj.Teachingtopicdesc = t_dr["desc"].ToString();
-                //    Obj.Theoryplanntopic.Add(TObj);
-                //}
                 Obj.Theoryplanobjective = new List<ClsTheoryplannobjective>();
                 foreach (DataRow o_dr in Dtobjective.Rows)
                 {
@@ -2541,12 +2545,16 @@ namespace E_OfficePI.Page.TQF
         {
             string val = ClsEngine.FindValue(ClsEngine.DeSerialized(json, ':', '|'), "val");
             string TQFId = ClsEngine.FindValue(ClsEngine.DeSerialized(json, ':', '|'), "HdTQFId");
-            string Learningoutputid = ClsEngine.FindValue(ClsEngine.DeSerialized(json, ':', '|'), "Learningoutputid").Split('_')[1];
+            string Learningoutputid = "0"; // ไม่ได้ใช้แล้ว
             SqlConnector cn = new SqlConnector(Connectionstring, null);
             string id = "";
             string sqlcmd = "";
-            sqlcmd = "Update Sys_TQF_Learningestimate set isdelete = 1,deletedate=getdate(),deleteby='" + ((Clsuser)HttpContext.Current.Session["My"]).userid + "' Where TQFId ='" + TQFId + "' and LearningoutputId='" + Learningoutputid + "' and estimateid ='" + val + "'";
-            cn.Execute(sqlcmd, null);
+            if (cn.Select("Select * from Sys_TQF_Learningestimate where isdelete = 0 and TQFId ='" + TQFId + "'  and estimateid ='" + val + "'").Rows.Count > 0)
+            {
+                return "รายการที่เลือกซ้ำ";
+            }
+            //sqlcmd = "Update Sys_TQF_Learningestimate set isdelete = 1,deletedate=getdate(),deleteby='" + ((Clsuser)HttpContext.Current.Session["My"]).userid + "' Where TQFId ='" + TQFId + "' and LearningoutputId='" + Learningoutputid + "' and estimateid ='" + val + "'";
+            //cn.Execute(sqlcmd, null);
             id = ClsEngine.GenerateRunningId(Connectionstring, "Sys_TQF_Learningestimate", "id");
             sqlcmd = " INSERT INTO [Sys_TQF_Learningestimate] ";
             sqlcmd += " ([id] ";
@@ -2575,12 +2583,22 @@ namespace E_OfficePI.Page.TQF
         {
             string val = ClsEngine.FindValue(ClsEngine.DeSerialized(json, ':', '|'), "val");
             string TQFId = ClsEngine.FindValue(ClsEngine.DeSerialized(json, ':', '|'), "HdTQFId");
-            string Learningoutputid = ClsEngine.FindValue(ClsEngine.DeSerialized(json, ':', '|'), "Learningoutputid").Split('_')[1];
+            string Learningoutputid = ClsEngine.FindValue(ClsEngine.DeSerialized(json, ':', '|'), "Learningparticularid").Split('_')[1];
             SqlConnector cn = new SqlConnector(Connectionstring, null);
             string id = "";
             string sqlcmd = "";
-            sqlcmd = "Update Sys_TQF_Learningpartcular set isdelete = 1,deletedate=getdate(),deleteby='" + ((Clsuser)HttpContext.Current.Session["My"]).userid + "' Where TQFId ='" + TQFId + "' and LearningoutputId='" + Learningoutputid + "' and Particularid ='" + val + "'";
-            cn.Execute(sqlcmd, null);
+
+
+           if (cn.Select("Select * from Sys_TQF_Learningpartcular where isdelete = 0 and TQFId ='" + TQFId + "'  and Particularid ='" + val + "'").Rows.Count > 0)
+            {
+                return "รายการที่เลือกซ้ำ";
+            }
+
+
+
+
+            //sqlcmd = "Update Sys_TQF_Learningpartcular set isdelete = 1,deletedate=getdate(),deleteby='" + ((Clsuser)HttpContext.Current.Session["My"]).userid + "' Where TQFId ='" + TQFId + "'  and Particularid ='" + val + "'";
+            //cn.Execute(sqlcmd, null);
             id = ClsEngine.GenerateRunningId(Connectionstring, "Sys_TQF_Learningpartcular", "id");
             sqlcmd = " INSERT INTO [Sys_TQF_Learningpartcular] ";
             sqlcmd += " ([id] ";
@@ -2593,7 +2611,7 @@ namespace E_OfficePI.Page.TQF
             sqlcmd += " VALUES ( ";
             sqlcmd += "'" + id + "'";
             sqlcmd += ",'" + TQFId + "'";
-            sqlcmd += ",'" + Learningoutputid + "'";
+            sqlcmd += ",'0'";
             sqlcmd += ",'" + val + "'";
             sqlcmd += ",'0'";
             sqlcmd += ",Getdate()";

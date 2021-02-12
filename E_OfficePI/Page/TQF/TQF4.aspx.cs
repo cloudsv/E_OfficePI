@@ -176,7 +176,7 @@ namespace E_OfficePI.Page.TQF
             SqlConnector cn = new SqlConnector(Connectionstring, null);
             string id = "";
             string sqlcmd = "";
-            sqlcmd = "Update Sys_TQF_quality set isdelete = 1,deletedate=getdate(),deleteby='" + ((Clsuser)HttpContext.Current.Session["My"]).userid + "' Where TQFId ='" + TQFId + "' and Trainingid ='" + Trainingid + "' and qualityid ='" + val + "'";
+            sqlcmd = "Update Sys_TQF_quality set isdelete = 1,deletedate=getdate(),deleteby='" + ((Clsuser)HttpContext.Current.Session["My"]).userid + "' Where TQFId ='" + TQFId + "' and Trainingid ='" + Trainingid + "'";
             cn.Execute(sqlcmd, null);
             id = ClsEngine.GenerateRunningId(Connectionstring, "Sys_TQF_quality", "id");
             sqlcmd = " INSERT INTO [Sys_TQF_quality] ";
@@ -208,7 +208,7 @@ namespace E_OfficePI.Page.TQF
             SqlConnector cn = new SqlConnector(Connectionstring, null);
             string id = "";
             string sqlcmd = "";
-            sqlcmd = "Update Sys_TQF_trainingsource set isdelete = 1,deletedate=getdate(),deleteby='" + ((Clsuser)HttpContext.Current.Session["My"]).userid + "' Where TQFId ='" + TQFId + "' and Trainingid ='" + Trainingid + "' and trainingsourceid ='" + val + "'";
+            sqlcmd = "Update Sys_TQF_trainingsource set isdelete = 1,deletedate=getdate(),deleteby='" + ((Clsuser)HttpContext.Current.Session["My"]).userid + "' Where TQFId ='" + TQFId + "' and Trainingid ='" + Trainingid + "'";
             cn.Execute(sqlcmd, null);
             id = ClsEngine.GenerateRunningId(Connectionstring, "Sys_TQF_trainingsource", "id");
             sqlcmd = " INSERT INTO [Sys_TQF_trainingsource] ";
@@ -240,7 +240,7 @@ namespace E_OfficePI.Page.TQF
             SqlConnector cn = new SqlConnector(Connectionstring, null);
             string id = "";
             string sqlcmd = "";
-            sqlcmd = "Update Sys_TQF_ServiceLv set isdelete = 1,deletedate=getdate(),deleteby='" + ((Clsuser)HttpContext.Current.Session["My"]).userid + "' Where TQFId ='" + TQFId + "' and Trainingid ='" + Trainingid + "' and servicelvid ='" + val + "'";
+            sqlcmd = "Update Sys_TQF_ServiceLv set isdelete = 1,deletedate=getdate(),deleteby='" + ((Clsuser)HttpContext.Current.Session["My"]).userid + "' Where TQFId ='" + TQFId + "' and Trainingid ='" + Trainingid + "'";
             cn.Execute(sqlcmd, null);
             id = ClsEngine.GenerateRunningId(Connectionstring, "Sys_TQF_ServiceLv", "id");
             sqlcmd = " INSERT INTO [Sys_TQF_ServiceLv] ";

@@ -7,8 +7,7 @@
 
     <link href="../../js/datepicker/datepicker.css" rel="stylesheet" />
     <link href="../../Select2/css/bootstrap-select.css" rel="stylesheet" />
-
-
+    <script src="../../js/Numeric.js"></script>
     <title></title>
     <style>
       
@@ -86,7 +85,23 @@
     </style>
     <script>
 
-
+        function Calc() {
+            var value = 0;
+            var res = 0;
+            $('*[id*=Txtestimatepercent_]').each(function () {
+                try {
+                    if ($(this).val() == '') {
+                        $(this).val(0);
+                    }
+                    res += parseFloat($(this).val().replace(/,/g, ''));
+                }
+                catch (ex) {
+                    res = 0;
+                }
+            });
+            $('#Txttotalpercent').val(FormatWithRound2Digit(res));
+        }
+       
         function Deleterecommenddocument(x) {
             $.ajax({
                 type: "POST",
@@ -1388,8 +1403,12 @@
             var top = ((height / 2) - (h / 2)) + dualScreenTop;
             window.open('../Attachment/Upload.aspx?key=' + key, '_blank', 'directories=no,titlebar=no,toolbar=no,location=no,status=no,menubar=no,scrollbars=yes, width=' + w + ', height=' + h + ', top=' + top + ', left=' + left);
         }
-        function DelEst(x) {
-            var json = x;
+        function DelEst(Learningoutputid, x) {
+            var json = '';
+            json = '';
+            json += 'HdTQFId :' + $('#HdTQFId').val() + '|';
+            json += 'Learningoutputid :' + Learningoutputid + '|';
+            json += 'val :' + x + '|';
             $.ajax({
                 type: "POST",
                 url: "\../Page/TQF/TQF3.aspx/DelEst",
@@ -1885,7 +1904,7 @@
                             _html += "<input type='text' class='form-control' style='text-align:right;'   id='Txtestimateweek_" + response.d[i]['id'] + "' value= '" + response.d[i]['Week'] + "' />"
                             _html += "</td>";
                             _html += "<td>";
-                            _html += "<input type='number' class='form-control' style='text-align:right;' maxlength='3' style='text-align:right;' id='Txtestimatepercent_" + response.d[i]['id'] + "' value= '" + response.d[i]['Percent'] + "' />"
+                            _html += "<input  class='form-control' style='text-align:right;' maxlength='3' style='text-align:right;' onkeyup='Calc();' onblur='FormatWithRound(this, 2)' onfocus='UnFormat(this)' onkeypress='OnlyNumeric(event, this)' id='Txtestimatepercent_" + response.d[i]['id'] + "' value= '" + response.d[i]['Percent'] + "' />"
                             _html += "</td>";
                             _html += "<td>";
                             _html += "<button onclick='Delestimateplan(" + response.d[i]['id'] + ");' class='btn btn-danger' ><i class='fa fa-trash' aria-hidden='true'></i></button>";
@@ -1896,7 +1915,8 @@
                             totalpercent = Number(totalpercent) + Number(response.d[i]['Percent']);
                         }
                         $('#Divestimateplan').html(_html);
-                        $('#Txttotalpercent').val(totalpercent);
+                        $('#Txttotalpercent').val(FormatWithRound2Digit(totalpercent));
+                 
                         for (i = 0; i < response.d.length; i++) {
 
                             //$("#Dtptptrdate_" + response.d[i]['id']).datepicker({
@@ -1939,6 +1959,8 @@
         function Saveestimateplan() {
             var json = '';
             var Div = 'Divestimateplan'
+            var num;
+            
             $("#" + Div).find('input').each(function () {
                 json += $(this).attr('id') + ':' + $(this).val() + "|";
             });
@@ -1946,6 +1968,12 @@
                 json += $(this).attr('id') + ':' + $(this).val() + "|";
             });
             json += 'TQFid:' + $('#HdTQFId').val() + '|';
+            Calc();
+            num = parseFloat($('#Txttotalpercent').val().replace(/,/g, ''));
+            if (num > 100) {
+                Msgbox('ร้อยละต้องไม่เกิน 100');
+                return;
+            }
             $.ajax({
                 type: "POST",
                 url: "\../Page/TQF/TQF3.aspx/Saveestimateplan",
@@ -1954,6 +1982,7 @@
                 dataType: "json",
                 beforeSend: function () {
                     $(".loader").fadeOut("slow");
+                    
                 },
                 success: function (response) {
                     Msgboxsuccess('ดำเนินการเรียบร้อยแล้ว');
@@ -2555,7 +2584,7 @@
 
                             _html += "<tr>";
                             _html += "<td >";
-                            _html += "<span>ชั่วโมงทษฏีกับปฏิบัติ</span>";
+                            _html += "<span>ชั่วโมงทฤษฏีกับปฏิบัติ</span>";
                             _html += "</td>";
                             _html += "</tr>";
 
@@ -2644,28 +2673,59 @@
                             _html += "</td>";
                             _html += "<td>";
 
-                            _html += '<select class="form-control" id="Cbtpins_' + response.d[i]['id'] + '">';
-                            if (response.d[i]['Instructorid'] == '') {
-                                _html += '<option value="" selected="selected">--ไม่ระบุ--</option>';
-                            }
-                            else {
-                                _html += '<option value="">--ไม่ระบุ--</option>';
-                            }
+                            //_html += '<select class="form-control" id="Cbtpins_' + response.d[i]['id'] + '">';
+                            //if (response.d[i]['Instructorid'] == '') {
+                            //    _html += '<option value="" selected="selected">--ไม่ระบุ--</option>';
+                            //}
+                            //else {
+                            //    _html += '<option value="">--ไม่ระบุ--</option>';
+                            //}
+                            //for (j = 0; j < response.d[i]['Instructors'].length; j++) {
+                            //    if (response.d[i]['Instructors'][j]['Userid'] == response.d[i]['Instructorid']) {
+                            //        _html += '<option value="' + response.d[i]['Instructors'][j]["Userid"] + '" selected="selected">' + response.d[i]['Instructors'][j]["Firstname"] + " " + response.d[i]['Instructors'][j]["Lastname"] + '</option>';
+                            //    }
+                            //    else {
+                            //        _html += '<option value="' + + response.d[i]['Instructors'][j]["Userid"] + '">' + response.d[i]['Instructors'][j]["Firstname"] + " " + response.d[i]['Instructors'][j]["Lastname"] + '</option>';
+                            //    }
+                            //}
+                            //_html += '</select>';
+
+                            _html += "<table  class='table table-bordered' style='table-layout: fixed;width:100%;'>";
+
+
                             for (j = 0; j < response.d[i]['Instructors'].length; j++) {
-
-
-                                if (response.d[i]['Instructors'][j]['Userid'] == response.d[i]['Instructorid']) {
-                                    _html += '<option value="' + response.d[i]['Instructors'][j]["Userid"] + '" selected="selected">' + response.d[i]['Instructors'][j]["Firstname"] + " " + response.d[i]['Instructors'][j]["Lastname"] + '</option>';
+                                _html += "<tr>";
+                                _html += "<td style='width: 80%;'>";
+                                _html += '<select class="form-control" id="Cbtpins_' + response.d[i]['id'] + '_' + response.d[i]['Userid'] + '">';
+                                for (k = 0; k < response.d[i]['TemplateInstructors'].length; k++) {
+                                    _html += '<option value="' + response.d[i]['TemplateInstructors'][k]['Userid'] + '">' + response.d[i]['TemplateInstructors'][k]['Firstname'] + " " + response.d[i]['TemplateInstructors'][k]['Lastname'] + '</option>';
                                 }
-                                else {
-                                    _html += '<option value="' + + response.d[i]['Instructors'][j]["Userid"] + '">' + response.d[i]['Instructors'][j]["Firstname"] + " " + response.d[i]['Instructors'][j]["Lastname"] + '</option>';
-                                }
+                                _html += '</select>';
+                                _html += "</td>";
+                                _html += "<td style='width: 20%;'>";
+                                _html += "&nbsp;<button style='font-size:9px !important;'  class='btn btn-danger' onclick='DelInstructor(" + response.d[i]['Userid'] + ',' + response.d[i]['id'] + ");'><i class='fa fa-trash' style='font-size:9px !important;' aria-hidden='true'></i></button>";
+                                _html += "</td>";
+                                _html += "</tr>";
+                            }
+                          
+                            _html += "<tr>";
+                            _html += "<td  style='width: 80%;'>";
+
+                            _html += '<select id="Cbtpins_' + response.d[i]['id'] + '_0' + '" class="form-control">';
+                            for (k = 0; k < response.d[i]['TemplateInstructors'].length; k++) {
+                                _html += '<option value="' + response.d[i]['TemplateInstructors'][k]['Userid'] + '">' + response.d[i]['TemplateInstructors'][k]['Firstname'] + " " + response.d[i]['TemplateInstructors'][k]['Lastname'] + '</option>';
                             }
                             _html += '</select>';
 
-
                             _html += "</td>";
+                            _html += "<td>";
+                            _html += "</td>";
+                            _html += "</tr>";
+                           
+                            _html += "</table>";
 
+                        
+                            _html += "</td>";
                             _html += "<td>";
                             _html += "<button onclick='Deltheoryplan(" + response.d[i]['id'] + ");' class='btn btn-danger' ><i class='fa fa-trash' aria-hidden='true'></i></button>";
                             _html += "</td>";
@@ -2674,6 +2734,7 @@
                             _html += "</tr>";
                         }
                         $('#Divtheoryplan').html(_html);
+                       
                         //for (i = 0; i < response.d.length; i++) {
 
                         //    $("#Dtptptrdate_" + response.d[i]['id']).datepicker({
@@ -3338,16 +3399,14 @@
                     for (j = 0; j < response.d['Lens'].length; j++) {
                         html += "<tr>";
                         html += "<td style='width: 100%;'>";
-                        html += "<span>" + response.d["Learningoutputname"] + "</span>";
+                        html += "<span>" + response.d['Lens'][j]["Learningoutputname"] + "</span>";
                         
                         html += "</td>";
                         html += "</tr>";
                     }
                     html += "<tr>";
                  
-                    html += "<td>";
-                    html += "<button style='font-size:9px !important;'  class='btn btn-success' onclick='AddPar();'><i class='fa fa-plus' style='font-size:9px !important;' aria-hidden='true'></i></button>";
-                    html += "</td>";
+                   
                     html += "</tr>";
                     html += "</table>";
                     html += '</td>';                   
@@ -3361,7 +3420,7 @@
                             html += "<tr>";
                             html += "<td style='width: 80%;'>";
 
-                            html += '<select id="Cbparticulars_' + response.d['Particulars'][j]['Learningparticularid'] + '_' + response.d['Particulars'][j]['Particularid'] + '" class="form-control">';
+                            html += '<select id="Cbparticulars_' + response.d['Particulars'][j]['Particularid'] + '" class="form-control">';
 
                             for (k = 0; k < response.d['MasterParticulars'].length; k++) {
                                 html += '<option value="' + response.d['MasterParticulars'][k]['Particularid'] + '">' + response.d['MasterParticulars'][k]['Particularname'] + '</option>';
@@ -3402,7 +3461,7 @@
                             html += "<tr>";
                             html += "<td>";
 
-                            html += '<select id="Cbestimates_' + response.d['Learningestimateid'] + '_' + response.d['Estimates'][j]['Estimateid'] + '" class="form-control" >';
+                            html += '<select id="Cbestimates_' + response.d['Estimates'][j]['Estimateid'] + '" class="form-control" >';
 
                             for (k = 0; k < response.d['MasterEstimates'].length; k++) {
                                 html += '<option value="' + response.d['MasterEstimates'][k]['Estimateid'] + '">' + response.d['MasterEstimates'][k]['Estimatename'] + '</option>';
@@ -3411,14 +3470,14 @@
                             html += "</td>";
                             html += "<td>";
                             html += "<button style='font-size:9px !important;'  class='btn btn-success' onclick='AddEst();'><i class='fa fa-plus' style='font-size:9px !important;' aria-hidden='true'></i></button>";
-                            html += "&nbsp;<button style='font-size:9px !important;'  class='btn btn-danger' onclick='DelEst(" + response.d['Learningestimateid'] + ',' + response.d['Estimates'][j]['Estimateid'] + ");'><i class='fa fa-trash' style='font-size:9px !important;' aria-hidden='true'></i></button>";
+                            html += "&nbsp;<button style='font-size:9px !important;'  class='btn btn-danger' onclick='DelEst(" + response.d['Estimates'][j]['Learningestimateid']  + ',' + response.d['Estimates'][j]['Estimateid'] + ");'><i class='fa fa-trash' style='font-size:9px !important;' aria-hidden='true'></i></button>";
                             html += "</td>";
                             html += "</tr>";
                         }
                         html += "<tr>";
                         html += "<td>";
 
-                        html += '<select id="Cbestimates_' + response.d['Learningoutputid'] + '_0' + '" class="form-control">';
+                        html += '<select id="Cbestimates_0' + '" class="form-control">';
                         for (k = 0; k < response.d['MasterEstimates'].length; k++) {
                             html += '<option value="' + response.d['MasterEstimates'][k]['Estimateid'] + '">' + response.d['MasterEstimates'][k]['Estimatename'] + '</option>';
                         }
@@ -3450,15 +3509,15 @@
 
                     $('#Divestimateoutput').html(html);
 
-                    for (i = 0; i < response.d.length; i++) {
+                  
                         for (j = 0; j < response.d['Particulars'].length; j++) {
-                            $('#Cbparticulars_' + response.d['Learningparticularid'] + '_' + response.d['Particulars'][j]['Particularid']).selectpicker({
+                            $('#Cbparticulars_' + response.d['Particulars'][j]['Particularid']).selectpicker({
                                 liveSearch: true,
                                 maxOptions: 1
                             });
 
 
-                            $('#Cbparticulars_' + response.d['Learningparticularid'] + '_' + response.d['Particulars'][j]['Particularid']).on('change', function () {
+                            $('#Cbparticulars_' + response.d['Particulars'][j]['Particularid']).on('change', function () {
                                 json = '';
                                 json += 'HdTQFId :' + $('#HdTQFId').val() + '|';
                                 json += 'Learningparticularid :' + $(this).attr('id') + '|';
@@ -3471,8 +3530,8 @@
                                     dataType: "json",
                                     success: function (response) {
                                         if (response.d != '') {
-                                            Msgbox(res);
-                                            return;
+                                            Msgbox(response.d);
+                                            
                                         }
                                         Getlearningoutput();
                                     },
@@ -3486,15 +3545,15 @@
 
                             });
 
-                            $('#Cbparticulars_' + response.d['Learningparticularid'] + '_' + response.d['Particulars'][j]['Particularid']).val(response.d['Particulars'][j]['Particularid']).selectpicker('refresh');
+                            $('#Cbparticulars_' + response.d['Particulars'][j]['Particularid']).val(response.d['Particulars'][j]['Particularid']).selectpicker('refresh');
 
                         }
-                        $('#Cbparticulars_' + response.d['Learningparticularid'] + '_0').selectpicker({
+                        $('#Cbparticulars_0').selectpicker({
                             liveSearch: true,
                             maxOptions: 1
                         });
-                        $('#Cbparticulars_' + response.d['Learningparticularid'] + '_0').val('').selectpicker('refresh');
-                        $('#Cbparticulars_' + response.d['Learningparticularid'] + '_0').on('change', function () {
+                        $('#Cbparticulars_0').val('').selectpicker('refresh');
+                        $('#Cbparticulars_0').on('change', function () {
                             json = '';
                             json += 'HdTQFId :' + $('#HdTQFId').val() + '|';
                             json += 'Learningparticularid :' + $(this).attr('id') + '|';
@@ -3507,8 +3566,8 @@
                                 dataType: "json",
                                 success: function (response) {
                                     if (response.d != '') {
-                                        Msgbox(res);
-                                        return;
+                                        Msgbox(response.d);
+                                        
                                     }
                                     Getlearningoutput();
                                 },
@@ -3523,20 +3582,20 @@
                         });
 
 
-                    }
+                    
 
 
 
 
-                    for (i = 0; i < response.d.length; i++) {
+                 
                         for (j = 0; j < response.d['Estimates'].length; j++) {
-                            $('#Cbestimates_' + response.d['Learningestimateid'] + '_' + response.d['Estimates'][j]['Estimateid']).selectpicker({
+                            $('#Cbestimates_' + response.d['Estimates'][j]['Estimateid']).selectpicker({
                                 liveSearch: true,
                                 maxOptions: 1
                             });
 
 
-                            $('#Cbestimates_' + response.d['Learningestimateid'] + '_' + response.d['Estimates'][j]['Estimateid']).on('change', function () {
+                            $('#Cbestimates_' + response.d['Estimates'][j]['Estimateid']).on('change', function () {
                                 json = '';
                                 json += 'HdTQFId :' + $('#HdTQFId').val() + '|';
                                 json += 'Learningestimateid :' + $(this).attr('id') + '|';
@@ -3549,8 +3608,8 @@
                                     dataType: "json",
                                     success: function (response) {
                                         if (response.d != '') {
-                                            Msgbox(res);
-                                            return;
+                                            Msgbox(response.d);
+                                            
                                         }
                                         Getlearningoutput();
                                     },
@@ -3564,15 +3623,15 @@
 
                             });
 
-                            $('#Cbestimates_' + response.d['Learningestimateid'] + '_' + response.d['Estimates'][j]['Estimateid']).val(response.d['Estimates'][j]['Estimateid']).selectpicker('refresh');
+                            $('#Cbestimates_' + response.d['Estimates'][j]['Estimateid']).val(response.d['Estimates'][j]['Estimateid']).selectpicker('refresh');
 
                         }
-                        $('#Cbestimates_' + response.d['Learningestimateid'] + '_0').selectpicker({
+                        $('#Cbestimates_0').selectpicker({
                             liveSearch: true,
                             maxOptions: 1
                         });
-                        $('#Cbestimates_' + response.d['Learningestimateid'] + '_0').val('').selectpicker('refresh');
-                        $('#Cbestimates_' + response.d['Learningestimateid'] + '_0').on('change', function () {
+                        $('#Cbestimate_0').val('').selectpicker('refresh');
+                        $('#Cbestimates_0').on('change', function () {
                             json = '';
                             json += 'HdTQFId :' + $('#HdTQFId').val() + '|';
                             json += 'Learningestimateid :' + $(this).attr('id') + '|';
@@ -3585,8 +3644,8 @@
                                 dataType: "json",
                                 success: function (response) {
                                     if (response.d != '') {
-                                        Msgbox(res);
-                                        return;
+                                        Msgbox(response.d);
+                                       
                                     }
                                     Getlearningoutput();
                                 },
@@ -3601,7 +3660,7 @@
                         });
 
 
-                    }
+                   
 
                 },
                 async: false,
@@ -6165,10 +6224,10 @@
                                                     <button class="btn btn-secondary" style="border-radius: 1px;" onclick="Newestimateplan();">เพิ่มแผนการประเมินผลการเรียนรู้</button>
                                                     <button class="btn btn-danger" style="border-radius: 1px;" onclick="Saveestimateplan();">บันทึกแผนการประเมินผลการเรียนรู้</button>
                                                 </div>
-                                                <div class="col-5" style="text-align: right;">
+                                                <div class="col-4" style="text-align: right;">
                                                     <span>จำนวนร้อยละรวมทั้งหมด</span>
                                                 </div>
-                                                <div class="col-1" style="text-align: right;">
+                                                <div class="col-2" style="text-align: right;">
                                                     <input type="text" class="form-control" style="color: red; text-align: right;" id="Txttotalpercent" readonly="readonly" />
                                                 </div>
                                             </div>
@@ -6308,8 +6367,19 @@
                                         <div class="container" style="font-size: 16px !important;">
                                             <div class="row mt-1">
                                                 <div class="col-12">
-                                                    <button class="btn btn-primary" onclick="Newtextbook();">เพิ่มตำราและเอกสารหลัก</button></div>
-                                                <div class="col-12" id="Divtextbook" style="margin-top: 20px;">
+                                                   <%-- <button class="btn btn-primary" onclick="Newtextbook();">เพิ่มตำราและเอกสารหลัก</button></div>
+                                                    <div class="col-12" id="Divtextbook" style="margin-top: 20px;">--%>
+                                                </div>
+                                                <div class="col-8">
+                                                    &nbsp;
+                                                </div>
+                                                 <div class="col-4">
+                                                     <div class="input-group mb-3"><input type="text" class="form-control" style="font-size:1em;"  placeholder="รหัสหนังสือ,ชื่อหนังสือ" /><div class="input-group-append"><button class="btn btn-outline-info"   style="font-size: 1.0em; border-radius: 1px;" type="button"><i class="fa fa-search" aria-hidden="true"></i></button></div></div>
+                                                 </div>
+                                                <div class="col-12">
+                                                    <div style="height:200px;border:1px solid lightgray;vertical-align:middle;">
+                                                        <div style="font-size:14px;font-family:Kanit; color:red;text-align:center;margin-top:60px;">ไม่พบข้อมูล</div>
+                                                    </div>
                                                 </div>
                                             </div>
 

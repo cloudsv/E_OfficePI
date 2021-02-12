@@ -1830,29 +1830,25 @@
                             html += "</td>";
                             html += "<td style='width: 20%;'>";
                             html += "<button style='font-size:9px !important;'  class='btn btn-success' onclick='Addtrainingsource();'><i class='fa fa-plus' style='font-size:9px !important;' aria-hidden='true'></i></button>";
-                            html += "&nbsp;<button style='font-size:9px !important;'  class='btn btn-danger' onclick='Deltrainingsource(" + response.d[i]['Trainingid'] + ',' + response.d[i]['Trainingsource'][j]['Trainingsourceid'] + ");'><i class='fa fa-trash' style='font-size:9px !important;' aria-hidden='true'></i></button>";
+                            //html += "&nbsp;<button style='font-size:9px !important;'  class='btn btn-danger' onclick='Deltrainingsource(" + response.d[i]['Trainingid'] + ',' + response.d[i]['Trainingsource'][j]['Trainingsourceid'] + ");'><i class='fa fa-trash' style='font-size:9px !important;' aria-hidden='true'></i></button>";
                             html += "</td>";
                             html += "</tr>";
                         }
-                        html += "<tr>";
-                        html += "<td >";
-
-                        html += '<select id="Cbtrainingsources_' + response.d[i]['Trainingid'] + '_0' + '" class="form-control">';
-                        for (k = 0; k < response.d[i]['Templatetrainingsource'].length; k++) {
-                            html += '<option value="' + response.d[i]['Templatetrainingsource'][k]['Trainingsourceid'] + '">' + response.d[i]['Templatetrainingsource'][k]['Trainingsourcename'] + '</option>';
+                        if (response.d[i]['Trainingsource'].length == 0) {
+                            html += "<tr>";
+                            html += "<td  style='width: 80%;'>";
+                            html += '<select id="Cbtrainingsources_' + response.d[i]['Trainingid'] + '_0' + '" class="form-control">';
+                            for (k = 0; k < response.d[i]['Templatetrainingsource'].length; k++) {
+                                html += '<option value="' + response.d[i]['Templatetrainingsource'][k]['Trainingsourceid'] + '">' + response.d[i]['Templatetrainingsource'][k]['Trainingsourcename'] + '</option>';
+                            }
+                            html += '</select>';
+                            html += "</td>";
+                            html += "<td>";
+                            html += "<button style='font-size:9px !important;'  class='btn btn-success' onclick='Addtrainingsource();'><i class='fa fa-plus' style='font-size:9px !important;' aria-hidden='true'></i></button>";
+                            html += "</td>";
+                            html += "</tr>";
                         }
-                        html += '</select>';
-
-                        html += "</td>";
-                        html += "<td>";
-                        html += "<button style='font-size:9px !important;'  class='btn btn-success' onclick='Addtrainingsource();'><i class='fa fa-plus' style='font-size:9px !important;' aria-hidden='true'></i></button>";
-                        html += "</td>";
-                        html += "</tr>";
                         html += "</table>";
-
-
-
-
                         html += '</td>';
 
 
@@ -1873,24 +1869,32 @@
                             html += "</td>";
                             html += "<td style='width: 20%;'>";
                             html += "<button style='font-size:9px !important;'  class='btn btn-success' onclick='Addservicelv();'><i class='fa fa-plus' style='font-size:9px !important;' aria-hidden='true'></i></button>";
-                            html += "&nbsp;<button style='font-size:9px !important;'  class='btn btn-danger' onclick='Delservicelv(" + response.d[i]['Trainingid'] + ',' + response.d[i]['ServiceLv'][j]['ServiceLvid'] + ");'><i class='fa fa-trash' style='font-size:9px !important;' aria-hidden='true'></i></button>";
+                            //html += "&nbsp;<button style='font-size:9px !important;'  class='btn btn-danger' onclick='Delservicelv(" + response.d[i]['Trainingid'] + ',' + response.d[i]['ServiceLv'][j]['ServiceLvid'] + ");'><i class='fa fa-trash' style='font-size:9px !important;' aria-hidden='true'></i></button>";
                             html += "</td>";
                             html += "</tr>";
                         }
-                        html += "<tr>";
-                        html += "<td >";
 
-                        html += '<select id="Cbservicelvs_' + response.d[i]['Trainingid'] + '_0' + '" class="form-control">';
-                        for (k = 0; k < response.d[i]['TemplateserviceLv'].length; k++) {
-                            html += '<option value="' + response.d[i]['TemplateserviceLv'][k]['ServiceLvid'] + '">' + response.d[i]['TemplateserviceLv'][k]['ServiceLvname'] + '</option>';
+
+
+                        if (response.d[i]['ServiceLv'].length == 0) {
+                            html += "<tr>";
+                            html += "<td style='width: 80%;'>";
+
+                            html += '<select id="Cbservicelvs_' + response.d[i]['Trainingid'] + '_0" class="form-control">';
+
+                            for (k = 0; k < response.d[i]['TemplateserviceLv'].length; k++) {
+                                html += '<option value="' + response.d[i]['TemplateserviceLv'][k]['ServiceLvid'] + '">' + response.d[i]['TemplateserviceLv'][k]['ServiceLvname'] + '</option>';
+                            }
+                            html += '</select>';
+                            html += "</td>";
+                            html += "<td style='width: 20%;'>";
+                            html += "<button style='font-size:9px !important;'  class='btn btn-success' onclick='Addservicelv();'><i class='fa fa-plus' style='font-size:9px !important;' aria-hidden='true'></i></button>";
+
+                            html += "</td>";
+                            html += "</tr>";
                         }
-                        html += '</select>';
 
-                        html += "</td>";
-                        html += "<td>";
-                        html += "<button style='font-size:9px !important;'  class='btn btn-success' onclick='Addservicelv();'><i class='fa fa-plus' style='font-size:9px !important;' aria-hidden='true'></i></button>";
-                        html += "</td>";
-                        html += "</tr>";
+
                         html += "</table>";
                         html += '</td>';
 
@@ -1915,24 +1919,26 @@
                             html += "</td>";
                             html += "<td style='width: 20%;'>";
                             html += "<button style='font-size:9px !important;'  class='btn btn-success' onclick='Addquality();'><i class='fa fa-plus' style='font-size:9px !important;' aria-hidden='true'></i></button>";
-                            html += "&nbsp;<button style='font-size:9px !important;'  class='btn btn-danger' onclick='Delquality(" + response.d[i]['Trainingid'] + ',' + response.d[i]['Quality'][j]['Qualityid'] + ");'><i class='fa fa-trash' style='font-size:9px !important;' aria-hidden='true'></i></button>";
+                            //html += "&nbsp;<button style='font-size:9px !important;'  class='btn btn-danger' onclick='Delquality(" + response.d[i]['Trainingid'] + ',' + response.d[i]['Quality'][j]['Qualityid'] + ");'><i class='fa fa-trash' style='font-size:9px !important;' aria-hidden='true'></i></button>";
                             html += "</td>";
                             html += "</tr>";
                         }
-                        html += "<tr>";
-                        html += "<td >";
+                        if (response.d[i]['Quality'].length == 0) {
+                            html += "<tr>";
+                            html += "<td  style='width: 80%;'>";
 
-                        html += '<select id="Cbqualitys_' + response.d[i]['Trainingid'] + '_0' + '" class="form-control">';
-                        for (k = 0; k < response.d[i]['Templatequality'].length; k++) {
-                            html += '<option value="' + response.d[i]['Templatequality'][k]['Qualityid'] + '">' + response.d[i]['Templatequality'][k]['Qualityname'] + '</option>';
+                            html += '<select id="Cbqualitys_' + response.d[i]['Trainingid'] + '_0' + '" class="form-control">';
+                            for (k = 0; k < response.d[i]['Templatequality'].length; k++) {
+                                html += '<option value="' + response.d[i]['Templatequality'][k]['Qualityid'] + '">' + response.d[i]['Templatequality'][k]['Qualityname'] + '</option>';
+                            }
+                            html += '</select>';
+
+                            html += "</td>";
+                            html += "<td>";
+                            html += "<button style='font-size:9px !important;'  class='btn btn-success' onclick='Addquality();'><i class='fa fa-plus' style='font-size:9px !important;' aria-hidden='true'></i></button>";
+                            html += "</td>";
+                            html += "</tr>";
                         }
-                        html += '</select>';
-
-                        html += "</td>";
-                        html += "<td>";
-                        html += "<button style='font-size:9px !important;'  class='btn btn-success' onclick='Addquality();'><i class='fa fa-plus' style='font-size:9px !important;' aria-hidden='true'></i></button>";
-                        html += "</td>";
-                        html += "</tr>";
                         html += "</table>";
                         html += '</td>';
 
@@ -1946,9 +1952,6 @@
 
 
                     }
-
-                    
-
 
                     html += '</table>';
                     html += '</div>';
@@ -2016,6 +2019,7 @@
                                         Msgbox(res);
                                         return;
                                     }
+                                    Msgboxsuccess('บันทึกข้อมูลเรียบร้อยแล้ว');
                                     Gettraining();
                                 },
                                 async: false,
@@ -2058,6 +2062,7 @@
                                             Msgbox(res);
                                             return;
                                         }
+                                        Msgboxsuccess('บันทึกข้อมูลเรียบร้อยแล้ว');
                                         Gettraining();
                                     },
                                     async: false,
@@ -2094,6 +2099,7 @@
                                         Msgbox(res);
                                         return;
                                     }
+                                    Msgboxsuccess('บันทึกข้อมูลเรียบร้อยแล้ว');
                                     Gettraining();
                                 },
                                 async: false,

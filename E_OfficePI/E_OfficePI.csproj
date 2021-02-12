@@ -286,6 +286,7 @@
     <Content Include="js\engine.js" />
     <Content Include="js\Grid\Grid.js" />
     <Content Include="js\Grid\Images\Del.jpg" />
+    <Content Include="js\Numeric.js" />
     <Content Include="js\vendors\animate.css\animate.css" />
     <Content Include="js\vendors\animate.css\animate.min.css" />
     <Content Include="js\vendors\animate.css\gulpfile.js" />
@@ -5000,7 +5001,6 @@
     <Content Include="js\vendors\validator\.gitignore" />
     <Content Include="js\vendors\validator\package.json" />
     <Content Include="js\vendors\validator\README.md" />
-    <Content Include="js\จ้างพัฒนาระบบสนับสนุนการบริหารจัดการองค.docx" />
     <Content Include="Image\BG.psd" />
     <Content Include="bin\E_OfficePI.dll.config" />
     <Content Include="bin\roslyn\csc.exe.config" />
