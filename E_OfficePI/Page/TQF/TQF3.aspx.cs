@@ -855,6 +855,24 @@ namespace E_OfficePI.Page.TQF
             return "";
 
         }
+
+        
+
+        [WebMethod]
+        public static string DelInstructor(string json)
+        {
+            string val = ClsEngine.FindValue(ClsEngine.DeSerialized(json, ':', '|'), "val");
+            string TQFId = ClsEngine.FindValue(ClsEngine.DeSerialized(json, ':', '|'), "HdTQFId");
+            string Theoryplan = ClsEngine.FindValue(ClsEngine.DeSerialized(json, ':', '|'), "Theoryplan");
+            SqlConnector cn = new SqlConnector(Connectionstring, null);
+            string sqlcmd = "";
+            sqlcmd = "Update [Sys_TQF_TheoryplanInstructor] set isdelete = 1,deletedate=getdate(),deleteby='" + ((Clsuser)HttpContext.Current.Session["My"]).userid + "' Where TQFId ='" + TQFId + "'  and Theoryplanid ='" + Theoryplan + "' and Instructorid ='" + val + "'";
+            cn.Execute(sqlcmd, null);
+            cn.Close();
+            return "";
+
+        }
+
         [WebMethod]
         public static string DelPar(string json)
         {
@@ -1176,11 +1194,11 @@ namespace E_OfficePI.Page.TQF
                         sqlcmd = "Update Sys_TQF_TheoryPlan set Teachingplantopicname ='" + Objdict.Val + "',modifydate=getdate(),modifyby='" + ((Clsuser)HttpContext.Current.Session["My"]).userid + "' Where id='" + id + "'";
                         Arrcmd.Add(sqlcmd);
                     }
-                    if (Objdict.Name.Contains("Cbtpins_" + id)) // trtime
-                    {
-                        sqlcmd = "Update Sys_TQF_TheoryPlan set Instructorid ='" + Objdict.Val + "',modifydate=getdate(),modifyby='" + ((Clsuser)HttpContext.Current.Session["My"]).userid + "' Where id='" + id + "'";
-                        Arrcmd.Add(sqlcmd);
-                    }
+                    //if (Objdict.Name.Contains("Cbtpins_" + id)) // trtime
+                    //{
+                    //    sqlcmd = "Update Sys_TQF_TheoryPlan set Instructorid ='" + Objdict.Val + "',modifydate=getdate(),modifyby='" + ((Clsuser)HttpContext.Current.Session["My"]).userid + "' Where id='" + id + "'";
+                    //    Arrcmd.Add(sqlcmd);
+                    //}
 
 
                     //if (Objdict.Name.Contains("Cbtpteachingplan_" + id)) 
@@ -1363,7 +1381,7 @@ namespace E_OfficePI.Page.TQF
             sqlcmd = "  Select isnull(e.InsRegular,'0'),isnull(e.InsTheory,'0'),isnull(e.InsExtra,'0'), u.id as Userid,isnull(FirstnameTH,'') as FirstnameTH, LastnameTH as LastnameTH  from sys_core_user u inner join Sys_HR_Empdetail e on u.id = e.userid left join Sys_Master_Organizeuser ou on ou.Userid = e.userid where u.isdelete =0  and e.isdelete = 0  and (isnull(e.InsRegular,'0') <> '0' OR isnull(e.InsTheory,'0') <> '0' OR isnull(e.InsExtra,'0') <> '0')  and Ou.Orgid = '" + ((Clsuser) HttpContext.Current.Session["My"]).iseducate + "'";
             Dtins = cn.Select(sqlcmd);
             Dtinstructor = new DataTable();
-            sqlcmd = "Select * from [Sys_TQF_TheoryplanInstructor] where isdelete = 0 and tqfid = '" + json + "'";
+            sqlcmd = "Select * from [Sys_TQF_TheoryplanInstructor] i inner join Sys_HR_Empdetail hr on i.Instructorid = hr.userid where i.isdelete = 0 and hr.isdelete = 0 and tqfid = '" + json + "'";
             Dtinstructor = cn.Select(sqlcmd);
 
             foreach (DataRow dr in Dt.Rows)
@@ -1400,8 +1418,8 @@ namespace E_OfficePI.Page.TQF
                 {
                     _I = new Clsapproverusers();
                     _I.Userid = _idr["Userid"].ToString();
-                    _I.Firstname = _idr["Firstname"].ToString();
-                    _I.Lastname = _idr["Lastname"].ToString();
+                    _I.Firstname = _idr["FirstnameTH"].ToString();
+                    _I.Lastname = _idr["LastnameTH"].ToString();
                     Obj.Instructors.Add(_I);
                 }
                 Vs = new List<Clsapproverusers>();
@@ -2576,7 +2594,45 @@ namespace E_OfficePI.Page.TQF
 
             return "";
         }
+        [WebMethod]
+        public static string Updatetheoryplaninstructor(string json)
+        {
+            string val = ClsEngine.FindValue(ClsEngine.DeSerialized(json, ':', '|'), "val");
+            string TQFId = ClsEngine.FindValue(ClsEngine.DeSerialized(json, ':', '|'), "HdTQFId");
+            string prevIns = ClsEngine.FindValue(ClsEngine.DeSerialized(json, ':', '|'), "Theoryplan").Split('_')[2];
+            string Theoryplan = ClsEngine.FindValue(ClsEngine.DeSerialized(json, ':', '|'), "Theoryplan").Split('_')[1];
+            SqlConnector cn = new SqlConnector(Connectionstring, null);
+            string id = "";
+            string sqlcmd = "";
 
+
+            if (cn.Select("Select * from [Sys_TQF_TheoryplanInstructor] where isdelete = 0 and TQFId ='" + TQFId + "'  and Theoryplanid ='" + Theoryplan + "' and Instructorid ='" + val + "'").Rows.Count > 0)
+            {
+                return "รายการที่เลือกซ้ำ";
+            }
+            sqlcmd = "Update Sys_TQF_TheoryplanInstructor set isdelete = 1,deletedate=getdate(),deleteby='" + ((Clsuser)HttpContext.Current.Session["My"]).userid + "' Where TQFId ='" + TQFId + "'  and Theoryplanid ='" + Theoryplan + "' and Instructorid ='" + prevIns + "'";
+            cn.Execute(sqlcmd, null);
+            id = ClsEngine.GenerateRunningId(Connectionstring, "Sys_TQF_TheoryplanInstructor", "id");
+            sqlcmd = " INSERT INTO [Sys_TQF_TheoryplanInstructor] ";
+            sqlcmd += " ([id] ";
+            sqlcmd += " ,[TQFId] ";
+            sqlcmd += " ,[Theoryplanid] ";
+            sqlcmd += " ,[Instructorid] ";
+            sqlcmd += " ,[Isdelete]";
+            sqlcmd += " ,[Createdate]";
+            sqlcmd += " ,[CreateBy] )";
+            sqlcmd += " VALUES ( ";
+            sqlcmd += "'" + id + "'";
+            sqlcmd += ",'" + TQFId + "'";
+            sqlcmd += ",'" + Theoryplan + "'";
+            sqlcmd += ",'" + val + "'";
+            sqlcmd += ",'0'";
+            sqlcmd += ",Getdate()";
+            sqlcmd += ",'" + ((Clsuser)HttpContext.Current.Session["My"]).userid + "')";
+            cn.Execute(sqlcmd, null);
+
+            return "";
+        }
 
         [WebMethod]
         public static string Updateparticular(string json)

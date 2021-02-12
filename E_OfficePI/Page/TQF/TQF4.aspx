@@ -2059,7 +2059,7 @@
                                     dataType: "json",
                                     success: function (response) {
                                         if (response.d != '') {
-                                            Msgbox(res);
+                                            Msgbox(response.d);
                                             return;
                                         }
                                         Msgboxsuccess('บันทึกข้อมูลเรียบร้อยแล้ว');
@@ -2096,7 +2096,7 @@
                                 dataType: "json",
                                 success: function (response) {
                                     if (response.d != '') {
-                                        Msgbox(res);
+                                        Msgbox(response.d);
                                         return;
                                     }
                                     Msgboxsuccess('บันทึกข้อมูลเรียบร้อยแล้ว');
@@ -2139,7 +2139,7 @@
                                     dataType: "json",
                                     success: function (response) {
                                         if (response.d != '') {
-                                            Msgbox(res);
+                                            Msgbox(response.d);
                                             return;
                                         }
                                         Gettraining();
@@ -2175,7 +2175,7 @@
                                 dataType: "json",
                                 success: function (response) {
                                     if (response.d != '') {
-                                        Msgbox(res);
+                                        Msgbox(response.d);
                                         return;
                                     }
                                     Gettraining();

@@ -1442,7 +1442,31 @@
             $('#Divlearningoutputcont').html(Gvsearchinstuctor._Tables());
             Gvsearchinstuctor._Bind();
         }
+        function DelInstructor(Userid, Theoryplan) {
+            var json = '';
+            json = '';
+            json += 'HdTQFId :' + $('#HdTQFId').val() + '|';
+            json += 'Theoryplan :' + Theoryplan + '|';
+            json += 'val :' + Userid + '|';
+            $.ajax({
+                type: "POST",
+                url: "\../Page/TQF/TQF3.aspx/DelInstructor",
+                data: "{'json' :'" + json + "'}",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                beforeSend: function () {
 
+                    $(".loader").fadeOut("slow");
+                },
+                success: function (response) {
+                    Getheoryplan();
+                },
+                async: false,
+                error: function (er) {
+
+                }
+            });
+        }
         function DelPar(Learningoutputid, x) {
             var json = '';
             json = '';
@@ -2696,19 +2720,20 @@
                             for (j = 0; j < response.d[i]['Instructors'].length; j++) {
                                 _html += "<tr>";
                                 _html += "<td style='width: 80%;'>";
-                                _html += '<select class="form-control" id="Cbtpins_' + response.d[i]['id'] + '_' + response.d[i]['Userid'] + '">';
+                                _html += '<select class="form-control" id="Cbtpins_' + response.d[i]['id'] + '_' + response.d[i]['Instructors'][j]['Userid'] + '">';
                                 for (k = 0; k < response.d[i]['TemplateInstructors'].length; k++) {
                                     _html += '<option value="' + response.d[i]['TemplateInstructors'][k]['Userid'] + '">' + response.d[i]['TemplateInstructors'][k]['Firstname'] + " " + response.d[i]['TemplateInstructors'][k]['Lastname'] + '</option>';
                                 }
                                 _html += '</select>';
                                 _html += "</td>";
                                 _html += "<td style='width: 20%;'>";
-                                _html += "&nbsp;<button style='font-size:9px !important;'  class='btn btn-danger' onclick='DelInstructor(" + response.d[i]['Userid'] + ',' + response.d[i]['id'] + ");'><i class='fa fa-trash' style='font-size:9px !important;' aria-hidden='true'></i></button>";
+                                _html += "<button style='font-size:7px !important;margin:2px;'  class='btn btn-danger' onclick='DelInstructor(" + response.d[i]['Instructors'][j]['Userid'] + ',' + response.d[i]['id'] + ");'><i class='fa fa-trash' style='font-size:9px !important;' aria-hidden='true'></i></button>";
                                 _html += "</td>";
                                 _html += "</tr>";
                             }
                           
                             _html += "<tr>";
+
                             _html += "<td  style='width: 80%;'>";
 
                             _html += '<select id="Cbtpins_' + response.d[i]['id'] + '_0' + '" class="form-control">';
@@ -2734,7 +2759,89 @@
                             _html += "</tr>";
                         }
                         $('#Divtheoryplan').html(_html);
-                       
+
+                        for (i = 0; i < response.d.length; i++) {
+                            for (j = 0; j < response.d[i]['Instructors'].length; j++) {
+                                $('#Cbtpins_' + response.d[i]['id'] + '_' + response.d[i]['Instructors'][j]['Userid']).selectpicker({
+                                    liveSearch: true,
+                                    maxOptions: 1
+                                });
+
+
+                                $('#Cbtpins_' + response.d[i]['id'] + '_' + response.d[i]['Instructors'][j]['Userid']).on('change', function () {
+                                    json = '';
+                                    json += 'HdTQFId :' + $('#HdTQFId').val() + '|';
+                                    json += 'Theoryplan :' + $(this).attr('id') + '|';
+                                    json += 'val :' + $(this).val() + '|';
+
+
+                                    $.ajax({
+                                        type: "POST",
+                                        url: "\../Page/TQF/TQF3.aspx/Updatetheoryplaninstructor",
+                                        data: "{'json'  : '" + json + "'}",
+                                        contentType: "application/json; charset=utf-8",
+                                        dataType: "json",
+                                        success: function (response) {
+                                            if (response.d != '') {
+                                                Msgbox(response.d);
+                                                Getheoryplan();
+                                                return;
+                                            }
+                                            Msgboxsuccess('บันทึกข้อมูลเรียบร้อยแล้ว');
+                                            Getheoryplan();
+                                        },
+                                        async: false,
+                                        error: function (er) {
+
+                                        }
+                                    });
+
+
+
+                                });
+
+                                $('#Cbtpins_' + response.d[i]['id'] + '_' + response.d[i]['Instructors'][j]['Userid']).val(response.d[i]['Instructors'][j]['Userid']).selectpicker('refresh');
+
+                            }
+                            $('#Cbtpins_' + response.d[i]['id'] + '_0').selectpicker({
+                                liveSearch: true,
+                                maxOptions: 1
+                            });
+                            $('#Cbtpins_' + response.d[i]['id'] + '_0').val('').selectpicker('refresh');
+                            $('#Cbtpins_' + response.d[i]['id'] + '_0').on('change', function () {
+                                json = '';
+                                json += 'HdTQFId :' + $('#HdTQFId').val() + '|';
+                                json += 'Theoryplan :' + $(this).attr('id') + '|';
+                                json += 'val :' + $(this).val() + '|';
+                                
+
+                                $.ajax({
+                                        type: "POST",
+                                        url: "\../Page/TQF/TQF3.aspx/Updatetheoryplaninstructor",
+                                        data: "{'json'  : '" + json + "'}",
+                                        contentType: "application/json; charset=utf-8",
+                                        dataType: "json",
+                                        success: function (response) {
+                                            if (response.d != '') {
+                                                Msgbox(response.d);
+                                                Getheoryplan();
+                                                return;
+                                            }
+                                            Msgboxsuccess('บันทึกข้อมูลเรียบร้อยแล้ว');
+                                            Getheoryplan();
+                                        },
+                                        async: false,
+                                        error: function (er) {
+
+                                        }
+                                    });
+                            });
+
+
+                        }
+
+
+
                         //for (i = 0; i < response.d.length; i++) {
 
                         //    $("#Dtptptrdate_" + response.d[i]['id']).datepicker({
@@ -6186,12 +6293,12 @@
                                                 <table class="table table-bordered">
                                                     <thead>
                                                         <tr>
-                                                            <td style='width: 20%;'>วัน เดือน ปี</td>
+                                                            <td style='width: 15%;'>วัน เดือน ปี</td>
                                                             <td style="width: 15%;">ผลการเรียนรู้</td>
-                                                            <td style="width: 15%;">บทที่/หัวข้อ</td>
-                                                            <td style='width: 15%;'>วิธีการสอน</td>
-                                                            <td style='width: 15%;'>การประเมินผล</td>
-                                                            <td style='width: 20%;'>ผู้สอน</td>
+                                                            <td style="width: 13%;">บทที่/หัวข้อ</td>
+                                                            <td style='width: 12%;'>วิธีการสอน</td>
+                                                            <td style='width: 12%;'>การประเมินผล</td>
+                                                            <td style='width: 30%;'>ผู้สอน</td>
                                                             <td>&nbsp;</td>
                                                         </tr>
                                                     </thead>
