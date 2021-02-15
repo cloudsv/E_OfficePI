@@ -1395,67 +1395,289 @@ namespace E_OfficePI.Page.TQF
             }
             return Objs;
         }
-        //[WebMethod]
-        //public static List<Clslearningoutput> Getlearningoutput(string json)
-        //{
-        //    SqlConnector cn = new SqlConnector(Connectionstring, null);
-        //    List<Clslearningoutput> Objs = new List<Clslearningoutput>();
-        //    Clslearningoutput Obj;
-        //    Clsparticular _Par;
-        //    Clsestimate _Est;
-        //    List<Clsestimate> Ests = new List<Clsestimate>();
-        //    List<Clsparticular> Pars = new List<Clsparticular>();
-        //    string sqlcmd = "";
-        //    DataTable Dt = new DataTable();
-        //    DataTable Dtparticular = new DataTable();
-        //    DataTable Dtestimate = new DataTable();
-        //    DataRow[] Drs;
-        //    sqlcmd = "Select Learningoutputid,l.id as id,l.output as Learningoutputname,Outputdesc from Sys_Master_Learningoutput l inner join Sys_TQF_Learningoutput tl on l.id  = tl.Learningoutputid where tl.TQFTypeId = '4'";
-        //    Dt = cn.Select(sqlcmd);
-        //    sqlcmd = "Select Learningoutputid,Lp.id as Learningparticularid,Particular,p.id as particularid from Sys_TQF_Learningpartcular Lp inner join Sys_Master_Particular p on lp.Particularid = p.id where lp.TQFId = '" + json + "' and p.isdelete = 0 and lp.isdelete = 0";
-        //    Dtparticular = cn.Select(sqlcmd);
-        //    sqlcmd = "Select Learningoutputid,Te.id as Learningestimateid,Estimate,e.id as estimateid from Sys_TQF_LearningEstimate TE inner join Sys_Master_Estimate E on te.Estimateid = E.id where Te.isdelete = 0 and E.isdelete = 0 and TQFId = '" + json + "'";
-        //    Dtestimate = cn.Select(sqlcmd);
-        //    foreach (DataRow dr in Dt.Rows)
-        //    {
-        //        Pars = new List<Clsparticular>();
-        //        Ests = new List<Clsestimate>();
-        //        Obj = new Clslearningoutput();
-        //        Obj.Learningoutputid = dr["id"].ToString();
-        //        Obj.Learningoutputname = dr["Learningoutputname"].ToString();
-        //        Obj.Learningoutputdesc = dr["Outputdesc"].ToString();
-        //        Obj.Particulars = new List<Clsparticular>(); //ตัวที่เลือก
-        //        Drs = Dtparticular.Select("Learningoutputid='" + Obj.Learningoutputid + "'");
-        //        foreach (DataRow _mdr in Drs)
-        //        {
-        //            _Par = new Clsparticular();
-        //            _Par.Learningparticularid = _mdr["Learningparticularid"].ToString();
-        //            _Par.Particularid = _mdr["Particularid"].ToString();
-        //            _Par.Particularname = _mdr["Particular"].ToString();
-        //            Pars.Add(_Par);
-        //        }
-        //        Obj.Particulars = Pars;
+        [WebMethod]
+        public static List<Clsestimate> Getestimate()
+        {
+            Clsestimate Obj;
+            List<Clsestimate> Objs = new List<Clsestimate>();
+            DataTable Dt = new DataTable();
+            string sqlcmd = "Select *  from Sys_Master_Estimate where isdelete = 0 ";
+            SqlConnector cn = new SqlConnector(Connectionstring, null);
+            Dt = cn.Select(sqlcmd);
+            Obj = new Clsestimate();
+            Obj.Estimateid = "";
+            Obj.Estimatename = "โปรดระบุ";
+            Objs.Add(Obj);
+            foreach (DataRow dr in Dt.Rows)
+            {
+                Obj = new Clsestimate();
+                Obj.Estimateid = dr["id"].ToString();
+                Obj.Estimatename = dr["Estimate"].ToString();
+                Objs.Add(Obj);
+            }
+            return Objs;
+        }
+        [WebMethod]
+        public static List<Clsparticular> Getparticular()
+        {
+            Clsparticular Obj;
+            List<Clsparticular> Objs = new List<Clsparticular>();
+            DataTable Dt = new DataTable();
+            string sqlcmd = "Select *  from Sys_Master_Particular where isdelete = 0 ";
+            SqlConnector cn = new SqlConnector(Connectionstring, null);
+            Dt = cn.Select(sqlcmd);
+            //Obj = new Clsparticular();
+            //Obj.Particularid ="";
+            //Obj.Particularname = "โปรดระบุ";
+            //Objs.Add(Obj);
+            foreach (DataRow dr in Dt.Rows)
+            {
+                Obj = new Clsparticular();
+                Obj.Particularid = dr["id"].ToString();
+                Obj.Particularname = dr["Particular"].ToString();
+                Objs.Add(Obj);
+            }
+            return Objs;
+        }
+        [WebMethod]
+        public static Clslearningoutput Getlearningoutput(string json)
+        {
+            Clslearningoutput Obj = new Clslearningoutput();
+            SqlConnector cn = new SqlConnector(Connectionstring, null);
+            Clslen _Len;
+            Clsparticular _Par;
+            Clsestimate _Est;
+            List<Clsestimate> Ests = new List<Clsestimate>();
+            List<Clsparticular> Pars = new List<Clsparticular>();
+            List<Clslen> Lens = new List<Clslen>();
+            string sqlcmd = "";
 
-        //        Drs = Dtestimate.Select("Learningoutputid='" + Obj.Learningoutputid + "'");
-        //        foreach (DataRow _mdr in Drs)
-        //        {
-        //            _Est = new Clsestimate();
-        //            _Est.Learningestimateid = _mdr["Learningestimateid"].ToString();
-        //            _Est.Estimateid = _mdr["Estimateid"].ToString();
-        //            _Est.Estimatename = _mdr["Estimate"].ToString();
-        //            Ests.Add(_Est);
-        //        }
-        //        Obj.Estimates = Ests;
-        //        Obj.TemplateEstimates = Gettemplatedestimate();
-        //        Obj.Templateparticulars = Gettemplatedparticular();
-
-        //        Objs.Add(Obj);
-
-        //    }
-        //    return Objs;
-        //}
+            DataTable Dtparticular = new DataTable();
+            DataTable Dtestimate = new DataTable();
+            DataTable Dtlearningoutput = new DataTable();
 
 
+
+            sqlcmd = "Select d.id,[Output] as Output from Sys_Master_Learningoutput m  inner join Sys_Master_Learningoutputsubject d  on m.id = d.learningoutputid left join sys_TQF_tqf4 TQF on d.subjectid = tqf.subjectid where m.isdelete = 0 and d.isdelete = 0 and TQF.id = '" + json + "'";
+            Dtlearningoutput = cn.Select(sqlcmd);
+            sqlcmd = "Select d.id as Learningparticularid, * from Sys_TQF_Learningpartcular d inner join Sys_Master_Particular m on d.Particularid = m.id where d.isdelete = 0 and TQFId = '" + json + "'";
+            Dtparticular = cn.Select(sqlcmd);
+            sqlcmd = "Select d.id as Learningestimateid, * from Sys_TQF_LearningEstimate d inner join Sys_Master_Estimate m on d.Estimateid = m.id where d.isdelete = 0 and TQFId = '" + json + "'";
+            Dtestimate = cn.Select(sqlcmd);
+
+
+            List<Clsestimate> MasterEsts = new List<Clsestimate>();
+            List<Clsparticular> MasterPars = new List<Clsparticular>();
+
+            MasterEsts = Getestimate();
+            MasterPars = Getparticular();
+
+
+
+            Lens = new List<Clslen>();
+            Pars = new List<Clsparticular>();
+            Ests = new List<Clsestimate>();
+
+
+
+            foreach (DataRow _dr in Dtlearningoutput.Rows)
+            {
+                _Len = new Clslen();
+                _Len.Learningoutputid = _dr["id"].ToString();
+                _Len.Learningoutputname = _dr["Output"].ToString();
+                Lens.Add(_Len);
+            }
+            Obj.Lens = Lens;
+            Obj.MasterEstimates = MasterEsts;
+            Obj.MasterParticulars = MasterPars;
+            foreach (DataRow dr in Dtparticular.Rows)
+            {
+                _Par = new Clsparticular();
+                _Par.Learningparticularid = dr["Learningparticularid"].ToString();
+                _Par.Particularid = dr["Particularid"].ToString();
+                _Par.Particularname = dr["Particular"].ToString();
+                Pars.Add(_Par);
+            }
+            Obj.Particulars = Pars;
+
+
+
+
+            foreach (DataRow dr in Dtestimate.Rows)
+            {
+                _Est = new Clsestimate();
+                _Est.Estimateid = dr["Estimateid"].ToString();
+                _Est.Estimatename = dr["Estimate"].ToString();
+                Ests.Add(_Est);
+            }
+            Obj.Estimates = Ests;
+            return Obj;
+        }
+
+        [WebMethod]
+        public static string Saveest(string json)
+        {
+            SqlConnector cn = new SqlConnector(Connectionstring, null);
+            string id = ClsEngine.GenerateRunningId(Connectionstring, "Sys_Master_Estimate", "Id");
+            string sqlcmd = "";
+            if (json == "")
+            {
+                return "ข้อมูลห้ามเป็นค่าว่าง";
+            }
+            if (cn.Select("Select * from Sys_Master_Estimate where isdelete =0 and Estimate ='" + json.Replace(",", "").Replace("'", "") + "'").Rows.Count > 0)
+            {
+                return "รายการ " + json.Replace(",", "").Replace("'", "") + " ซ้ำ โปรดตรวจสอบ";
+            }
+            sqlcmd += " INSERT INTO [Sys_Master_Estimate] ";
+            sqlcmd += " ([id] ";
+            sqlcmd += " ,[Estimate]  ";
+            sqlcmd += " ,[Isdelete]  ";
+            sqlcmd += " ,[Createdate]  ";
+            sqlcmd += " ,[CreateBy] ) ";
+            sqlcmd += " VALUES ";
+            sqlcmd += " ('" + id + "'";
+            sqlcmd += ",'" + json.Replace(",", "").Replace("'", "") + "'";
+            sqlcmd += ",0";
+            sqlcmd += ",getdate()";
+            sqlcmd += ",'" + ((Clsuser)HttpContext.Current.Session["My"]).userid + "')";
+            cn.Execute(sqlcmd, null);
+            return "";
+        }
+
+        [WebMethod]
+        public static string Savepar(string json)
+        {
+            SqlConnector cn = new SqlConnector(Connectionstring, null);
+            string id = ClsEngine.GenerateRunningId(Connectionstring, "Sys_Master_Particular", "Id");
+            string sqlcmd = "";
+            if (json == "")
+            {
+                return "ข้อมูลห้ามเป็นค่าว่าง";
+            }
+            if (cn.Select("Select * from sys_master_particular where isdelete =0 and particular ='" + json.Replace(",", "").Replace("'", "") + "'").Rows.Count > 0)
+            {
+                return "รายการ " + json.Replace(",", "").Replace("'", "") + " ซ้ำ โปรดตรวจสอบ";
+            }
+
+            sqlcmd += " INSERT INTO [Sys_Master_Particular] ";
+            sqlcmd += " ([id] ";
+            sqlcmd += " ,[Particular]  ";
+            sqlcmd += " ,[Isdelete]  ";
+            sqlcmd += " ,[Createdate]  ";
+            sqlcmd += " ,[CreateBy] ) ";
+            sqlcmd += " VALUES ";
+            sqlcmd += " ('" + id + "'";
+            sqlcmd += ",'" + json.Replace(",", "").Replace("'", "") + "'";
+            sqlcmd += ",0";
+            sqlcmd += ",getdate()";
+            sqlcmd += ",'" + ((Clsuser)HttpContext.Current.Session["My"]).userid + "')";
+            cn.Execute(sqlcmd, null);
+            return "";
+        }
+        [WebMethod]
+        public static string Updateestimate(string json)
+        {
+            string val = ClsEngine.FindValue(ClsEngine.DeSerialized(json, ':', '|'), "val");
+            string TQFId = ClsEngine.FindValue(ClsEngine.DeSerialized(json, ':', '|'), "HdTQFId");
+            string Learningoutputid = "0"; // ไม่ได้ใช้แล้ว
+            SqlConnector cn = new SqlConnector(Connectionstring, null);
+            string id = "";
+            string sqlcmd = "";
+            if (cn.Select("Select * from Sys_TQF_Learningestimate where isdelete = 0 and TQFId ='" + TQFId + "'  and estimateid ='" + val + "'").Rows.Count > 0)
+            {
+                return "รายการที่เลือกซ้ำ";
+            }
+            //sqlcmd = "Update Sys_TQF_Learningestimate set isdelete = 1,deletedate=getdate(),deleteby='" + ((Clsuser)HttpContext.Current.Session["My"]).userid + "' Where TQFId ='" + TQFId + "' and LearningoutputId='" + Learningoutputid + "' and estimateid ='" + val + "'";
+            //cn.Execute(sqlcmd, null);
+            id = ClsEngine.GenerateRunningId(Connectionstring, "Sys_TQF_Learningestimate", "id");
+            sqlcmd = " INSERT INTO [Sys_TQF_Learningestimate] ";
+            sqlcmd += " ([id] ";
+            sqlcmd += " ,[TQFId]";
+            sqlcmd += " ,[LearningoutputId]";
+            sqlcmd += " ,[estimateid]";
+            sqlcmd += " ,[Isdelete]";
+            sqlcmd += " ,[Createdate]";
+            sqlcmd += " ,[CreateBy] )";
+            sqlcmd += " VALUES ( ";
+            sqlcmd += "'" + id + "'";
+            sqlcmd += ",'" + TQFId + "'";
+            sqlcmd += ",'" + Learningoutputid + "'";
+            sqlcmd += ",'" + val + "'";
+            sqlcmd += ",'0'";
+            sqlcmd += ",Getdate()";
+            sqlcmd += ",'" + ((Clsuser)HttpContext.Current.Session["My"]).userid + "')";
+            cn.Execute(sqlcmd, null);
+
+            return "";
+        }
+        [WebMethod]
+        public static string DelEst(string json)
+        {
+            string val = ClsEngine.FindValue(ClsEngine.DeSerialized(json, ':', '|'), "val");
+            string TQFId = ClsEngine.FindValue(ClsEngine.DeSerialized(json, ':', '|'), "HdTQFId");
+            string Learningoutputid = ClsEngine.FindValue(ClsEngine.DeSerialized(json, ':', '|'), "Learningoutputid");
+            SqlConnector cn = new SqlConnector(Connectionstring, null);
+            string sqlcmd = "";
+            sqlcmd = "Update Sys_TQF_Learningestimate set isdelete = 1,deletedate=getdate(),deleteby='" + ((Clsuser)HttpContext.Current.Session["My"]).userid + "' Where TQFId ='" + TQFId + "'  and Estimateid ='" + val + "'";
+            cn.Execute(sqlcmd, null);
+            return "";
+
+        }
+        [WebMethod]
+        public static string DelPar(string json)
+        {
+            string val = ClsEngine.FindValue(ClsEngine.DeSerialized(json, ':', '|'), "val");
+            string TQFId = ClsEngine.FindValue(ClsEngine.DeSerialized(json, ':', '|'), "HdTQFId");
+            string Learningoutputid = ClsEngine.FindValue(ClsEngine.DeSerialized(json, ':', '|'), "Learningoutputid");
+            SqlConnector cn = new SqlConnector(Connectionstring, null);
+            string sqlcmd = "";
+            sqlcmd = "Update Sys_TQF_Learningpartcular set isdelete = 1,deletedate=getdate(),deleteby='" + ((Clsuser)HttpContext.Current.Session["My"]).userid + "' Where TQFId ='" + TQFId + "'  and Particularid ='" + val + "'";
+            cn.Execute(sqlcmd, null);
+            return "";
+
+        }
+        [WebMethod]
+        public static string Updateparticular(string json)
+        {
+            string val = ClsEngine.FindValue(ClsEngine.DeSerialized(json, ':', '|'), "val");
+            string TQFId = ClsEngine.FindValue(ClsEngine.DeSerialized(json, ':', '|'), "HdTQFId");
+            string Learningoutputid = ClsEngine.FindValue(ClsEngine.DeSerialized(json, ':', '|'), "Learningparticularid").Split('_')[1];
+            SqlConnector cn = new SqlConnector(Connectionstring, null);
+            string id = "";
+            string sqlcmd = "";
+
+
+            if (cn.Select("Select * from Sys_TQF_Learningpartcular where isdelete = 0 and TQFId ='" + TQFId + "'  and Particularid ='" + val + "'").Rows.Count > 0)
+            {
+                return "รายการที่เลือกซ้ำ";
+            }
+
+
+
+
+            //sqlcmd = "Update Sys_TQF_Learningpartcular set isdelete = 1,deletedate=getdate(),deleteby='" + ((Clsuser)HttpContext.Current.Session["My"]).userid + "' Where TQFId ='" + TQFId + "'  and Particularid ='" + val + "'";
+            //cn.Execute(sqlcmd, null);
+            id = ClsEngine.GenerateRunningId(Connectionstring, "Sys_TQF_Learningpartcular", "id");
+            sqlcmd = " INSERT INTO [Sys_TQF_Learningpartcular] ";
+            sqlcmd += " ([id] ";
+            sqlcmd += " ,[TQFId]";
+            sqlcmd += " ,[LearningoutputId]";
+            sqlcmd += " ,[Particularid]";
+            sqlcmd += " ,[Isdelete]";
+            sqlcmd += " ,[Createdate]";
+            sqlcmd += " ,[CreateBy] )";
+            sqlcmd += " VALUES ( ";
+            sqlcmd += "'" + id + "'";
+            sqlcmd += ",'" + TQFId + "'";
+            sqlcmd += ",'0'";
+            sqlcmd += ",'" + val + "'";
+            sqlcmd += ",'0'";
+            sqlcmd += ",Getdate()";
+            sqlcmd += ",'" + ((Clsuser)HttpContext.Current.Session["My"]).userid + "')";
+            cn.Execute(sqlcmd, null);
+
+            return "";
+        }
         [WebMethod]
         public static string Updatetqfestimate(string json)
         {
@@ -2169,57 +2391,82 @@ namespace E_OfficePI.Page.TQF
             SqlConnector cn = new SqlConnector(Connectionstring, null);
             string sqlcmd = "";
             System.Collections.ArrayList Arrcmd = new System.Collections.ArrayList();
-            string id = "";
+
             DataTable Dt = new DataTable();
-            //ตรวจก่อนว่ามีหรือไม่
-
-            sqlcmd = "Select * from sys_tqf_outcome where isdelete = 0 and tqfid = '" + TQFId + "'";
-            Dt = cn.Select(sqlcmd);
-
-            if (Dt.Rows.Count == 0)
-            {
-                sqlcmd = "Select * from sys_master_outcome where isdelete = 0 and tqftype='4' order by id";
-                Dt = cn.Select(sqlcmd);
-                id = ClsEngine.GenerateRunningId(Connectionstring, "sys_tqf_outcome", "Id");
-                foreach (DataRow dr in Dt.Rows)
-                {
-                    sqlcmd = " INSERT INTO [sys_tqf_outcome]";
-                    sqlcmd += " ([Id]";
-                    sqlcmd += " ,[TQFId]";
-                    sqlcmd += " ,[OutcomeId]";
-                    sqlcmd += " ,[IsOK]";
-                    sqlcmd += " ,[IsDelete]";
-                    sqlcmd += " ,[CreateDate]";
-                    sqlcmd += " ,[CreateBy] )";
-                    sqlcmd += " VALUES (";
-                    sqlcmd += "'" + id + "'";
-                    sqlcmd += ",'" + TQFId + "'";
-                    sqlcmd += ",'" + dr["id"].ToString() + "'";
-                    sqlcmd += ",0";
-                    sqlcmd += ",0";
-                    sqlcmd += ",Getdate()";
-                    sqlcmd += ",'" + ((Clsuser)HttpContext.Current.Session["My"]).userid + "')";
-                    Arrcmd.Add(sqlcmd);
-                    id = (int.Parse(id) + 1).ToString();
-
-                }
-                cn.Execute(Arrcmd, null);
-            }
+            
             Dt = new DataTable();
-            sqlcmd = "Select o.id as tqfoutcomeid,oc.topic,oc.id as outcomeid,isok as isok,Value from sys_tqf_outcome o inner join sys_master_outcome oc on o.outcomeid = oc.id where o.isdelete = 0 and oc.isdelete = 0  and o.tqfid = '" + TQFId + "'";
+            sqlcmd = "Select o.id as tqfoutcomeid,isok as isok,Value from sys_tqf_outcome o  where o.isdelete = 0  and o.tqfid = '" + TQFId + "'";
             Dt = cn.Select(sqlcmd);
             foreach (DataRow dr in Dt.Rows)
             {
                 Obj = new Clsoutcome();
                 Obj.TQFoutcomeId = dr["TQFoutcomeId"].ToString();
-                Obj.Topic = dr["Topic"].ToString();
                 Obj.Value = dr["Value"].ToString();
-                Obj.OutcomeId = dr["outcomeid"].ToString();
                 Obj.IsOK = dr["IsOK"].ToString();
                 Objs.Add(Obj);
             }
             return Objs;
         }
+        //[WebMethod]
+        //public static List<Clsoutcome> Getoutcome(string json)
+        //{
+        //    string TQFId = json;
+        //    Clsoutcome Obj;
+        //    List<Clsoutcome> Objs = new List<Clsoutcome>();
+        //    SqlConnector cn = new SqlConnector(Connectionstring, null);
+        //    string sqlcmd = "";
+        //    System.Collections.ArrayList Arrcmd = new System.Collections.ArrayList();
+        //    string id = "";
+        //    DataTable Dt = new DataTable();
+        //    //ตรวจก่อนว่ามีหรือไม่
+
+        //    sqlcmd = "Select * from sys_tqf_outcome where isdelete = 0 and tqfid = '" + TQFId + "'";
+        //    Dt = cn.Select(sqlcmd);
+
+        //    if (Dt.Rows.Count == 0)
+        //    {
+        //        sqlcmd = "Select * from sys_master_outcome where isdelete = 0 and tqftype='4' order by id";
+        //        Dt = cn.Select(sqlcmd);
+        //        id = ClsEngine.GenerateRunningId(Connectionstring, "sys_tqf_outcome", "Id");
+        //        foreach (DataRow dr in Dt.Rows)
+        //        {
+        //            sqlcmd = " INSERT INTO [sys_tqf_outcome]";
+        //            sqlcmd += " ([Id]";
+        //            sqlcmd += " ,[TQFId]";
+        //            sqlcmd += " ,[OutcomeId]";
+        //            sqlcmd += " ,[IsOK]";
+        //            sqlcmd += " ,[IsDelete]";
+        //            sqlcmd += " ,[CreateDate]";
+        //            sqlcmd += " ,[CreateBy] )";
+        //            sqlcmd += " VALUES (";
+        //            sqlcmd += "'" + id + "'";
+        //            sqlcmd += ",'" + TQFId + "'";
+        //            sqlcmd += ",'" + dr["id"].ToString() + "'";
+        //            sqlcmd += ",0";
+        //            sqlcmd += ",0";
+        //            sqlcmd += ",Getdate()";
+        //            sqlcmd += ",'" + ((Clsuser)HttpContext.Current.Session["My"]).userid + "')";
+        //            Arrcmd.Add(sqlcmd);
+        //            id = (int.Parse(id) + 1).ToString();
+
+        //        }
+        //        cn.Execute(Arrcmd, null);
+        //    }
+        //    Dt = new DataTable();
+        //    sqlcmd = "Select o.id as tqfoutcomeid,oc.topic,oc.id as outcomeid,isok as isok,Value from sys_tqf_outcome o inner join sys_master_outcome oc on o.outcomeid = oc.id where o.isdelete = 0 and oc.isdelete = 0  and o.tqfid = '" + TQFId + "'";
+        //    Dt = cn.Select(sqlcmd);
+        //    foreach (DataRow dr in Dt.Rows)
+        //    {
+        //        Obj = new Clsoutcome();
+        //        Obj.TQFoutcomeId = dr["TQFoutcomeId"].ToString();
+        //        Obj.Topic = dr["Topic"].ToString();
+        //        Obj.Value = dr["Value"].ToString();
+        //        Obj.OutcomeId = dr["outcomeid"].ToString();
+        //        Obj.IsOK = dr["IsOK"].ToString();
+        //        Objs.Add(Obj);
+        //    }
+        //    return Objs;
+        //}
         //[WebMethod]
         //public static List<Clsoutcome> Getoutcome(string json)
         //{

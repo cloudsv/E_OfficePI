@@ -83,6 +83,126 @@
     </style>
      
         <script>
+            function Closenewest() {
+                $('#Divnewest').modal('hide');
+            }
+            function Saveest() {
+                var json = '';
+                var html = '';
+                json += $('#Txtnewest').val();
+                $.ajax({
+                    type: "POST",
+                    url: "\../Page/TQF/TQF4.aspx/Saveest",
+                    data: "{'json' :'" + json + "'}",
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    beforeSend: function () {
+                        $(".loader").fadeOut("slow");
+                    },
+                    success: function (response) {
+                        if (response.d != '') {
+                            Msgbox(response.d);
+                            return;
+                        }
+                        $('#Divnewest').modal('hide');
+                        Msgboxsuccess('บันทึกข้อมูลเรียบร้อยแล้ว');
+                        Getlearningoutput();
+                    },
+                    async: false,
+                    error: function (er) {
+                    }
+                });
+            }
+            function AddEst() {
+                $('#Txtnewest').val('');
+                $('#Divnewest').modal('show');
+            }
+            function DelEst(Learningoutputid, x) {
+                var json = '';
+                json = '';
+                json += 'HdTQFId :' + $('#HdTQFId').val() + '|';
+                json += 'Learningoutputid :' + Learningoutputid + '|';
+                json += 'val :' + x + '|';
+                $.ajax({
+                    type: "POST",
+                    url: "\../Page/TQF/TQF4.aspx/DelEst",
+                    data: "{'json' :'" + json + "'}",
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    beforeSend: function () {
+
+                        $(".loader").fadeOut("slow");
+                    },
+                    success: function (response) {
+                        Getlearningoutput();
+                    },
+                    async: false,
+                    error: function (er) {
+
+                    }
+                });
+            }
+            function DelPar(Learningoutputid, x) {
+                var json = '';
+                json = '';
+                json += 'HdTQFId :' + $('#HdTQFId').val() + '|';
+                json += 'Learningoutputid :' + Learningoutputid + '|';
+                json += 'val :' + x + '|';
+                $.ajax({
+                    type: "POST",
+                    url: "\../Page/TQF/TQF4.aspx/DelPar",
+                    data: "{'json' :'" + json + "'}",
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    beforeSend: function () {
+
+                        $(".loader").fadeOut("slow");
+                    },
+                    success: function (response) {
+                        Getlearningoutput();
+                    },
+                    async: false,
+                    error: function (er) {
+
+                    }
+                });
+            }
+
+
+            function Closenewpar() {
+                $('#Divnewpar').modal('hide');
+            }
+            function Savepar() {
+                var json = '';
+                var html = '';
+                json += $('#Txtnewpar').val();
+                $.ajax({
+                    type: "POST",
+                    url: "\../Page/TQF/TQF4.aspx/Savepar",
+                    data: "{'json' :'" + json + "'}",
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    beforeSend: function () {
+                        $(".loader").fadeOut("slow");
+                    },
+                    success: function (response) {
+                        if (response.d != '') {
+                            Msgbox(response.d);
+                            return;
+                        }
+                        $('#Divnewpar').modal('hide');
+                        Msgboxsuccess('บันทึกข้อมูลเรียบร้อยแล้ว');
+                        Getlearningoutput();
+                    },
+                    async: false,
+                    error: function (er) {
+                    }
+                });
+            }
+            function AddPar() {
+                $('#Txtnewpar').val('');
+                $('#Divnewpar').modal('show');
+            }
             function Newoutcome() {
                 var json = $('#HdTQFId').val();
                 $.ajax({
@@ -2343,105 +2463,324 @@
         //}
 
         function Getlearningoutput() {
-                var json = $('#HdTQFId').val();
-                var html = '';
-                var i = 0;
-                var j = 0;
-                var x = 0;
-                var isfound = false;
-                var res;
-                $.ajax({
-                    type: "POST",
-                    url: "\../Page/TQF/TQF4.aspx/Getlearningoutput",
-                    data: "{'json'  : '" + json + "'}",
-                    contentType: "application/json; charset=utf-8",
-                    dataType: "json",
-                    success: function (response) {
-                        res = response.d;
-                        if (res == null) {
-                            Msgbox('ไม่สามารถดึงข้อมูลการพัฒนาผลการเรียนรู้ของนักศึกษา โปรดติดต่อผู้ดูแลระบบ');
-                            return;
-
-                        }
-                        html += '<div class="row mt-1">';
-                        html += '<div class="col-12">';
-                        html += '<table class="table table-bordered" style="margin-top: 10px;">';
-                        html += '<tr>';
-                        html += '<td>ผลการเรียนรู้';
-                        html += '</td>';
-                        html += '<td>เทคนิค / วิธีการสอน';
-                        html += '</td>';
-                        html += '<td>วิธีการประเมินผล';
-                        html += '</td>';
-                        html += '</tr>';
-                        for (i = 0; i < res.length; i++)
-                        {
-                         
-                            html += '<tr>';
-                            html += '<td>';
-                            html += '<div class="card" style="font-size: 12px !important">';
-                            html += '<div class="card-header">';
-                            html += res[i]['Learningoutputname'];
-                            html += '</div>';
-                            html += '<div class="card-body" style="font-size: 14px !important">';
-                            html += res[i]['Learningoutputdesc'];
-                            html += '</div>';
-                            html += '</div>';
-                            html += '</td>';
-                            html += '<td>';
-                            for (j = 0; j < res[i]['Templateparticulars'].length; j++) {
-                                html += '<div>';
-                                isfound = false;
-                                for (x = 0; x < res[i]['Particulars'].length; x++)
-                                {
-                                    if (res[i]['Templateparticulars'][j]['Particularid'] == res[i]['Particulars'][x]['Particularid']) {
-                                        isfound = true;
-                                    }    
-                                }
-                                if (isfound) {
-                                    html += '<input type="checkbox" id="Chklearningoutputparticular_' + res[i]['Learningoutputid'] + '_' + res[i]['Templateparticulars'][j]['Particularid'] + '" onclick="Updatetqfparticular(\'Chklearningoutputparticular_' + res[i]['Learningoutputid'] + '_' + res[i]['Templateparticulars'][j]['Particularid'] + '\');" checked />&nbsp;<span>' + res[i]['Templateparticulars'][j]['Particularname'] + '</span>';
-                                }
-                                else
-                                {
-                                    html += '<input type="checkbox" id="Chklearningoutputparticular_' + res[i]['Learningoutputid'] + '_' + res[i]['Templateparticulars'][j]['Particularid'] + '" onclick="Updatetqfparticular(\'Chklearningoutputparticular_' + res[i]['Learningoutputid'] + '_' + res[i]['Templateparticulars'][j]['Particularid'] + '\');" />&nbsp;<span>' + res[i]['Templateparticulars'][j]['Particularname'] + '</span>';
-                                }
-                                html += '<div>';
-                            }
-                            html += '</td>';
-                            html += '<td>';
-                            for (j = 0; j < res[i]['TemplateEstimates'].length; j++) {
-                                html += '<div>';
-                                isfound = false;
-                                for (x = 0; x < res[i]['Estimates'].length; x++) {
-                                    if (res[i]['TemplateEstimates'][j]['Estimateid'] == res[i]['Estimates'][x]['Estimateid']) {
-                                        isfound = true;
-                                    }
-                                    
-                                    
-                                }
-                                if (isfound) {
-                                    html += '<input type="checkbox" id="Chklearningoutputestimate_' + res[i]['Learningoutputid'] + '_' + res[i]['TemplateEstimates'][j]['Estimateid'] + '" onclick="Updatetqfestimate(\'Chklearningoutputestimate_' + res[i]['Learningoutputid'] + '_' + res[i]['TemplateEstimates'][j]['Estimateid'] + '\');" checked />&nbsp;<span>' + res[i]['TemplateEstimates'][j]['Estimatename'] + '</span>';
-                                }
-                                else {
-                                    html += '<input type="checkbox" id="Chklearningoutputestimate_' + res[i]['Learningoutputid'] + '_' + res[i]['TemplateEstimates'][j]['Estimateid'] + '" onclick="Updatetqfestimate(\'Chklearningoutputestimate_' + res[i]['Learningoutputid'] + '_' + res[i]['TemplateEstimates'][j]['Estimateid'] + '\');"  />&nbsp;<span>' + res[i]['TemplateEstimates'][j]['Estimatename'] + '</span>';
-                                }
-                                html += '<div>';
-                            }
-                            html += '</td>';
-                            html += '</tr > ';
-                        }
-                        html += '</table>';
-                        html += '</div>';
-                        html += '</div>';
-                       
-                        $('#Divestimateoutput').html(html);
-                    },
-                    async: false,
-                    error: function (er) {
+            var json = $('#HdTQFId').val();
+            var html = '';
+            var i = 0;
+            var j = 0;
+            var k = 0;
+            var x = 0;
+            var isfound = false;
+            var res;
+            $.ajax({
+                type: "POST",
+                url: "\../Page/TQF/TQF4.aspx/Getlearningoutput",
+                data: "{'json'  : '" + json + "'}",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (response) {
+                    res = response.d;
+                    if (res == null) {
+                        Msgbox('ไม่สามารถดึงข้อมูลการพัฒนาผลการเรียนรู้ของนักศึกษา โปรดติดต่อผู้ดูแลระบบ');
+                        return;
 
                     }
-                });
-            
+                    html += '<div class="row mt-1">';
+                    html += '<div class="col-12">';
+                    html += '<table class="table table-bordered" style="margin-top: 10px;">';
+                    html += '<tr>';
+                    html += '<td style="width:40%;">ผลการเรียนรู้';
+                    html += '</td>';
+                    html += '<td style="width:30%;">เทคนิค / วิธีการสอน';
+                    html += '</td>';
+                    html += '<td style="width:30%;">วิธีการประเมินผล';
+                    //html += '</td>';
+                    //html += '<td>&nbsp;';
+                    //html += '</td>';
+                    html += '</tr>';
+
+
+
+
+                    html += '<tr>';
+
+
+                    html += '<td style="width:30%;">';
+                    html += "<table  class='table table-bordered' style='table-layout: fixed;width:100%;'>";
+
+
+                    for (j = 0; j < response.d['Lens'].length; j++) {
+                        html += "<tr>";
+                        html += "<td style='width: 100%;'>";
+                        html += "<span>" + response.d['Lens'][j]["Learningoutputname"] + "</span>";
+
+                        html += "</td>";
+                        html += "</tr>";
+                    }
+                    html += "<tr>";
+
+
+                    html += "</tr>";
+                    html += "</table>";
+                    html += '</td>';
+
+
+                    html += '<td style="width:30%;">';
+                    html += "<table  class='table table-bordered' style='table-layout: fixed;width:100%;'>";
+
+
+                    for (j = 0; j < response.d['Particulars'].length; j++) {
+                        html += "<tr>";
+                        html += "<td style='width: 80%;'>";
+
+                        html += '<select id="Cbparticulars_' + response.d['Particulars'][j]['Particularid'] + '" class="form-control">';
+
+                        for (k = 0; k < response.d['MasterParticulars'].length; k++) {
+                            html += '<option value="' + response.d['MasterParticulars'][k]['Particularid'] + '">' + response.d['MasterParticulars'][k]['Particularname'] + '</option>';
+                        }
+                        html += '</select>';
+                        html += "</td>";
+                        html += "<td style='width: 20%;'>";
+                        html += "<button style='font-size:9px !important;'  class='btn btn-success' onclick='AddPar();'><i class='fa fa-plus' style='font-size:9px !important;' aria-hidden='true'></i></button>";
+                        html += "&nbsp;<button style='font-size:9px !important;'  class='btn btn-danger' onclick='DelPar(" + response.d['Particulars'][j]['Learningparticularid'] + ',' + response.d['Particulars'][j]['Particularid'] + ");'><i class='fa fa-trash' style='font-size:9px !important;' aria-hidden='true'></i></button>";
+                        html += "</td>";
+                        html += "</tr>";
+                    }
+                    html += "<tr>";
+                    html += "<td >";
+
+                    html += '<select id="Cbparticulars_0' + '" class="form-control">';
+                    for (k = 0; k < response.d['MasterParticulars'].length; k++) {
+                        html += '<option value="' + response.d['MasterParticulars'][k]['Particularid'] + '">' + response.d['MasterParticulars'][k]['Particularname'] + '</option>';
+                    }
+                    html += '</select>';
+
+                    html += "</td>";
+                    html += "<td>";
+                    html += "<button style='font-size:9px !important;'  class='btn btn-success' onclick='AddPar();'><i class='fa fa-plus' style='font-size:9px !important;' aria-hidden='true'></i></button>";
+                    html += "</td>";
+                    html += "</tr>";
+                    html += "</table>";
+                    html += '</td>';
+
+
+
+
+
+                    html += '<td style="width:30%;">';
+                    html += "<table  class='table table-bordered' style='table-layout: fixed;width:100%;'>";
+
+                    for (j = 0; j < response.d['Estimates'].length; j++) {
+                        html += "<tr>";
+                        html += "<td>";
+
+                        html += '<select id="Cbestimates_' + response.d['Estimates'][j]['Estimateid'] + '" class="form-control" >';
+
+                        for (k = 0; k < response.d['MasterEstimates'].length; k++) {
+                            html += '<option value="' + response.d['MasterEstimates'][k]['Estimateid'] + '">' + response.d['MasterEstimates'][k]['Estimatename'] + '</option>';
+                        }
+                        html += '</select>';
+                        html += "</td>";
+                        html += "<td>";
+                        html += "<button style='font-size:9px !important;'  class='btn btn-success' onclick='AddEst();'><i class='fa fa-plus' style='font-size:9px !important;' aria-hidden='true'></i></button>";
+                        html += "&nbsp;<button style='font-size:9px !important;'  class='btn btn-danger' onclick='DelEst(" + response.d['Estimates'][j]['Learningestimateid'] + ',' + response.d['Estimates'][j]['Estimateid'] + ");'><i class='fa fa-trash' style='font-size:9px !important;' aria-hidden='true'></i></button>";
+                        html += "</td>";
+                        html += "</tr>";
+                    }
+                    html += "<tr>";
+                    html += "<td>";
+
+                    html += '<select id="Cbestimates_0' + '" class="form-control">';
+                    for (k = 0; k < response.d['MasterEstimates'].length; k++) {
+                        html += '<option value="' + response.d['MasterEstimates'][k]['Estimateid'] + '">' + response.d['MasterEstimates'][k]['Estimatename'] + '</option>';
+                    }
+                    html += '</select>';
+
+                    html += "</td>";
+                    html += "<td>";
+                    html += "<button style='font-size:9px !important;'  class='btn btn-success' onclick='AddEst();'><i class='fa fa-plus' style='font-size:9px !important;' aria-hidden='true'></i></button>";
+                    html += "</td>";
+                    html += "</tr>";
+                    html += "</table>";
+                    html += '</td>';
+
+
+
+
+
+
+
+
+
+
+
+
+
+                    html += '</table>';
+                    html += '</div>';
+                    html += '</div>';
+
+                    $('#Divestimateoutput').html(html);
+
+
+                    for (j = 0; j < response.d['Particulars'].length; j++) {
+                        $('#Cbparticulars_' + response.d['Particulars'][j]['Particularid']).selectpicker({
+                            liveSearch: true,
+                            maxOptions: 1
+                        });
+
+
+                        $('#Cbparticulars_' + response.d['Particulars'][j]['Particularid']).on('change', function () {
+                            json = '';
+                            json += 'HdTQFId :' + $('#HdTQFId').val() + '|';
+                            json += 'Learningparticularid :' + $(this).attr('id') + '|';
+                            json += 'val :' + $(this).val() + '|';
+                            $.ajax({
+                                type: "POST",
+                                url: "\../Page/TQF/TQF4.aspx/Updateparticular",
+                                data: "{'json'  : '" + json + "'}",
+                                contentType: "application/json; charset=utf-8",
+                                dataType: "json",
+                                success: function (response) {
+                                    if (response.d != '') {
+                                        Msgbox(response.d);
+
+                                    }
+                                    Getlearningoutput();
+                                },
+                                async: false,
+                                error: function (er) {
+
+                                }
+                            });
+
+
+
+                        });
+
+                        $('#Cbparticulars_' + response.d['Particulars'][j]['Particularid']).val(response.d['Particulars'][j]['Particularid']).selectpicker('refresh');
+
+                    }
+                    $('#Cbparticulars_0').selectpicker({
+                        liveSearch: true,
+                        maxOptions: 1
+                    });
+                    $('#Cbparticulars_0').val('').selectpicker('refresh');
+                    $('#Cbparticulars_0').on('change', function () {
+                        json = '';
+                        json += 'HdTQFId :' + $('#HdTQFId').val() + '|';
+                        json += 'Learningparticularid :' + $(this).attr('id') + '|';
+                        json += 'val :' + $(this).val() + '|';
+                        $.ajax({
+                            type: "POST",
+                            url: "\../Page/TQF/TQF4.aspx/Updateparticular",
+                            data: "{'json'  : '" + json + "'}",
+                            contentType: "application/json; charset=utf-8",
+                            dataType: "json",
+                            success: function (response) {
+                                if (response.d != '') {
+                                    Msgbox(response.d);
+
+                                }
+                                Getlearningoutput();
+                            },
+                            async: false,
+                            error: function (er) {
+
+                            }
+                        });
+
+
+
+                    });
+
+
+
+
+
+
+
+
+                    for (j = 0; j < response.d['Estimates'].length; j++) {
+                        $('#Cbestimates_' + response.d['Estimates'][j]['Estimateid']).selectpicker({
+                            liveSearch: true,
+                            maxOptions: 1
+                        });
+
+
+                        $('#Cbestimates_' + response.d['Estimates'][j]['Estimateid']).on('change', function () {
+                            json = '';
+                            json += 'HdTQFId :' + $('#HdTQFId').val() + '|';
+                            json += 'Learningestimateid :' + $(this).attr('id') + '|';
+                            json += 'val :' + $(this).val() + '|';
+                            $.ajax({
+                                type: "POST",
+                                url: "\../Page/TQF/TQF4.aspx/Updateestimate",
+                                data: "{'json'  : '" + json + "'}",
+                                contentType: "application/json; charset=utf-8",
+                                dataType: "json",
+                                success: function (response) {
+                                    if (response.d != '') {
+                                        Msgbox(response.d);
+
+                                    }
+                                    Getlearningoutput();
+                                },
+                                async: false,
+                                error: function (er) {
+
+                                }
+                            });
+
+
+
+                        });
+
+                        $('#Cbestimates_' + response.d['Estimates'][j]['Estimateid']).val(response.d['Estimates'][j]['Estimateid']).selectpicker('refresh');
+
+                    }
+                    $('#Cbestimates_0').selectpicker({
+                        liveSearch: true,
+                        maxOptions: 1
+                    });
+                    $('#Cbestimate_0').val('').selectpicker('refresh');
+                    $('#Cbestimates_0').on('change', function () {
+                        json = '';
+                        json += 'HdTQFId :' + $('#HdTQFId').val() + '|';
+                        json += 'Learningestimateid :' + $(this).attr('id') + '|';
+                        json += 'val :' + $(this).val() + '|';
+                        $.ajax({
+                            type: "POST",
+                            url: "\../Page/TQF/TQF4.aspx/Updateestimate",
+                            data: "{'json'  : '" + json + "'}",
+                            contentType: "application/json; charset=utf-8",
+                            dataType: "json",
+                            success: function (response) {
+                                if (response.d != '') {
+                                    Msgbox(response.d);
+
+                                }
+                                Getlearningoutput();
+                            },
+                            async: false,
+                            error: function (er) {
+
+                            }
+                        });
+
+
+
+                    });
+
+
+
+
+                },
+                async: false,
+                error: function (er) {
+
+                }
+            });
+
         }
         
         function Callback(Ctrl, x, y, val) {
@@ -2515,37 +2854,7 @@
                 }
             });
         }
-        function Updateoutcome() {
-
-            var json = $('#HdTQFId').val();
-            var dat = '';
-            $('#Divoutcome').find('textarea').each(function () {
-                dat += $(this).attr('id') + ':' + $(this).val() + '|';
-            });
-            $.ajax({
-                type: "POST",
-                url: "\../Page/TQF/TQF4.aspx/Updateoutcome",
-                data: "{'json' :'" + json + "','dat' :'" + dat + "'}",
-                contentType: "application/json; charset=utf-8",
-                dataType: "json",
-                beforeSend: function () {
-                    $(".loader").fadeOut("slow");
-                },
-                success: function (response) {
-                    res = response.d;
-                    if (res != "") {
-                        Msgbox(res);
-                        return;
-                    }
-                    Getoutcome();
-                    Msgboxsuccess('บันทึกข้อมูลเรียบร้อยแล้ว');
-                },
-                async: true,
-                error: function (er) {
-
-                }
-            });
-        }
+   
         function Getoutcome() {
 
             var html = '';
@@ -3629,23 +3938,27 @@
                 }
             });
         }
-        function Updateoutcome(TQFoutcomeid, ctrl) {
+    
+        function Updateoutcome() {
 
-            var json = '';
-            json += 'TQFoutcomeid:' + TQFoutcomeid + '|';
-            json += 'val:' + $('#' + ctrl).val() + '|';
+            var json = $('#HdTQFId').val();
+            var dat = '';
+            $('#Divoutcome').find('textarea').each(function () {
+                dat += $(this).attr('id') + ':' + $(this).val() + '|';
+            });
             $.ajax({
                 type: "POST",
                 url: "\../Page/TQF/TQF4.aspx/Updateoutcome",
-                data: "{'json' :'" + json + "'}",
+                data: "{'json' :'" + json + "','dat' :'" + dat + "'}",
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
                 beforeSend: function () {
                     $(".loader").fadeOut("slow");
                 },
                 success: function (response) {
-                    if (response.d != '') {
-                        Msgbox(response.d);
+                    res = response.d;
+                    if (res != "") {
+                        Msgbox(res);
                         return;
                     }
                     Getoutcome();
@@ -3657,32 +3970,6 @@
                 }
             });
         }
-        //function Updateoutcome(TQFoutcomeid, ctrl) {
-        //    var json = '';
-        //    json += 'TQFoutcomeid:' + TQFoutcomeid + '|';
-        //    json += 'val:' + $('#' + ctrl).val() + '|';
-        //    $.ajax({
-        //        type: "POST",
-        //        url: "\../Page/TQF/TQF4.aspx/Updateoutcome",
-        //        data: "{'json' :'" + json + "'}",
-        //        contentType: "application/json; charset=utf-8",
-        //        dataType: "json",
-        //        beforeSend: function () {
-        //            $(".loader").fadeOut("slow");
-        //        },
-        //        success: function (response) {
-        //            if (response.d != '') {
-        //                Msgbox(response.d);
-        //                return;
-        //            }
-        //            Getoutcome();
-        //        },
-        //        async: true,
-        //        error: function (er) {
-
-        //        }
-        //    });
-        //}
         function Updateratio(Estimateid, ctrl) {
             var json = '';
             json += 'Estimateid:' + Estimateid + '|';
@@ -6239,7 +6526,63 @@
             </div>
         </div>
     </div>
+    <div class="modal" id="Divnewest" data-backdrop="static" data-keyboard="false">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <span>เพิ่มวิธีประเมิน</span>
+                </div>
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <div class="container" style="margin-right: 10px; min-height: 320px; padding: 8px;">
+                        <div class="row">
+                            <div class="col-12">
+                                <span>วิธีประเมิน</span>&nbsp;<span style="color: red;">*</span>
+                            </div>
+                            <div class="col-12">
+                                <input type="text" class="form-control" id="Txtnewest" value="" />
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Modal footer -->
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-standard" style="background-color: #313131; color: white; font-size: 14px; border-radius: 0;" onclick="Saveest();">บันทึก</button>
+                        <button type="button" class="btn btn-danger" style="font-size: 14px; border-radius: 0;" data-dismiss="modal" onclick="Closenewest();">ปิดหน้าต่างนี้</button>
+                    </div>
 
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="Divnewpar" data-backdrop="static" data-keyboard="false">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <span>เพิ่มวิธีปฏิบัติ</span>
+                </div>
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <div class="container" style="margin-right: 10px; min-height: 320px; padding: 8px;">
+                        <div class="row">
+                            <div class="col-12">
+                                <span>วิธีปฏิบัติ</span>&nbsp;<span style="color: red;">*</span>
+                            </div>
+                            <div class="col-12">
+                                <input type="text" class="form-control" id="Txtnewpar" value="" />
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Modal footer -->
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-standard" style="background-color: #313131; color: white; font-size: 14px; border-radius: 0;" onclick="Savepar();">บันทึก</button>
+                        <button type="button" class="btn btn-danger" style="font-size: 14px; border-radius: 0;" data-dismiss="modal" onclick="Closenewpar();">ปิดหน้าต่างนี้</button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
 
        <div class="modal" id="Divnewquality" data-backdrop="static" data-keyboard="false">
         <div class="modal-dialog">
