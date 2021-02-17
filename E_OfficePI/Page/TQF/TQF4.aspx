@@ -10,6 +10,10 @@
     <link href="../../Select2/css/bootstrap-select.css" rel="stylesheet" />
     <title></title>
    <style>
+               .bootstrap-select .dropdown-menu {
+	width: 100%;
+  
+}
              #back2Top {
     width: 60px;
     line-height: 60px;
@@ -2490,9 +2494,9 @@
                     html += '<tr>';
                     html += '<td style="width:40%;">ผลการเรียนรู้';
                     html += '</td>';
-                    html += '<td style="width:30%;">เทคนิค / วิธีการสอน';
+                    html += '<td style="width:30%;"><span>เทคนิค / วิธีการสอน</span>&nbsp;&nbsp;&nbsp;&nbsp;<button style="font-size:9px !important;" class="btn btn-success" onclick="AddPar();"><i class="fa fa-plus" style="font-size:9px !important;" aria-hidden="true"></i></button>';
                     html += '</td>';
-                    html += '<td style="width:30%;">วิธีการประเมินผล';
+                    html += '<td style="width:30%;">วิธีการประเมินผล<span>&nbsp;&nbsp;&nbsp;&nbsp;<button style="font-size: 9px!important;"  class="btn btn-success" onclick="AddEst();"><i class="fa fa-plus" style="font - size: 9px!important;" aria-hidden="true"></i></button>';
                     //html += '</td>';
                     //html += '<td>&nbsp;';
                     //html += '</td>';
@@ -2540,13 +2544,13 @@
                         html += '</select>';
                         html += "</td>";
                         html += "<td style='width: 20%;'>";
-                        html += "<button style='font-size:9px !important;'  class='btn btn-success' onclick='AddPar();'><i class='fa fa-plus' style='font-size:9px !important;' aria-hidden='true'></i></button>";
-                        html += "&nbsp;<button style='font-size:9px !important;'  class='btn btn-danger' onclick='DelPar(" + response.d['Particulars'][j]['Learningparticularid'] + ',' + response.d['Particulars'][j]['Particularid'] + ");'><i class='fa fa-trash' style='font-size:9px !important;' aria-hidden='true'></i></button>";
+                        //html += "<button style='font-size:9px !important;'  class='btn btn-success' onclick='AddPar();'><i class='fa fa-plus' style='font-size:9px !important;' aria-hidden='true'></i></button>";
+                        html += "<button style='font-size:9px !important;'  class='btn btn-danger' onclick='DelPar(" + response.d['Particulars'][j]['Learningparticularid'] + ',' + response.d['Particulars'][j]['Particularid'] + ");'><i class='fa fa-trash' style='font-size:9px !important;' aria-hidden='true'></i></button>";
                         html += "</td>";
                         html += "</tr>";
                     }
                     html += "<tr>";
-                    html += "<td >";
+                    html += "<td style='width: 80%;'>";
 
                     html += '<select id="Cbparticulars_0' + '" class="form-control">';
                     for (k = 0; k < response.d['MasterParticulars'].length; k++) {
@@ -2556,7 +2560,7 @@
 
                     html += "</td>";
                     html += "<td>";
-                    html += "<button style='font-size:9px !important;'  class='btn btn-success' onclick='AddPar();'><i class='fa fa-plus' style='font-size:9px !important;' aria-hidden='true'></i></button>";
+                    //html += "<button style='font-size:9px !important;'  class='btn btn-success' onclick='AddPar();'><i class='fa fa-plus' style='font-size:9px !important;' aria-hidden='true'></i></button>";
                     html += "</td>";
                     html += "</tr>";
                     html += "</table>";
@@ -2571,7 +2575,7 @@
 
                     for (j = 0; j < response.d['Estimates'].length; j++) {
                         html += "<tr>";
-                        html += "<td>";
+                        html += "<td style='width: 80%;'>";
 
                         html += '<select id="Cbestimates_' + response.d['Estimates'][j]['Estimateid'] + '" class="form-control" >';
 
@@ -2581,13 +2585,13 @@
                         html += '</select>';
                         html += "</td>";
                         html += "<td>";
-                        html += "<button style='font-size:9px !important;'  class='btn btn-success' onclick='AddEst();'><i class='fa fa-plus' style='font-size:9px !important;' aria-hidden='true'></i></button>";
-                        html += "&nbsp;<button style='font-size:9px !important;'  class='btn btn-danger' onclick='DelEst(" + response.d['Estimates'][j]['Learningestimateid'] + ',' + response.d['Estimates'][j]['Estimateid'] + ");'><i class='fa fa-trash' style='font-size:9px !important;' aria-hidden='true'></i></button>";
+                        //html += "<button style='font-size:9px !important;'  class='btn btn-success' onclick='AddEst();'><i class='fa fa-plus' style='font-size:9px !important;' aria-hidden='true'></i></button>";
+                        html += "<button style='font-size:9px !important;'  class='btn btn-danger' onclick='DelEst(" + response.d['Estimates'][j]['Learningestimateid'] + ',' + response.d['Estimates'][j]['Estimateid'] + ");'><i class='fa fa-trash' style='font-size:9px !important;' aria-hidden='true'></i></button>";
                         html += "</td>";
                         html += "</tr>";
                     }
                     html += "<tr>";
-                    html += "<td>";
+                    html += "<td style='width: 80%;'>";
 
                     html += '<select id="Cbestimates_0' + '" class="form-control">';
                     for (k = 0; k < response.d['MasterEstimates'].length; k++) {
@@ -2597,7 +2601,7 @@
 
                     html += "</td>";
                     html += "<td>";
-                    html += "<button style='font-size:9px !important;'  class='btn btn-success' onclick='AddEst();'><i class='fa fa-plus' style='font-size:9px !important;' aria-hidden='true'></i></button>";
+                    //html += "<button style='font-size:9px !important;'  class='btn btn-success' onclick='AddEst();'><i class='fa fa-plus' style='font-size:9px !important;' aria-hidden='true'></i></button>";
                     html += "</td>";
                     html += "</tr>";
                     html += "</table>";
