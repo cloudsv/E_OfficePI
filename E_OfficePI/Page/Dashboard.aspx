@@ -38,31 +38,25 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
     <script src="../js/engine.js"></script>
 
-    <script src="../js/Grid/Grid.js"></script>
+   
     <link href="../Css/Signin.css" rel="stylesheet" />
     <script src="../vendors/popper/popper.min.js"></script>
-    <script src="http://uiwebsoft.com/justlog/assets/js/jquery-2.2.0.min.js"></script>
-    <script src="http://uiwebsoft.com/justlog/assets/js/popper.min.js"></script>
-    <script src="http://uiwebsoft.com/justlog/assets/js/bootstrap.min.js"></script>
 
-    <script src="http://jojosati.github.io/bootstrap-datepicker-thai/js/bootstrap-datepicker.js"></script>
-    <script src="http://jojosati.github.io/bootstrap-datepicker-thai/js/bootstrap-datepicker-thai.js"></script>
-    <script src="http://jojosati.github.io/bootstrap-datepicker-thai/js/locales/bootstrap-datepicker.th.js"></script>
     <script>
         $(function () {
-            Getheader();
+            Getdashboard();
         });
-        function Getheader() {
+        function Getdashboard() {
             $.ajax({
                 type: "POST",
-                url: "Dashboard.aspx/Getheader",
+                url: "Dashboard.aspx/Getdashboard",
                 data: "{}",
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
                 beforeSend: function () {
                 },
                 success: function (response) {
-                    $('#Divheader').val(response.d);
+                    $('#Divheader').html('หลักสูตรที่ ' + response.d['Fullname'] + 'จำนวน' + response.d['Totalhours']  + ' วิชา ');
                 },
                 async: true,
                 error: function (er) {
