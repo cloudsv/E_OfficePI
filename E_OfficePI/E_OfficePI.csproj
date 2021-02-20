@@ -3954,6 +3954,7 @@
     <Content Include="js\vendors\validator\index.html" />
     <Content Include="js\vendors\validator\multifield.js" />
     <Content Include="js\vendors\validator\validator.js" />
+    <Content Include="Page\Dashboard.aspx" />
     <Content Include="Page\EOffice.Master" />
     <Content Include="js\vendors\animate.css\.bower.json" />
     <Content Include="js\vendors\animate.css\animate-config.json" />
@@ -5260,6 +5261,8 @@
     <Compile Include="Class\ClsCost.cs" />
     <Compile Include="Class\ClsCoTeacherPlanning.cs" />
     <Compile Include="Class\ClsCustomer.cs" />
+    <Compile Include="Class\ClsDashboard.cs" />
+    <Compile Include="Class\ClsDashboardExeclusive.cs" />
     <Compile Include="Class\ClsDevelopobjective.cs" />
     <Compile Include="Class\ClsDeviate.cs" />
     <Compile Include="Class\ClsDictExtend.cs" />
@@ -5348,6 +5351,13 @@
     </Compile>
     <Compile Include="Invalid.aspx.designer.cs">
       <DependentUpon>Invalid.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Page\Dashboard.aspx.cs">
+      <DependentUpon>Dashboard.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Page\Dashboard.aspx.designer.cs">
+      <DependentUpon>Dashboard.aspx</DependentUpon>
     </Compile>
     <Compile Include="Page\EOffice.Master.cs">
       <DependentUpon>EOffice.Master</DependentUpon>
