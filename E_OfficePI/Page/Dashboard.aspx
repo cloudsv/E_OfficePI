@@ -56,7 +56,7 @@
                 beforeSend: function () {
                 },
                 success: function (response) {
-                    $('#Divheader').html('หลักสูตรที่ ' + response.d['Fullname'] + 'จำนวน' + response.d['Totalhours']  + ' วิชา ');
+                   
                 },
                 async: true,
                 error: function (er) {
