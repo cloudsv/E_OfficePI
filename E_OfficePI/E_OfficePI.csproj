@@ -5262,7 +5262,6 @@
     <Compile Include="Class\ClsCoTeacherPlanning.cs" />
     <Compile Include="Class\ClsCustomer.cs" />
     <Compile Include="Class\ClsDashboard.cs" />
-    <Compile Include="Class\ClsDashboardExeclusive.cs" />
     <Compile Include="Class\ClsDevelopobjective.cs" />
     <Compile Include="Class\ClsDeviate.cs" />
     <Compile Include="Class\ClsDictExtend.cs" />

@@ -135,7 +135,20 @@ namespace E_OfficePI.Page
             Cn.Close();
             return Obj;
         }
+        [WebMethod]
+        public static ClsDashboard Getdetail()
+        {
+            if (HttpContext.Current.Session["Dashboard"] == null)
+            {
+               return Getdashboard();
+                
+            }
+            else
+            {
+                return (ClsDashboard)HttpContext.Current.Session["Dashboard"];
+            }
 
+        }
         [WebMethod]
         public static ClsDashboard Getdashboard()
         {
@@ -249,6 +262,7 @@ namespace E_OfficePI.Page
             Obj.EditSubject = DashboardSubjectEdit;
             //========================================= Edit  ============================== //
             Cn.Close();
+            HttpContext.Current.Session["Dashboard"] = Obj;
             return Obj;
         }
     }
