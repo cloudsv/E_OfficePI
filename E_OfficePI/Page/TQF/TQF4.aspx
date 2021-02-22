@@ -4049,7 +4049,7 @@
             var Searchcolumns = ["ชื่อ", "นามสกุล", "คุณวุฒิ"];
             var SearchesDat = ["firstname", "lastname", "Educationbackground"];
             var Width = ["20%", "20%", "60%"];
-            var Gvsearchinstuctor = new Grid("TQF/TQF4.aspx", Columns, SearchesDat, Searchcolumns, 'Gvsearchinstuctor', 1000, Width, Data, "", '', '2', '', '', '', '', '', '', 'Userid', 'Userid', '', 'Userid', Cri, '');
+            var Gvsearchinstuctor = new Grid("TQF/TQF4.aspx", Columns, SearchesDat, Searchcolumns, 'Gvsearchinstuctor', 1000, Width, Data, "", '', '2', '', '', '', '', '', '', 'M.Userid', 'M.Userid', '', 'M.Userid', Cri, '');
             $('#Divinstuctorcont').html(Gvsearchinstuctor._Tables());
             Gvsearchinstuctor._Bind();
         }
