@@ -3737,7 +3737,7 @@
         <div id="Divmaster" style="display: none;">
             <div class="card" style="margin-top: 20px; color: black;">
                 <div class="card-header">
-                    ข้อมูล มคอ.6 รายละเอียดของรายวิช
+                    ข้อมูล มคอ.6 รายละเอียดของรายวิชา
                 </div>
                 <div class="card-body">
                     <div class="container">

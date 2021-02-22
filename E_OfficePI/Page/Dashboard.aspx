@@ -225,7 +225,62 @@
         $(function () {
             Getdashboard();
         });
-        
+        function Getdashboardexe() {
+            var html = '';
+            var i = 0;
+            $.ajax({
+                type: "POST",
+                url: "Dashboard.aspx/Getdashboardexe",
+                data: "{}",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                beforeSend: function () {
+                },
+                success: function (response) {
+                    $('#Divheaderexe').html('หลักสูตรที่อาจารย์ ' + response.d['Fullname'] + ' จำนวน ' + response.d['Subjects'].length + ' วิชา ');
+                    $('#Divheaderdetailexe').html('ภาระงานสอนของอาจารย์  ' + response.d['Fullname'] + ' ประจำปี 2564 ');
+                    $('#Divdraftexe').html('จำนวนวิชาที่ดำเนินการ <br/> <h3>' + response.d['DraftSubject']['Total'] + '</h3>   วิชา ');
+                    $('#Divpendingexe').html('จำนวนวิชาที่รอตรวจ <br/> <h3>' + response.d['PendingSubject']['Total'] + '</h3>  วิชา ');
+                    $('#Divcompletedexe').html('จำนวนวิชาที่ตรวจแล้ว <br/> <h3>' + response.d['CompletedSubject']['Total'] + '</h3>   วิชา ');
+                    $('#Diveditexe').html('จำนวนวิชาที่แก้ไข <br/> <h3>' + response.d['EditSubject']['Total'] + '</h3>   วิชา ');
+
+                    html = '';
+
+                    html += '<table class="table-bordered" style="width:95%;">';
+                    html += '<thead class="thead-light">';
+                    html += '<tr>';
+                    html += '<th scope="col">รายชื่อวิชา</th>';
+                    html += '<th scope="col">ภาระงานสอน (ชั่วโมง)</th>';
+                    html += '</tr>';
+                    html += '</thead>';
+                    html += '<tbody>';
+                    if (response.d['Subjects'].length > 0) {
+                        for (i = 0; i < response.d['Subjects'].length; i++) {
+                            html += '<tr>';
+                            html += '<td style="text-align:left;">' + response.d['Subjects'][i]['Subjectcode'] + ' ' + response.d['Subjects'][i]['Subjectname'] + '</td>';
+                            html += '<td style="text-align:right;">' + response.d['Subjects'][i]['ResponsibilityHour'] + '</td>';
+                            html += '</tr>';
+                        }
+                    }
+                    else {
+                        html += '<tr><td colspan="2"><div style="color:red;text-align:center;marging-top:50;height:100px;">ไม่พบรายวิชา<div></td></tr>';
+                    }
+                    html += '<tr>';
+                    html += '<td style="text-align:right;">รวมจำนวนรายชั่วโมง</td>';
+                    html += '<td style="text-align:right;">' + response.d['Totalhours'] + '</td>';
+                    html += '</tr>';
+                    html += '</tbody>';
+                    html += '</table>';
+                    $('#Divdetailexe').html(html);
+
+
+                },
+                async: true,
+                error: function (er) {
+
+                }
+            });
+        }
         function Getdashboard() {
             var html = '';
             var i = 0;
@@ -273,6 +328,8 @@
                     html += '</tbody>';
                     html += '</table>';
                     $('#Divdetail').html(html);
+                
+               
                 },
                 async: true,
                 error: function (er) {
@@ -282,6 +339,12 @@
         }
     </script>
     <style>
+        @media (min-width: 768px) {
+            .modal-xl {
+                width: 90%;
+                max-width: 1200px;
+            }
+        }
         td,th
         {
             LINE-HEIGHT:50px;
@@ -294,8 +357,13 @@
     </style>
 </head>
 <body>
+    
 
-  <div class="container">
+
+
+
+
+  <div class="container" id="Divuser">
       <div class="row">
           <div class="col-12">
               <div id="Divheader" class="card card-body bg-info" style="text-align:center;padding:20px;font-size:16px;height:80px;margin:20px;color:white;"></div>
@@ -330,6 +398,12 @@
         
           </div>
       </div>
+      <div class="row">
+          <div class="col-12" id="Divdetailexe" style="font-size:14px;margin-top:20px;text-align:center;">
+        
+          </div>
+      </div>
+
   </div>
     <div class="modal" id="Divmodaldetail" data-backdrop="static" data-keyboard="false">
         <div class="modal-dialog">

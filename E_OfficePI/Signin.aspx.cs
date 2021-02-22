@@ -222,6 +222,9 @@ namespace E_OfficePI
                     return "";
                 }
                 HttpContext.Current.Session["My"] = ClsEngine.Loadprofile(ref cn, username);
+
+                System.Collections.ArrayList Arrres = ClsEngine.Getsuborg(ref cn, ((Clsuser)HttpContext.Current.Session["My"]).iseducate);
+
                 return "";
             }
             catch (Exception ex)

@@ -190,7 +190,7 @@ namespace E_OfficePI.Page
                 _ObjDashboardSubjectStatus_Drafts = new ClsDashboardSubjectStatus();
                 _ObjDashboardSubjectStatus_Drafts.Subjectcode = dr["Subjectcode"].ToString();
                 _ObjDashboardSubjectStatus_Drafts.Subjectname = dr["Subjectname"].ToString();
-                _ObjDashboardSubjectStatus_Drafts.Status = "รายวิชาที่กำลังดำเนินการ";
+                _ObjDashboardSubjectStatus_Drafts.Status = "กำลังดำเนินการ";
                 DashboardSubjectStatus_Drafts.Add(_ObjDashboardSubjectStatus_Drafts);
                 count += 1;
             }
@@ -211,7 +211,7 @@ namespace E_OfficePI.Page
                 _ObjDashboardSubjectStatus_Pendings = new ClsDashboardSubjectStatus();
                 _ObjDashboardSubjectStatus_Pendings.Subjectcode = dr["Subjectcode"].ToString();
                 _ObjDashboardSubjectStatus_Pendings.Subjectname = dr["Subjectname"].ToString();
-                _ObjDashboardSubjectStatus_Pendings.Status = "รายวิชาที่รอตรวจ";
+                _ObjDashboardSubjectStatus_Pendings.Status = "รอตรวจ";
                 DashboardSubjectStatus_Pendings.Add(_ObjDashboardSubjectStatus_Pendings);
                 count += 1;
             }
@@ -232,7 +232,7 @@ namespace E_OfficePI.Page
                 _ObjDashboardSubjectStatus_Completeds = new ClsDashboardSubjectStatus();
                 _ObjDashboardSubjectStatus_Completeds.Subjectcode = dr["Subjectcode"].ToString();
                 _ObjDashboardSubjectStatus_Completeds.Subjectname = dr["Subjectname"].ToString();
-                _ObjDashboardSubjectStatus_Completeds.Status = "รายวิชาที่ตรวจแล้ว";
+                _ObjDashboardSubjectStatus_Completeds.Status = "ตรวจแล้ว";
                 DashboardSubjectStatus_Completeds.Add(_ObjDashboardSubjectStatus_Completeds);
                 count += 1;
             }
@@ -253,7 +253,7 @@ namespace E_OfficePI.Page
                 _ObjDashboardSubjectStatus_Edits = new ClsDashboardSubjectStatus();
                 _ObjDashboardSubjectStatus_Edits.Subjectcode = dr["Subjectcode"].ToString();
                 _ObjDashboardSubjectStatus_Edits.Subjectname = dr["Subjectname"].ToString();
-                _ObjDashboardSubjectStatus_Edits.Status = "รายวิชาที่ตรวจแล้ว";
+                _ObjDashboardSubjectStatus_Edits.Status = "ส่งแก้ไข";
                 DashboardSubjectStatus_Edits.Add(_ObjDashboardSubjectStatus_Edits);
                 count += 1;
             }

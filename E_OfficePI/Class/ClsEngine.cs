@@ -10,6 +10,7 @@ using SVframework2016;
 using System.Text;
 using Newtonsoft.Json;
 using System.Data.OleDb;
+using System.Collections;
 namespace E_OfficePI.Class
 {
     public class ClsEngine
@@ -24,8 +25,30 @@ namespace E_OfficePI.Class
         public static string CmdKey() { return "Cmd"; }
         public static string CrystalReportEngineKey() { return "CrystalReport"; }
         #endregion
-
-        
+        public static ArrayList Getsuborg(ref SqlConnector cn,string iseduateorg)
+        {
+            ArrayList ArrRes = new ArrayList();
+            DataRow[] Drs;
+            string sqlcmd = "Select * from Sys_Master_Organize where IsDelete = 0 ";
+            DataTable Dtorg = new DataTable();
+            Dtorg = cn.Select(sqlcmd);
+            Drs = Dtorg.Select("Parentid = '" + iseduateorg + "'");
+            foreach(DataRow dr in Drs)
+            {
+                ArrRes = GetsuborgChild(ref Dtorg, ref ArrRes, dr["id"].ToString());
+            }
+            return ArrRes;
+        }
+        public static ArrayList GetsuborgChild(ref DataTable Dtorg, ref ArrayList ArrRes,string id)
+        {
+            DataRow[] Drs;
+            Drs = Dtorg.Select("Parentid = '" + id + "'");
+            foreach (DataRow dr in Drs)
+            {
+                ArrRes = GetsuborgChild(ref Dtorg, ref ArrRes, dr["id"].ToString());
+            }
+            return ArrRes;
+        }
         public static string FindEducation(ref SqlConnector cn,string Myorgid)
         {
             //Return Educate id
