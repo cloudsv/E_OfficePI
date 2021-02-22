@@ -1377,10 +1377,15 @@ namespace E_OfficePI.Page.TQF
             Clsapproverusers _V;
             List<Clsapproverusers> Vs = new List<Clsapproverusers>();
             Dt = cn.Select(sqlcmd);
+            ArrayList ArrRes = new ArrayList();
 
-            sqlcmd = "  Select isnull(e.InsRegular,'0'),isnull(e.InsTheory,'0'),isnull(e.InsExtra,'0'), u.id as Userid,isnull(FirstnameTH,'') as FirstnameTH, LastnameTH as LastnameTH  from sys_core_user u inner join Sys_HR_Empdetail e on u.id = e.userid left join Sys_Master_Organizeuser ou on ou.Userid = e.userid where u.isdelete =0  and e.isdelete = 0  and (isnull(e.InsRegular,'0') <> '0' OR isnull(e.InsTheory,'0') <> '0' OR isnull(e.InsExtra,'0') <> '0')  and Ou.Orgid = '" + ((Clsuser) HttpContext.Current.Session["My"]).iseducate + "'";
+            ArrRes = ClsEngine.Getsuborg(ref cn, ((Clsuser)HttpContext.Current.Session["My"]).iseducate);
+
+
+            sqlcmd = "  Select isnull(e.InsRegular,'0'),isnull(e.InsTheory,'0'),isnull(e.InsExtra,'0'), u.id as Userid,isnull(FirstnameTH,'') as FirstnameTH, LastnameTH as LastnameTH  from sys_core_user u inner join Sys_HR_Empdetail e on u.id = e.userid left join Sys_Master_Organizeuser ou on ou.Userid = e.userid where u.isdelete =0  and e.isdelete = 0  and (isnull(e.InsRegular,'0') <> '0' OR isnull(e.InsTheory,'0') <> '0' OR isnull(e.InsExtra,'0') <> '0')  and Ou.Orgid in (" + ClsEngine.Serial(ArrRes) + ")";
             Dtins = cn.Select(sqlcmd);
             Dtinstructor = new DataTable();
+            
             sqlcmd = "Select * from [Sys_TQF_TheoryplanInstructor] i inner join Sys_HR_Empdetail hr on i.Instructorid = hr.userid where i.isdelete = 0 and hr.isdelete = 0 and tqfid = '" + json + "'";
             Dtinstructor = cn.Select(sqlcmd);
 

@@ -224,7 +224,6 @@ namespace E_OfficePI
                 HttpContext.Current.Session["My"] = ClsEngine.Loadprofile(ref cn, username);
 
                 System.Collections.ArrayList Arrres = ClsEngine.Getsuborg(ref cn, ((Clsuser)HttpContext.Current.Session["My"]).iseducate);
-
                 return "";
             }
             catch (Exception ex)

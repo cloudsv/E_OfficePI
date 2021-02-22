@@ -25,9 +25,14 @@ namespace E_OfficePI.Class
         public static string CmdKey() { return "Cmd"; }
         public static string CrystalReportEngineKey() { return "CrystalReport"; }
         #endregion
+        public static string Serial(ArrayList Arr)
+        {
+            return String.Join(",", Arr.ToArray());
+        }
         public static ArrayList Getsuborg(ref SqlConnector cn,string iseduateorg)
         {
             ArrayList ArrRes = new ArrayList();
+            ArrRes.Add(iseduateorg);
             DataRow[] Drs;
             string sqlcmd = "Select * from Sys_Master_Organize where IsDelete = 0 ";
             DataTable Dtorg = new DataTable();
@@ -35,6 +40,7 @@ namespace E_OfficePI.Class
             Drs = Dtorg.Select("Parentid = '" + iseduateorg + "'");
             foreach(DataRow dr in Drs)
             {
+                ArrRes.Add(dr["id"].ToString());
                 ArrRes = GetsuborgChild(ref Dtorg, ref ArrRes, dr["id"].ToString());
             }
             return ArrRes;
@@ -45,6 +51,7 @@ namespace E_OfficePI.Class
             Drs = Dtorg.Select("Parentid = '" + id + "'");
             foreach (DataRow dr in Drs)
             {
+                ArrRes.Add(dr["id"].ToString());
                 ArrRes = GetsuborgChild(ref Dtorg, ref ArrRes, dr["id"].ToString());
             }
             return ArrRes;
