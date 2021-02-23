@@ -2736,7 +2736,7 @@
                                 _html += '</select>';
                                 _html += "</td>";
                                 _html += "<td style='width: 20%;'>";
-                                _html += '<button style=\'font-size:7px !important;margin:2px;\'  class=\'btn btn-danger\' onclick=\'DelInstructor(\'' + response.d[i]['Instructors'][j]['Userid'] + '\',' + response.d[i]['id'] + ');\'><i class=\'fa fa-trash\' style=\'font-size:9px !important;\' aria-hidden=\'true\'></i></button>';
+                                _html += '<button style=\'font-size:8px !important;margin:2px;\'  class=\'btn btn-danger\' onclick="DelInstructor(\'' + response.d[i]['Instructors'][j]['Userid'] + '\',' + response.d[i]['id'] + ');"><i class=\'fa fa-trash\' style=\'font-size:9px !important;\' aria-hidden=\'true\'></i></button>';
                                 _html += "</td>";
                                 _html += "</tr>";
                             }

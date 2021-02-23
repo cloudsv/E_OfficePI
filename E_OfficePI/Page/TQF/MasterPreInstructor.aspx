@@ -398,13 +398,20 @@
                                <input type="text" id="Txtacademy" class="form-control" />
                             </div>
                             <div class="col-3">
-                                <span>วุฒิการศึกษา</span>
+                               
                             </div>
                             <div class="col-3">
-                               <input type="text" id="Txteducationbackground" class="form-control" />
+                              
                             </div>
                         </div>
-
+                           <div class="row mt-3">
+                            <div class="col-3">
+                               <span>วุฒิการศึกษา</span>
+                            </div>
+                            <div class="col-9">
+                                <input type="text" id="Txteducationbackground" class="form-control" />
+                            </div>
+                        </div>
                         <div class="row mt-3">
                             <div class="col-3">
                                 <span>ที่อยู่</span>
