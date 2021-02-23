@@ -1372,7 +1372,11 @@ namespace E_OfficePI.Page.TQF
             DataTable Dtparticular = new DataTable();
             DataTable Dtestimate = new DataTable();
             DataTable Dtins = new DataTable();
+            DataTable DtpreIns = new DataTable();
             DataTable Dtinstructor = new DataTable();
+            DataTable Dtpreinstructor = new DataTable();
+           
+
             Clsapproverusers _I;
             Clsapproverusers _V;
             List<Clsapproverusers> Vs = new List<Clsapproverusers>();
@@ -1382,12 +1386,24 @@ namespace E_OfficePI.Page.TQF
             ArrRes = ClsEngine.Getsuborg(ref cn, ((Clsuser)HttpContext.Current.Session["My"]).iseducate);
 
 
-            sqlcmd = "  Select isnull(e.InsRegular,'0'),isnull(e.InsTheory,'0'),isnull(e.InsExtra,'0'), u.id as Userid,isnull(FirstnameTH,'') as FirstnameTH, LastnameTH as LastnameTH  from sys_core_user u inner join Sys_HR_Empdetail e on u.id = e.userid left join Sys_Master_Organizeuser ou on ou.Userid = e.userid where u.isdelete =0  and e.isdelete = 0  and (isnull(e.InsRegular,'0') <> '0' OR isnull(e.InsTheory,'0') <> '0' OR isnull(e.InsExtra,'0') <> '0')  and Ou.Orgid in (" + ClsEngine.Serial(ArrRes) + ")";
+            sqlcmd = "  Select distinct isnull(e.InsRegular,'0'),isnull(e.InsTheory,'0'),isnull(e.InsExtra,'0'), u.id as Userid,isnull(FirstnameTH,'') as FirstnameTH, LastnameTH as LastnameTH  from sys_core_user u inner join Sys_HR_Empdetail e on u.id = e.userid left join Sys_Master_Organizeuser ou on ou.Userid = e.userid where u.isdelete =0  and e.isdelete = 0  and (isnull(e.InsRegular,'0') <> '0' OR isnull(e.InsTheory,'0') <> '0' OR isnull(e.InsExtra,'0') <> '0')  and Ou.Orgid in (" + ClsEngine.Serial(ArrRes) + ") and u.id in (Select userid from Sys_TQF_Instructor ins where isdelete = 0 and tqfid='" + json + "' )";
             Dtins = cn.Select(sqlcmd);
+
+            sqlcmd = "Select * from [Sys_Master_PreInstuctor] Where isdelete =0 ";
+            DtpreIns = cn.Select(sqlcmd);
+
+
             Dtinstructor = new DataTable();
             
             sqlcmd = "Select * from [Sys_TQF_TheoryplanInstructor] i inner join Sys_HR_Empdetail hr on i.Instructorid = hr.userid where i.isdelete = 0 and hr.isdelete = 0 and tqfid = '" + json + "'";
             Dtinstructor = cn.Select(sqlcmd);
+
+
+            Dtpreinstructor = new DataTable();
+
+            sqlcmd = "Select * from[Sys_TQF_TheoryplanInstructor] i inner join Sys_Master_PreInstuctor hr on i.Instructorid = 'P_' + hr.userid where i.isdelete = 0 and hr.isdelete = 0 and tqfid = '" + json + "'";
+            Dtpreinstructor = cn.Select(sqlcmd);
+            
 
             foreach (DataRow dr in Dt.Rows)
             {
@@ -1427,6 +1443,15 @@ namespace E_OfficePI.Page.TQF
                     _I.Lastname = _idr["LastnameTH"].ToString();
                     Obj.Instructors.Add(_I);
                 }
+
+                foreach (DataRow _idr in Dtpreinstructor.Select("Theoryplanid ='" + dr["id"].ToString() + "'"))
+                {
+                    _I = new Clsapproverusers();
+                    _I.Userid = "P_" + _idr["Userid"].ToString();
+                    _I.Firstname = _idr["Firstname"].ToString();
+                    _I.Lastname = _idr["Lastname"].ToString();
+                    Obj.Instructors.Add(_I);
+                }
                 Vs = new List<Clsapproverusers>();
                 foreach (DataRow _dr in Dtins.Rows)
                 {
@@ -1436,6 +1461,17 @@ namespace E_OfficePI.Page.TQF
                     _V.Lastname = _dr["LastnameTH"].ToString();
                     Vs.Add(_V);
                 }
+                foreach(DataRow _pdr in DtpreIns.Rows)
+                {
+                    _V = new Clsapproverusers();
+                    _V.Userid = "P_" + _pdr["Userid"].ToString();
+                    _V.Firstname = _pdr["Firstname"].ToString();
+                    _V.Lastname = _pdr["Lastname"].ToString();
+                    Vs.Add(_V);
+                }
+
+
+
                 Obj.TemplateInstructors = Vs;
 
             
