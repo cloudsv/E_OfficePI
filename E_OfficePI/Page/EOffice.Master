@@ -413,6 +413,10 @@
             if (module == "REPORT" && func == "REG") {
                 $('#Divmain').load("Report/ReportReg.aspx");
             }
+            else if (module == "MAIN" && func == "SUMMARYDASHBOARD") {
+
+                $('#Divmain').load("SummaryDashboard.aspx");
+            }
             else if (module == "MAIN" && func == "DASHBOARD") {
                
                 $('#Divmain').load("Dashboard.aspx");
@@ -655,6 +659,7 @@
                             <div class="menu_section">
                                 <h3></h3>
                                 <ul class="nav side-menu" style="font-family: 'TH SarabunPSK'; font-size: 18px;">
+                                    <li><a onclick="Module('MAIN','SUMMARYDASHBOARD');"><i class="fa fa-home" ></i>Summary Dashboard </a></li>
                                     <li><a onclick="Module('MAIN','DASHBOARD');"><i class="fa fa-home" ></i>Dashboard </a></li>
                                     <li><a><i class="fa fa-home"></i>เกี่ยวกับผู้ใช้งาน <span class="fa fa-chevron-down"></span></a>
                                         <ul class="nav child_menu">

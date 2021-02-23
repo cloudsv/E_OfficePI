@@ -405,7 +405,7 @@
                 $(this).attr('autocomplete', 'off');
             });
             Loadprofile();
-
+            Module('MAIN', 'DASHBOARD');
 
         });
         function Module(module, func) {

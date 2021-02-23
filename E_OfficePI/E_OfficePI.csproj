@@ -5045,6 +5045,7 @@
     <Content Include="font-awesome-4.7.0\scss\_screen-reader.scss" />
     <Content Include="font-awesome-4.7.0\scss\_stacked.scss" />
     <Content Include="font-awesome-4.7.0\scss\_variables.scss" />
+    <Content Include="Page\SummaryDashboard.aspx" />
     <Content Include="Page\Task.aspx" />
     <Content Include="Page\TQF\ApproveTQF.aspx" />
     <Content Include="Page\TQF\MasterPreInstructor.aspx" />
@@ -5319,6 +5320,7 @@
     <Compile Include="Class\ClsStudent.cs" />
     <Compile Include="Class\ClsStudentAddress.cs" />
     <Compile Include="Class\ClsStudentPlanning.cs" />
+    <Compile Include="Class\ClsSummaryDashboard.cs" />
     <Compile Include="Class\ClsTeacherPlanning.cs" />
     <Compile Include="Class\ClsTeachingOutput.cs" />
     <Compile Include="Class\ClsTeachingplandetail.cs" />
@@ -5497,6 +5499,13 @@
     </Compile>
     <Compile Include="Page\Role\Rolemanagement.aspx.designer.cs">
       <DependentUpon>Rolemanagement.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Page\SummaryDashboard.aspx.cs">
+      <DependentUpon>SummaryDashboard.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Page\SummaryDashboard.aspx.designer.cs">
+      <DependentUpon>SummaryDashboard.aspx</DependentUpon>
     </Compile>
     <Compile Include="Page\Task.aspx.cs">
       <DependentUpon>Task.aspx</DependentUpon>
